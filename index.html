@@ -1,0 +1,776 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AppTravel Group CRM</title>
+<meta name="description" content="Protótipo navegável do CRM da agência: o lead gerado pelo grupo no app vira negócio, proposta, viagem e pós-venda.">
+<meta property="og:title" content="AppTravel Group CRM">
+<meta property="og:description" content="Protótipo navegável do CRM da agência, conectado ao app do grupo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Desktop CRM: menu lateral + área de trabalho; painel de validação à direita */
+:root{
+  --roxo:#5B3DF5; --roxo2:#4A2FD6; --roxo-c:#F0ECFF; --coral:#FF7A6B;
+  --ink:#1E1840; --ink2:#3F3A5A; --muted:#625D7C; --line:#ECE8F6; --line2:#E4DFF5;
+  --bg:#F5F3FB; --card:#FFFFFF;
+  --verde:#0E6B4C; --verde-c:#E4F7EE; --verm:#B42318; --verm-c:#FDECEC; --amar:#7A4B00; --amar-c:#FFF4D6; --azul:#1D4ED8; --azul-c:#E6EEFF;
+  --disp:'Bricolage Grotesque','Plus Jakarta Sans',system-ui,sans-serif; --txt:'Plus Jakarta Sans',system-ui,sans-serif;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 var(--txt)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:var(--roxo)}
+h1,h2,h3{font-family:var(--disp);margin:0;letter-spacing:-.3px}
+:focus-visible{outline:3px solid #BFB2FF;outline-offset:2px}
+.app{display:grid;grid-template-columns:248px 1fr;min-height:100vh}
+.app.guia-on{grid-template-columns:248px 1fr 340px}
+/* menu */
+.side{background:#fff;border-right:1px solid var(--line);padding:16px 12px;position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;gap:4px}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 8px 12px}
+.brand .lg{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#7B5CFF,#FF7A6B);display:flex;align-items:center;justify-content:center}
+.brand b{font-family:var(--disp);font-size:16px;line-height:18px}
+.brand span{display:block;font-size:11px;color:var(--muted);font-weight:600}
+.criar{margin:4px 4px 10px;height:40px;border:none;border-radius:12px;background:linear-gradient(135deg,#7B5CFF,#4A2FD6);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 8px 18px rgba(91,61,245,.25)}
+.grp{font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);padding:12px 10px 4px}
+.nav{display:flex;align-items:center;gap:10px;width:100%;border:none;background:transparent;text-align:left;padding:8px 10px;border-radius:10px;font-weight:600;color:var(--ink2)}
+.nav:hover{background:#F6F4FC}
+.nav.on{background:var(--roxo-c);color:var(--roxo2);font-weight:800}
+.nav img{width:20px;height:20px;flex:none}
+.nav .cnt{margin-left:auto;background:var(--coral);color:#fff;font-size:11px;font-weight:800;border-radius:999px;padding:1px 7px}
+.side .rodape{margin-top:auto;padding:10px;font-size:11px;color:var(--muted)}
+/* topo */
+.main{min-width:0;display:flex;flex-direction:column}
+.top{position:sticky;top:0;z-index:5;background:rgba(245,243,251,.92);backdrop-filter:blur(6px);display:flex;align-items:center;gap:12px;padding:12px 28px;border-bottom:1px solid var(--line)}
+.busca{flex:1;max-width:520px;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line2);border-radius:12px;padding:0 12px;height:40px;color:var(--muted)}
+.busca input{border:none;outline:none;flex:1;background:transparent}
+.ib{width:40px;height:40px;border-radius:12px;border:1px solid var(--line2);background:#fff;display:flex;align-items:center;justify-content:center;position:relative}
+.ib .bd{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;border-radius:999px;background:#E8445A;color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.user{display:flex;align-items:center;gap:8px;font-weight:700}
+.av{width:34px;height:34px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex:none;background:var(--roxo-c);color:var(--roxo2)}
+.av.sm{width:26px;height:26px;font-size:11px}
+.content{padding:24px 28px 60px;max-width:1280px;width:100%}
+/* cabeçalhos de página */
+.ph{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:18px;flex-wrap:wrap}
+.ph h1{font-size:26px}
+.ph p{margin:4px 0 0;color:var(--muted)}
+.crumb{font-size:12px;color:var(--muted);font-weight:700;margin-bottom:4px}
+.crumb button{border:none;background:none;padding:0;color:var(--roxo);font-weight:700}
+/* botões */
+.btn{height:38px;padding:0 16px;border-radius:10px;border:1px solid var(--line2);background:#fff;font-weight:700;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.btn:hover{border-color:#CFC4FF}
+.btn.p{background:linear-gradient(135deg,#7B5CFF,#4A2FD6);border-color:transparent;color:#fff;box-shadow:0 6px 14px rgba(91,61,245,.22)}
+.btn.ok{background:var(--verde);border-color:var(--verde);color:#fff}
+.btn.dg{color:var(--verm);border-color:#F5C2C0}
+.btn.sm{height:30px;padding:0 10px;font-size:12px;border-radius:8px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.lk{border:none;background:none;color:var(--roxo);font-weight:700;padding:0}
+/* cartões e grades */
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}
+.card h3{font-size:16px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.col{display:flex;flex-direction:column;gap:16px}
+.row{display:flex;align-items:center;gap:10px}
+.sp{justify-content:space-between}
+.muted{color:var(--muted)}
+.sm{font-size:12px}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.p-roxo{background:var(--roxo-c);color:var(--roxo2)}.p-verde{background:var(--verde-c);color:var(--verde)}.p-verm{background:var(--verm-c);color:var(--verm)}.p-amar{background:var(--amar-c);color:var(--amar)}.p-cinza{background:#F1EEF8;color:var(--muted)}.p-azul{background:var(--azul-c);color:var(--azul)}.p-coral{background:#FFE9E4;color:#B4381F}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 16px;border-left:4px solid var(--roxo)}
+.kpi .k{font-size:12px;color:var(--muted);font-weight:700}
+.kpi .v{font-family:var(--disp);font-size:26px;font-weight:800;margin-top:2px}
+.kpi .d{font-size:12px;color:var(--muted)}
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+.tbl td{padding:12px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tbl tr.cl{cursor:pointer}
+.tbl tr.cl:hover td{background:#FAF8FF}
+.tbl .num{text-align:right;font-variant-numeric:tabular-nums}
+.bar{height:8px;border-radius:8px;background:#EDE9F7;overflow:hidden}
+.bar>div{height:8px;border-radius:8px;background:linear-gradient(90deg,#7B5CFF,#FF7A8A)}
+.vazio{text-align:center;color:var(--muted);padding:28px 10px}
+/* kanban */
+.kb{display:flex;gap:12px;overflow-x:auto;padding-bottom:10px;align-items:flex-start}
+.kc{flex:0 0 215px;background:#EFECF8;border-radius:16px;padding:10px}
+.kc .kh{display:flex;align-items:center;justify-content:space-between;padding:4px 4px 10px;font-weight:800}
+.kc .kh small{font-weight:700;color:var(--muted)}
+.kcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:8px;cursor:pointer;border-top:3px solid var(--roxo)}
+.kcard:hover{box-shadow:0 6px 16px rgba(42,27,110,.10)}
+.kcard b{display:block;font-size:13px;line-height:17px}
+.kcard .meta{font-size:12px;color:var(--muted);margin-top:6px;display:flex;flex-direction:column;gap:3px}
+.kcard .prox{margin-top:8px;font-size:12px;padding:6px 8px;border-radius:8px;background:#F6F4FC}
+.kcard .prox.late{background:var(--verm-c);color:var(--verm)}
+/* formulários */
+label.f{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:700;color:var(--ink2)}
+.inp{height:40px;border:1px solid var(--line2);border-radius:10px;padding:0 12px;background:#fff;min-width:0}
+textarea.inp{height:auto;min-height:90px;padding:10px 12px;resize:vertical}
+.inp:focus{outline:3px solid #DCD3FF;border-color:var(--roxo)}
+.chk{display:flex;align-items:center;gap:8px;font-weight:600}
+.chk input{width:18px;height:18px;accent-color:var(--roxo)}
+/* stepper */
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.st{display:flex;align-items:center;gap:8px;border:1px solid var(--line2);background:#fff;border-radius:999px;padding:6px 12px 6px 6px;font-weight:700;font-size:12px;color:var(--muted)}
+.st .n{width:24px;height:24px;border-radius:999px;background:#EDE9F7;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px}
+.st.on{border-color:var(--roxo);color:var(--roxo2)}
+.st.on .n{background:var(--roxo);color:#fff}
+.st.ok .n{background:var(--verde);color:#fff}
+.edbar{position:sticky;bottom:0;background:#fff;border-top:1px solid var(--line);padding:12px 0;margin-top:18px;display:flex;justify-content:space-between;gap:10px}
+/* fotos */
+.ph-img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:12px;display:block;background:#EDE9F7}
+.ex{border:2px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+.ex.sel{border-color:var(--roxo)}
+.ex .b{padding:10px 12px}
+/* drawer, modal, toast */
+.guia{background:#fff;border-left:1px solid var(--line);position:sticky;top:0;height:100vh;overflow-y:auto;padding:18px 16px}
+.passo{display:flex;gap:10px;padding:10px;border-radius:12px;align-items:flex-start}
+.passo.atual{background:var(--roxo-c)}
+.passo .c{width:24px;height:24px;border-radius:999px;border:2px solid var(--line2);flex:none;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--muted)}
+.passo.feito .c{background:var(--verde);border-color:var(--verde);color:#fff}
+.passo b{display:block;font-size:13px}
+.passo span{font-size:12px;color:var(--muted)}
+.ov{position:fixed;inset:0;background:rgba(30,20,70,.45);display:flex;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal{background:#fff;border-radius:20px;max-width:640px;width:100%;max-height:90vh;overflow-y:auto;padding:22px;box-shadow:0 30px 60px rgba(20,10,60,.3)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 18px;border-radius:14px;font-weight:700;z-index:60;box-shadow:0 10px 30px rgba(0,0,0,.25);max-width:90vw}
+.notif{position:absolute;right:0;top:48px;width:380px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 20px 40px rgba(42,27,110,.18);padding:8px;z-index:20}
+.notif .it{display:flex;gap:10px;padding:10px;border-radius:10px;cursor:pointer;text-align:left;border:none;background:none;width:100%}
+.notif .it:hover{background:#F6F4FC}
+.notif .it.nova{background:#FFF6F2}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:16px;flex-wrap:wrap}
+.tab{border:none;background:none;padding:10px 14px;font-weight:700;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-1px}
+.tab.on{color:var(--roxo2);border-bottom-color:var(--roxo)}
+.app-ban{display:flex;gap:12px;align-items:center;background:linear-gradient(135deg,#F0ECFF,#FFF1EC);border:1px solid #E4DCFF;border-radius:16px;padding:14px 16px}
+.chip-pessoa{display:inline-flex;align-items:center;gap:6px;background:#F6F4FC;border-radius:999px;padding:3px 10px 3px 3px;font-size:12px;font-weight:700}
+.dia{border-left:3px solid var(--roxo);padding:2px 0 2px 14px;margin-bottom:14px}
+.ativ{display:flex;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.ativ:last-child{border-bottom:none}
+.ativ .h{min-width:52px;font-weight:800;color:var(--roxo2)}
+.star{width:18px;height:18px}
+@media (max-width:1180px){.app.guia-on{grid-template-columns:220px 1fr}.app.guia-on .guia{position:fixed;right:0;top:0;width:340px;z-index:40;box-shadow:-10px 0 30px rgba(0,0,0,.12)}}
+@media (max-width:900px){
+  .app,.app.guia-on{grid-template-columns:1fr}
+  .side{position:static;height:auto;flex-direction:row;flex-wrap:wrap;overflow-x:auto}
+  .side .grp,.side .rodape{display:none}
+  .g2,.g3,.g4{grid-template-columns:1fr}
+  .content{padding:16px}
+  .top{padding:10px 16px}
+  .top .busca,.top .user>div{display:none}
+  .card{overflow-x:auto}
+  .ph,.ph .row{flex-wrap:wrap}
+  .aviso-pc{display:block!important}
+}
+.aviso-pc{display:none;background:#FFF4D6;color:#7A4B00;font-size:13px;font-weight:600;padding:10px 16px;border-bottom:1px solid #F1D99A}
+@media (prefers-reduced-motion:no-preference){.kcard,.btn,.nav{transition:background .15s,box-shadow .15s,border-color .15s}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="assets/emo.js"></script>
+<script src="assets/fotos.js"></script>
+<script>
+'use strict';
+/* ============================================================
+   AppTravel Group CRM — protótipo navegável (dados de exemplo)
+   Base: ideacao/fase-2-crm-especificacao.md e Jornadas 1 e 2
+   ============================================================ */
+const EMO = window.EMO || {}; const FOTOS = window.FOTOS || {};
+const ic = (k, n = 20, st = '') => EMO[k] ? `<img src="${EMO[k]}" alt="" width="${n}" height="${n}" style="display:block;flex:none;${st}">` : '';
+const esc = (t) => String(t == null ? '' : t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const brl = (v) => 'R$ ' + Number(v || 0).toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+const brl2 = (v) => 'R$ ' + Number(v || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const eur2 = (v) => '€ ' + Number(v || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const foto = (k, i = 0) => (FOTOS[k] && FOTOS[k][i]) ? FOTOS[k][i].s : '';
+const ini = (n) => (n || '?').split(' ').map((x) => x[0]).slice(0, 2).join('').toUpperCase();
+const AVC = ['background:#5B3DF5;color:#fff', 'background:#FCE3D6;color:#93370D', 'background:#E3F4EC;color:#0B4D37', 'background:#EDE7FB;color:#4A2BA0', 'background:#E6EEFF;color:#1D4ED8', 'background:#FFF4D6;color:#7A4B00'];
+
+/* ---------- etapas do funil (nosso desenho: o lead do app já chega qualificado) ---------- */
+const ETAPAS = [
+  { id: 'aceito', nome: 'Lead aceito', prob: 20, cor: '#7B5CFF' },
+  { id: 'montando', nome: 'Montando proposta', prob: 35, cor: '#4A2FD6' },
+  { id: 'enviada', nome: 'Proposta enviada', prob: 50, cor: '#1D4ED8' },
+  { id: 'negociacao', nome: 'Negociação', prob: 75, cor: '#B45309' },
+  { id: 'ganho', nome: 'Ganho', prob: 100, cor: '#0E6B4C' },
+  { id: 'perdido', nome: 'Perdido', prob: 0, cor: '#B42318' }
+];
+const EMB = [
+  { id: 'emissoes', nome: 'Emissões' }, { id: 'docs', nome: 'Documentação' }, { id: 'reservas', nome: 'Reservas e reconfirmação' },
+  { id: 'liberado', nome: 'Liberado' }, { id: 'viagem', nome: 'Em viagem' }, { id: 'concluida', nome: 'Concluída' }
+];
+
+/* ---------- lead principal: exatamente o que o protótipo do app gera ---------- */
+function leadRoma() {
+  return {
+    id: 'L-1042', status: 'novo', recebido: 'Hoje, 09:12', prazo: 'Responder até amanhã, 09:12', urg: false, origem: 'app',
+    titulo: 'Roma e Florença', pais: 'Itália', cidades: ['Roma', 'Florença'], ida: '13/11/2026', volta: '18/11/2026', dias: 6, noites: 5,
+    partida: 'São Paulo (GRU)', tipo: 'Família', horario: '09:00 às 21:00', valorEst: 32000, precoLead: 270, foto: 'coliseu',
+    contato: { nome: 'Flávio Rodrigues', email: 'flavio@email.com', tel: '(11) 98888-7777' },
+    pessoas: [
+      { n: 'Flávio Rodrigues', papel: 'Cabeça do grupo', faixa: 'R$ 300 a R$ 600' },
+      { n: 'Marta Rodrigues', papel: 'Mãe', faixa: 'R$ 300 a R$ 600' },
+      { n: 'Lúcia Rodrigues', papel: 'Avó', faixa: 'Até R$ 300' },
+      { n: 'Pedro Rodrigues', papel: 'Irmão', faixa: 'R$ 600 a R$ 1.000' }
+    ],
+    leitura: 'Custo-benefício', alerta: 'O grupo declarou custo-benefício, mas curtiu itens um pouco mais caros.',
+    match: [{ g: 'Gastronomia', p: 82, emo: 'food' }, { g: 'Pontos turísticos', p: 71, emo: 'classic' }],
+    votos: [
+      { item: 'Trattoria em Trastevere', g: 'Gastronomia', v: 4, quem: [0, 1, 2, 3], foto: 'trattoria' },
+      { item: 'Pizzaria napolitana', g: 'Gastronomia', v: 3, quem: [0, 1, 3], foto: 'pizza' },
+      { item: 'Aula de massa fresca', g: 'Gastronomia', v: 2, quem: [1, 2], foto: 'massa' },
+      { item: 'Gelateria artesanal', g: 'Gastronomia', v: 1, quem: [3], foto: 'gelato' },
+      { item: 'Coliseu', g: 'Pontos turísticos', v: 4, quem: [0, 1, 2, 3], foto: 'coliseu' },
+      { item: 'Panteão', g: 'Pontos turísticos', v: 3, quem: [0, 2, 3], foto: 'panteao' }
+    ],
+    roteiro: [
+      { dia: 'Dia 1 · sex 13/11', itens: [
+        { h: '09:00', nome: 'Coliseu', dur: '2h', tag: 'Escolhido pelo grupo', disp: 'Ingresso com horário · reservar', warn: true },
+        { h: '11:15', nome: 'Fórum Romano', dur: '1h30', tag: 'Sugestão do app', disp: 'Aberto neste dia' },
+        { h: '13:05', nome: 'Trattoria em Trastevere', dur: '1h30', tag: 'Escolhido pelo grupo', disp: 'Aberto · reserva sugerida' },
+        { h: '15:00', nome: 'Panteão', dur: '1h', tag: 'Escolhido pelo grupo', disp: 'Aberto neste dia' },
+        { h: '19:30', nome: 'Pizzaria napolitana', dur: '1h30', tag: 'Escolhido pelo grupo', disp: 'Aberto neste dia' }] },
+      { dia: 'Dia 2 · sáb 14/11', itens: [
+        { h: '09:30', nome: 'Fontana di Trevi', dur: '30 min', tag: 'Escolhido pelo grupo', disp: 'Aberto 24h' },
+        { h: '10:30', nome: 'Aula de massa fresca', dur: '3h', tag: 'Escolhido pelo grupo', disp: 'Vagas neste dia · reservar', warn: true },
+        { h: '14:00', nome: 'Restaurante perto do Vaticano', dur: '1h', tag: 'Sugestão do app', disp: 'Aberto neste dia' },
+        { h: '17:30', nome: 'Mirante do Gianicolo', dur: '45 min', tag: 'Escolhido pelo grupo', disp: 'Aberto neste dia' }] }
+    ]
+  };
+}
+function leadsIniciais() {
+  return [
+    leadRoma(),
+    { id: 'L-1043', status: 'novo', recebido: 'Ontem, 18:40', prazo: 'Responder até hoje, 18:40', urg: true, origem: 'app', titulo: 'Orlando', pais: 'Estados Unidos', cidades: ['Orlando'], ida: '10/01/2027', volta: '17/01/2027', dias: 8, noites: 7, partida: 'São Paulo (GRU)', tipo: 'Família', valorEst: 54000, precoLead: 300, foto: '',
+      contato: { nome: 'Juliana Castro', email: 'juliana@email.com', tel: '(11) 97777-1234' },
+      pessoas: [{ n: 'Juliana Castro', papel: 'Cabeça do grupo', faixa: 'R$ 600 a R$ 1.000' }, { n: 'Marcos Castro', papel: 'Marido', faixa: 'R$ 600 a R$ 1.000' }, { n: 'Sofia Castro', papel: 'Filha', faixa: 'R$ 300 a R$ 600' }, { n: 'Tiago Castro', papel: 'Filho', faixa: 'R$ 300 a R$ 600' }, { n: 'Helena Prado', papel: 'Avó', faixa: 'R$ 300 a R$ 600' }, { n: 'Rui Prado', papel: 'Avô', faixa: 'R$ 300 a R$ 600' }],
+      leitura: 'Confortável', alerta: '', match: [{ g: 'Parques temáticos', p: 91, emo: 'partying' }, { g: 'Compras', p: 64, emo: 'gem' }], votos: [], roteiro: [] },
+    { id: 'L-1044', status: 'novo', recebido: 'Hoje, 07:55', prazo: 'Responder até amanhã, 07:55', urg: false, origem: 'app', titulo: 'Lisboa e Porto', pais: 'Portugal', cidades: ['Lisboa', 'Porto'], ida: '05/03/2027', volta: '12/03/2027', dias: 8, noites: 7, partida: 'São Paulo (GRU)', tipo: 'Romântico', valorEst: 19000, precoLead: 180, foto: '',
+      contato: { nome: 'Rafael Mendes', email: 'rafael@email.com', tel: '(11) 96666-4321' },
+      pessoas: [{ n: 'Rafael Mendes', papel: 'Cabeça do grupo', faixa: 'R$ 300 a R$ 600' }, { n: 'Carla Mendes', papel: 'Esposa', faixa: 'R$ 300 a R$ 600' }],
+      leitura: 'Custo-benefício', alerta: '', match: [{ g: 'Gastronomia', p: 88, emo: 'food' }, { g: 'Pontos turísticos', p: 75, emo: 'classic' }], votos: [], roteiro: [] }
+  ];
+}
+function negociosIniciais() {
+  return [
+    { id: 'N-201', titulo: 'Buenos Aires · Amigas da faculdade', etapa: 'aceito', valor: 14200, dono: 'Bruno Lima', origem: 'WhatsApp', abertura: '27/10/2026', prox: { t: 'Enviar opções de hotel', d: 'Amanhã', late: false }, pessoas: 5 },
+    { id: 'N-202', titulo: 'Cancún · Lua de mel Almeida', etapa: 'enviada', valor: 18900, dono: 'Ana Souza', origem: 'Indicação', abertura: '20/10/2026', prox: { t: 'Follow-up: proposta vista 3 vezes', d: 'Ontem', late: true }, pessoas: 2, vistas: 3 },
+    { id: 'N-203', titulo: 'Santiago · Equipe Vento Sul', etapa: 'negociacao', valor: 26400, dono: 'Ana Souza', origem: 'App', abertura: '12/10/2026', prox: { t: 'Ajustar datas com o cabeça do grupo', d: 'Hoje', late: false }, pessoas: 8 },
+    { id: 'N-204', titulo: 'Paris · Família Duarte', etapa: 'ganho', valor: 41300, dono: 'Ana Souza', origem: 'App', abertura: '02/10/2026', fechamento: '22/10/2026', pessoas: 4 },
+    { id: 'N-205', titulo: 'Gramado · Família Teixeira', etapa: 'ganho', valor: 12800, dono: 'Bruno Lima', origem: 'Site', abertura: '01/10/2026', fechamento: '15/10/2026', pessoas: 5 },
+    { id: 'N-206', titulo: 'Nova York · Casal Prado', etapa: 'perdido', valor: 22000, dono: 'Bruno Lima', origem: 'Site', abertura: '05/10/2026', fechamento: '25/10/2026', motivo: 'Preço', pessoas: 2 }
+  ];
+}
+function tarefasIniciais() {
+  return [
+    { id: 'T1', t: 'Follow-up: proposta Cancún vista 3 vezes', ref: 'N-202', quando: 'Ontem', grupo: 'atrasada', feito: false, auto: true },
+    { id: 'T2', t: 'Ajustar datas com o cabeça do grupo · Santiago', ref: 'N-203', quando: 'Hoje', grupo: 'hoje', feito: false },
+    { id: 'T3', t: 'Enviar opções de hotel · Buenos Aires', ref: 'N-201', quando: 'Amanhã', grupo: 'proximas', feito: false, dono: 'Bruno Lima' },
+    { id: 'T4', t: 'Conferir passaportes · Paris Família Duarte', ref: 'V-31', quando: 'Hoje', grupo: 'hoje', feito: false, auto: true }
+  ];
+}
+function viagensIniciais() {
+  return [
+    { id: 'V-31', titulo: 'Paris · Família Duarte', ida: '20/11/2026', volta: '28/11/2026', emb: 'docs', pessoas: 4, valor: 41300, check: [{ t: 'Emitir bilhetes (4)', ok: true }, { t: 'Passaportes válidos (3 de 4)', ok: false }, { t: 'Seguro viagem', ok: true }], app: true },
+    { id: 'V-28', titulo: 'Gramado · Família Teixeira', ida: '04/11/2026', volta: '09/11/2026', emb: 'liberado', pessoas: 5, valor: 12800, check: [{ t: 'Reservas confirmadas', ok: true }, { t: 'Vouchers enviados', ok: true }], app: false }
+  ];
+}
+function inicial() {
+  return {
+    tela: 'inicio', id: null, aba: 'resumo', notifOn: false, guia: window.innerWidth > 1180, criarOn: false, modal: null, toast: '',
+    leads: leadsIniciais(), negocios: negociosIniciais(), tarefas: tarefasIniciais(), viagens: viagensIniciais(),
+    notifs: [{ id: 'n1', t: 'Novo lead do app: Roma e Florença', s: 'Grupo de 4 pessoas · 13 a 18/11 · responder até amanhã, 09:12', nova: true, go: ['lead', 'L-1042'], e: 'airplane' },
+             { id: 'n2', t: 'Lead do app perto do prazo: Orlando', s: 'Responder até hoje, 18:40', nova: true, go: ['lead', 'L-1043'], e: 'hourglass' },
+             { id: 'n3', t: 'Proposta Cancún vista 3 vezes', s: 'Lua de mel Almeida · última visualização ontem', nova: false, go: ['negocio', 'N-202'], e: 'speech' }],
+    avals: [{ q: 'Família Duarte', n: 5, t: 'Proposta clara e roteiro do jeito que o grupo escolheu no app.', d: 'set/2026' }, { q: 'Grupo Vento Sul', n: 5, t: 'Respondeu rápido e resolveu a troca de voo.', d: 'ago/2026' }, { q: 'Casal Prado', n: 4, t: 'Atendimento bom, preço acima do esperado.', d: 'jul/2026' }],
+    prop: null, feitos: {}, recompra: false, ativ: {}
+  };
+}
+let S = inicial();
+const marcar = (k) => { S.feitos[k] = true; };
+function set(p) { Object.assign(S, p); render(); }
+function toast(t) { S.toast = t; render(); clearTimeout(toast.t); toast.t = setTimeout(() => { S.toast = ''; render(); }, 2600); }
+const go = (tela, id, extra) => { Object.assign(S, { tela: tela, id: id || null, notifOn: false, criarOn: false, modal: null, aba: (extra && extra.aba) || 'resumo' }); if (tela === 'inicio') marcar('p1'); if (tela === 'lead' && id === 'L-1042') marcar('p2'); render(); window.scrollTo(0, 0); };
+const lead = (id) => S.leads.find((l) => l.id === id);
+const neg = (id) => S.negocios.find((n) => n.id === id);
+const via = (id) => S.viagens.find((v) => v.id === id);
+const ativ = (id, h, t) => { (S.ativ[id] = S.ativ[id] || []).unshift({ h: h, t: t }); };
+
+/* ---------- proposta: itens com custo, markup e venda (valores de exemplo) ---------- */
+function novaProposta(nid) {
+  const L = lead('L-1042');
+  return {
+    neg: nid, etapa: 1, enviada: false, titulo: 'Roma e Florença · Família Rodrigues', markup: 12, parcelas: 10,
+    voos: [{ op: 'Opção 1 · inclusa', trechos: [] }], vooImport: false,
+    hoteis: [
+      { id: 'h1', cidade: 'Roma', nome: 'Hotel 4★ em Trastevere (exemplo)', noites: 3, quarto: 'Quarto família (4 pessoas)', diaria: 1150, nota: '4,6', sel: true },
+      { id: 'h2', cidade: 'Roma', nome: 'Hotel 3★ perto da Termini (exemplo)', noites: 3, quarto: '2 quartos duplos', diaria: 820, nota: '4,2', sel: false },
+      { id: 'h3', cidade: 'Florença', nome: 'Hotel boutique no centro histórico (exemplo)', noites: 2, quarto: 'Quarto família (4 pessoas)', diaria: 1300, nota: '4,7', sel: true },
+      { id: 'h4', cidade: 'Florença', nome: 'Apartamento perto do Duomo (exemplo)', noites: 2, quarto: 'Apartamento 2 quartos', diaria: 980, nota: '4,4', sel: false }
+    ],
+    exps: L.votos.map((v) => ({ nome: v.item, v: v.v, foto: v.foto, sel: v.v >= 2, preco: { 'Coliseu': 180, 'Aula de massa fresca': 620 }[v.item] || 0, qtd: 4, nota: { 'Coliseu': 'Ingresso com horário 13/11 09:00', 'Aula de massa fresca': 'Turma 14/11 10:30', 'Trattoria em Trastevere': 'Reserva de mesa, pago no local', 'Pizzaria napolitana': 'Pago no local', 'Panteão': 'Entrada sem custo', 'Gelateria artesanal': 'Pago no local' }[v.item] || '' })),
+    servicos: [
+      { nome: 'Trem Roma → Florença (16/11)', preco: 290, qtd: 4, sel: true },
+      { nome: 'Seguro viagem Europa', preco: 210, qtd: 4, sel: true },
+      { nome: 'Transfer aeroporto ↔ hotel', preco: 480, qtd: 1, sel: true }
+    ],
+    vooPreco: 5200, capa: 'coliseu', msg: 'Olá, família Rodrigues! Montamos a proposta a partir do roteiro que vocês escolheram juntos no app: Coliseu, Trattoria em Trastevere e aula de massa fresca já estão incluídos.',
+    canalApp: true, canalLink: true, validade: '7 dias'
+  };
+}
+function propCalc(P) {
+  const itens = [];
+  if (P.voos[0].trechos.length) itens.push({ g: 'Aéreo', n: 'Voos GRU ⇄ FCO · opção 1', c: P.vooPreco * 4, q: '4 pessoas' });
+  P.hoteis.filter((h) => h.sel).forEach((h) => itens.push({ g: 'Hospedagem', n: h.nome + ' · ' + h.noites + ' noites', c: h.diaria * h.noites, q: h.quarto }));
+  P.exps.filter((e) => e.sel && e.preco).forEach((e) => itens.push({ g: 'Experiências', n: e.nome, c: e.preco * e.qtd, q: e.qtd + ' pessoas' }));
+  P.servicos.filter((s) => s.sel).forEach((s) => itens.push({ g: 'Serviços', n: s.nome, c: s.preco * s.qtd, q: s.qtd > 1 ? s.qtd + ' pessoas' : 'grupo' }));
+  const custo = itens.reduce((a, i) => a + i.c, 0); const venda = Math.round(custo * (1 + P.markup / 100)); const margem = venda - custo; const pct = venda ? margem / venda * 100 : 0;
+  return { itens: itens, custo: custo, venda: venda, margem: margem, pct: pct, pp: venda / 4, faixa: pct < 10 ? ['Margem baixa', 'p-verm'] : pct <= 15 ? ['Margem boa', 'p-verde'] : ['Margem ótima', 'p-verde'] };
+}
+
+/* ---------- roteiro de validação (painel à direita) ---------- */
+function alvo(p) {
+  const n = S.negocios.find((x) => x.lead === 'L-1042');
+  if (p[0] === 'p4' && n) return ['negocio', n.id];
+  if ((p[0] === 'p5' || p[0] === 'p6') && S.prop) return ['editor'];
+  if (p[0] === 'p7' && n) return ['negocio', n.id];
+  if (p[0] === 'p8' && !via('V-40') && n) return ['negocio', n.id];
+  if ((p[0] === 'p9' || p[0] === 'p10') && via('V-40')) return ['viagem', 'V-40', 'despesas'];
+  return p[3];
+}
+const PASSOS = [
+  ['p1', 'Ver o novo lead no início', 'O lead do grupo chega sozinho, vindo do app.', ['inicio']],
+  ['p2', 'Abrir o lead Roma e Florença', 'Grupo, orçamento por pessoa, gostos, match e roteiro.', ['lead', 'L-1042']],
+  ['p3', 'Aceitar o lead', 'Vira negócio no funil, com valor estimado e tarefa.', ['lead', 'L-1042']],
+  ['p4', 'Criar a proposta a partir do roteiro', 'Destinos, datas e atrações já vêm preenchidos.', ['leads']],
+  ['p5', 'Precificar voos, hotéis e serviços', 'Preço por item, total e margem calculados.', null],
+  ['p6', 'Enviar a proposta para o app do grupo', 'O grupo recebe um aviso no celular.', null],
+  ['p7', 'Simular: o grupo aceita no app', 'O negócio vai para "Ganho" sozinho.', null],
+  ['p8', 'Criar a viagem e cumprir o checklist', 'Sala de embarque com documentos e reservas.', ['embarque']],
+  ['p9', 'Lançar despesas do grupo', 'Aparecem no app como "lançada pela agência".', null],
+  ['p10', 'Viagem quitada: avaliação e recompra', 'Estrelas no ranking e lead da próxima viagem.', null]
+];
+
+/* ============================== TELAS ============================== */
+function navItem(id, rot, emo, cnt) { const on = S.tela === id || (id === 'leads' && S.tela === 'lead') || (id === 'pipeline' && S.tela === 'negocio') || (id === 'propostas' && S.tela === 'editor') || (id === 'viagens' && S.tela === 'viagem') || (id === 'clientes' && S.tela === 'cliente'); return `<button class="nav ${on ? 'on' : ''}" data-a="go" data-t="${id}">${ic(emo)}${rot}${cnt ? `<span class="cnt">${cnt}</span>` : ''}</button>`; }
+function side() {
+  const novos = S.leads.filter((l) => l.status === 'novo').length;
+  return `<aside class="side" aria-label="Menu">
+    <div class="brand"><div class="lg">${ic('airplane', 24)}</div><div><b>Agência exemplo A</b><span>CRM AppTravel Group</span></div></div>
+    <button class="criar" data-a="criar">+ Criar</button>
+    ${navItem('inicio', 'Início', 'house')}
+    ${navItem('leads', 'Leads do app', 'sparkles', novos)}
+    <div class="grp">Venda</div>
+    ${navItem('pipeline', 'Pipeline de vendas', 'chart')}
+    ${navItem('propostas', 'Propostas', 'receipt')}
+    ${navItem('metas', 'Metas e resultados', 'trophy')}
+    <div class="grp">Entrega</div>
+    ${navItem('viagens', 'Viagens', 'luggage')}
+    ${navItem('embarque', 'Sala de embarque', 'ticket')}
+    ${navItem('despesas', 'Despesas e cobrança', 'moneybag')}
+    <div class="grp">Relacionamento</div>
+    ${navItem('clientes', 'Clientes e grupos', 'hug')}
+    ${navItem('tarefas', 'Tarefas', 'check', S.tarefas.filter((t) => !t.feito && t.grupo === 'atrasada').length || '')}
+    ${navItem('reputacao', 'Avaliações e ranking', 'star')}
+    <div class="rodape">Protótipo navegável · dados de exemplo<br><button class="lk" data-a="reiniciar">Reiniciar protótipo</button></div>
+  </aside>`;
+}
+function barraTopo() {
+  const n = S.notifs.filter((x) => x.nova).length;
+  return `<div class="top">
+    <label class="busca">${ic('globe', 18)}<input placeholder="Buscar cliente, negócio, proposta ou viagem" aria-label="Buscar"></label>
+    <div style="flex:1"></div>
+    <button class="btn" data-a="guia">${ic('map', 18)}${S.guia ? 'Ocultar roteiro de validação' : 'Roteiro de validação'}</button>
+    <div style="position:relative"><button class="ib" data-a="notif" aria-label="Notificações">${ic('bell', 20)}${n ? `<span class="bd">${n}</span>` : ''}</button>${S.notifOn ? notifs() : ''}</div>
+    <div class="user"><span class="av" style="${AVC[0]}">AS</span><div><div>Ana Souza</div><div class="sm muted">Agente · São Paulo</div></div></div>
+  </div>`;
+}
+function notifs() {
+  return `<div class="notif" role="dialog" aria-label="Notificações"><div class="row sp" style="padding:8px 10px"><b>Notificações</b><button class="lk sm" data-a="lerTudo">Marcar como lidas</button></div>
+    ${S.notifs.map((x) => `<button class="it ${x.nova ? 'nova' : ''}" data-a="abrirNotif" data-id="${x.id}">${ic(x.e, 28)}<span><b style="display:block;font-size:13px">${esc(x.t)}</b><span class="sm muted">${esc(x.s)}</span></span></button>`).join('')}</div>`;
+}
+function guia() {
+  const idx = PASSOS.findIndex((p) => !S.feitos[p[0]]);
+  return `<aside class="guia" aria-label="Roteiro de validação">
+    <div class="row sp"><h3 style="font-size:17px">Roteiro de validação</h3><button class="lk sm" data-a="guia">Fechar</button></div>
+    <p class="sm muted" style="margin:6px 0 12px">Siga os passos para ver a jornada completa: do lead que o grupo gerou no app até a recompra. Cada passo se marca sozinho quando você o faz.</p>
+    <div class="bar" style="margin-bottom:12px"><div style="width:${Math.round(Object.keys(S.feitos).filter((k) => k[0] === 'p').length / PASSOS.length * 100)}%"></div></div>
+    ${PASSOS.map((p, i) => `<div class="passo ${S.feitos[p[0]] ? 'feito' : ''} ${i === idx ? 'atual' : ''}"><span class="c">${S.feitos[p[0]] ? '✓' : i + 1}</span><div style="flex:1"><b>${p[1]}</b><span>${p[2]}</span>${i === idx && alvo(p) ? `<div style="margin-top:6px"><button class="btn sm" data-a="${alvo(p)[0] === 'viagem' ? 'goViagemAba' : 'go'}" data-t="${alvo(p)[0]}" data-id="${alvo(p)[1] || ''}" data-v="${alvo(p)[2] || ''}">Ir para este passo</button></div>` : ''}</div></div>`).join('')}
+    ${idx === -1 ? `<div class="card" style="margin-top:10px;text-align:center">${ic('party', 48, 'margin:0 auto')}<b>Jornada completa!</b><p class="sm muted">Você viu o ciclo inteiro: lead do app, venda, entrega e recompra.</p></div>` : ''}
+  </aside>`;
+}
+
+/* ---------- Início ---------- */
+function telaInicio() {
+  const novos = S.leads.filter((l) => l.status === 'novo');
+  const abertos = S.negocios.filter((n) => !['ganho', 'perdido'].includes(n.etapa));
+  const previsto = abertos.reduce((a, n) => a + n.valor * (ETAPAS.find((e) => e.id === n.etapa).prob / 100), 0);
+  const ganhoMes = S.negocios.filter((n) => n.etapa === 'ganho').reduce((a, n) => a + n.valor, 0);
+  const t = S.tarefas.filter((x) => !x.feito && (x.grupo === 'hoje' || x.grupo === 'atrasada'));
+  return `<div class="ph"><div><h1>Olá, Ana! 👋</h1><p>Sexta-feira, 30 de outubro · ${novos.length} leads do app esperando sua resposta</p></div><div class="row"><button class="btn" data-a="go" data-t="pipeline">Ver pipeline</button><button class="btn p" data-a="go" data-t="leads">Abrir leads do app</button></div></div>
+    <div class="g4" style="margin-bottom:16px">
+      <div class="kpi" style="border-left-color:var(--coral)"><div class="k">Leads do app novos</div><div class="v">${novos.length}</div><div class="d">${novos.filter((l) => l.urg).length} perto do prazo de resposta</div></div>
+      <div class="kpi"><div class="k">Negócios abertos</div><div class="v">${abertos.length}</div><div class="d">${brl(abertos.reduce((a, n) => a + n.valor, 0))} no funil</div></div>
+      <div class="kpi" style="border-left-color:var(--azul)"><div class="k">Previsto (ponderado)</div><div class="v">${brl(previsto)}</div><div class="d">valor × chance de cada etapa</div></div>
+      <div class="kpi" style="border-left-color:var(--verde)"><div class="k">Ganho em outubro</div><div class="v">${brl(ganhoMes)}</div><div class="d">meta ${brl(90000)}</div></div>
+    </div>
+    <div class="g2">
+      <div class="col">
+        <div class="card"><div class="row sp"><h3>${ic('sparkles', 22)} Leads do app esperando resposta</h3><button class="lk" data-a="go" data-t="leads">Ver todos</button></div>
+          ${novos.length ? novos.map((l) => leadLinha(l)).join('') : '<div class="vazio">Nenhum lead novo. Os grupos que escolherem sua agência no app aparecem aqui.</div>'}
+        </div>
+        <div class="card"><div class="row sp"><h3>${ic('check', 22)} Tarefas de hoje</h3><button class="lk" data-a="go" data-t="tarefas">Ver todas</button></div>
+          ${t.length ? t.map((x) => tarefaLinha(x)).join('') : '<div class="vazio">Nada pendente para hoje.</div>'}
+        </div>
+      </div>
+      <div class="col">
+        <div class="card"><h3>${ic('speech', 22)} Quem está quente agora</h3>
+          ${quentes().map((q) => `<div class="ativ"><span class="h">${q.h}</span><div style="flex:1"><b>${esc(q.t)}</b><div class="sm muted">${esc(q.s)}</div></div><button class="btn sm" data-a="go" data-t="${q.go[0]}" data-id="${q.go[1]}">Abrir</button></div>`).join('')}
+        </div>
+        <div class="card"><h3>${ic('luggage', 22)} Próximas partidas</h3>
+          ${S.viagens.slice().sort((a, b) => a.ida.split('/').reverse().join('').localeCompare(b.ida.split('/').reverse().join(''))).map((v) => `<div class="ativ"><span class="h">${v.ida.slice(0, 5)}</span><div style="flex:1"><b>${esc(v.titulo)}</b><div class="sm muted">${v.pessoas} pessoas · etapa: ${EMB.find((e) => e.id === v.emb).nome}</div></div><button class="btn sm" data-a="go" data-t="viagem" data-id="${v.id}">Abrir</button></div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+}
+function quentes() {
+  const out = [];
+  const nr = S.negocios.find((n) => n.lead === 'L-1042');
+  if (nr && nr.etapa === 'enviada' && S.ativ[nr.id] && S.ativ[nr.id].some((a) => /abriu/.test(a.t))) out.push({ h: 'agora', t: 'Família Rodrigues abriu a proposta no app', s: 'Flávio e Marta viram a proposta Roma e Florença', go: ['negocio', nr.id] });
+  out.push({ h: 'ontem', t: 'Lua de mel Almeida viu a proposta 3 vezes', s: 'Cancún · ainda sem resposta', go: ['negocio', 'N-202'] });
+  out.push({ h: '2 dias', t: 'Equipe Vento Sul pediu outras datas', s: 'Santiago · em negociação', go: ['negocio', 'N-203'] });
+  return out;
+}
+function leadLinha(l) {
+  return `<div class="ativ" style="align-items:center"><div class="av" style="${AVC[1]}">${ic(l.match[0].emo, 20)}</div><div style="flex:1;min-width:0"><b>${esc(l.titulo)} · ${l.pessoas.length} pessoas</b><div class="sm muted">${l.ida} a ${l.volta} · ${esc(l.leitura)}</div><div class="row" style="margin-top:6px;flex-wrap:wrap;gap:6px">${l.recompra ? '<span class="pill p-verde">Recompra</span>' : ''}<span class="pill ${l.urg ? 'p-verm' : 'p-amar'}">${esc(l.prazo)}</span></div></div><button class="btn sm p" style="flex:none" data-a="go" data-t="lead" data-id="${l.id}">Ver lead</button></div>`;
+}
+function tarefaLinha(x) {
+  return `<div class="ativ" style="align-items:center"><input type="checkbox" class="chk" style="width:18px;height:18px;accent-color:var(--roxo)" data-a="feitoT" data-id="${x.id}" ${x.feito ? 'checked' : ''} aria-label="Concluir tarefa"><div style="flex:1"><b style="${x.feito ? 'text-decoration:line-through;color:var(--muted)' : ''}">${esc(x.t)}</b><div class="sm muted">${x.auto ? 'Criada pela automação · ' : ''}${esc(x.dono || 'Ana Souza')}</div></div><span class="pill ${x.grupo === 'atrasada' && !x.feito ? 'p-verm' : 'p-cinza'}">${x.grupo === 'atrasada' && !x.feito ? 'Atrasada · ' : ''}${esc(x.quando)}</span></div>`;
+}
+
+/* ---------- Leads do app ---------- */
+function telaLeads() {
+  const ab = S.aba === 'resumo' ? 'novo' : S.aba;
+  const lista = S.leads.filter((l) => l.status === ab);
+  return `<div class="ph"><div><h1>Leads do app</h1><p>Grupos que escolheram sua agência no app, com destino, datas, orçamento, gostos e roteiro. Cada lead é exclusivo da sua agência.</p></div></div>
+    <div class="app-ban" style="margin-bottom:16px">${ic('sparkles', 32)}<div><b>Como funciona</b><div class="sm muted">O grupo monta a viagem no app (Jornada 1) e o cabeça do grupo escolhe sua agência. O lead chega aqui já qualificado. Você aceita em até 24 h; o valor do lead (exemplo: ${brl(270)} para grupo de 4 em viagem internacional) só é cobrado no aceite.</div></div></div>
+    <div class="tabs">${[['novo', 'Novos'], ['aceito', 'Aceitos'], ['recusado', 'Recusados']].map((t) => `<button class="tab ${ab === t[0] ? 'on' : ''}" data-a="aba" data-v="${t[0]}">${t[1]} (${S.leads.filter((l) => l.status === t[0]).length})</button>`).join('')}</div>
+    <div class="card" style="padding:0">${lista.length ? `<table class="tbl"><thead><tr><th>Grupo e destino</th><th>Datas</th><th>Pessoas</th><th>Orçamento</th><th>Match</th><th class="num">Valor estimado</th><th>Prazo</th></tr></thead><tbody>
+      ${lista.map((l) => `<tr class="cl" data-a="go" data-t="lead" data-id="${l.id}"><td><div class="row">${ic(l.match[0].emo, 26)}<div><b>${esc(l.titulo)}</b> ${l.recompra ? '<span class="pill p-verde">Recompra</span>' : ''}<div class="sm muted">${esc(l.contato.nome)} · ${esc(l.tipo)}</div></div></div></td><td>${l.ida}<div class="sm muted">${l.noites} noites</div></td><td>${l.pessoas.length}</td><td>${esc(l.leitura)}</td><td><span class="pill p-roxo">${esc(l.match[0].g)} ${l.match[0].p}%</span></td><td class="num">${brl(l.valorEst)}</td><td><span class="pill ${l.urg && l.status === 'novo' ? 'p-verm' : 'p-cinza'}">${l.status === 'novo' ? esc(l.prazo) : l.status === 'aceito' ? 'Aceito' : 'Recusado'}</span></td></tr>`).join('')}
+    </tbody></table>` : '<div class="vazio">Nenhum lead nesta aba.</div>'}</div>`;
+}
+function telaLead() {
+  const l = lead(S.id); if (!l) return '<div class="vazio">Lead não encontrado.</div>';
+  const n = S.negocios.find((x) => x.lead === l.id);
+  return `<div class="crumb"><button data-a="go" data-t="leads">Leads do app</button> › ${esc(l.id)}</div>
+    <div class="ph"><div><h1>${esc(l.titulo)} · ${l.pessoas.length} pessoas</h1><p>${esc(l.pais)} · ${l.ida} a ${l.volta} (${l.dias} dias, ${l.noites} noites) · saindo de ${esc(l.partida)} · viagem em ${esc(l.tipo.toLowerCase())}</p></div>
+      <div class="row">${l.status === 'novo' ? `<span class="pill ${l.urg ? 'p-verm' : 'p-amar'}">${esc(l.prazo)}</span><button class="btn dg" data-a="recusar" data-id="${l.id}">Recusar</button><button class="btn p" data-a="aceitar" data-id="${l.id}">Aceitar lead</button>` : l.status === 'aceito' ? `<span class="pill p-verde">Aceito</span>${n ? `<button class="btn p" data-a="go" data-t="negocio" data-id="${n.id}">Abrir negócio</button>` : ''}` : '<span class="pill p-cinza">Recusado</span>'}</div></div>
+    ${l.recompra ? `<div class="app-ban" style="margin-bottom:16px">${ic('restore', 28)}<div><b>Recompra: o mesmo grupo quer viajar de novo com você</b><div class="sm muted">Gerado pelo botão "Planejar a próxima viagem com este grupo" no fim da viagem anterior. O grupo ainda vai escolher o destino no app.</div></div></div>` : ''}
+    <div class="g3" style="margin-bottom:16px">
+      <div class="kpi"><div class="k">Valor estimado do negócio</div><div class="v">${brl(l.valorEst)}</div><div class="d">exemplo: ${l.pessoas.length} pessoas × ${brl(l.valorEst / l.pessoas.length)}</div></div>
+      <div class="kpi" style="border-left-color:var(--coral)"><div class="k">Valor do lead (exemplo)</div><div class="v">${brl(l.precoLead)}</div><div class="d">cobrado só se você aceitar</div></div>
+      <div class="kpi" style="border-left-color:var(--verde)"><div class="k">Leitura do orçamento do grupo</div><div class="v" style="font-size:20px">${esc(l.leitura)}</div><div class="d">${esc(l.alerta || 'Faixas por pessoa abaixo')}</div></div>
+    </div>
+    <div class="g2">
+      <div class="col">
+        <div class="card"><h3>${ic('hug', 22)} Quem vai</h3>
+          <table class="tbl"><thead><tr><th>Pessoa</th><th>Papel</th><th>Gasto por dia no destino</th></tr></thead><tbody>
+          ${l.pessoas.map((p, i) => `<tr><td><div class="row"><span class="av sm" style="${AVC[i % 6]}">${ini(p.n)}</span>${esc(p.n)}</div></td><td>${esc(p.papel)}</td><td>${esc(p.faixa)}</td></tr>`).join('')}
+          </tbody></table>
+          <p class="sm muted" style="margin:8px 0 0">${ic('lock', 14, 'display:inline;vertical-align:-2px')} No app a faixa é privada: o grupo vê só a leitura coletiva. A agência vê por pessoa.</p>
+          <div class="row" style="margin-top:12px;flex-wrap:wrap"><span class="chip-pessoa"><span class="av sm" style="${AVC[0]}">${ini(l.contato.nome)}</span>${esc(l.contato.nome)}</span><span class="sm muted">${esc(l.contato.email)} · ${esc(l.contato.tel)}</span></div>
+        </div>
+        <div class="card"><h3>${ic('trophy', 22)} O match do grupo</h3>
+          <div class="g2">${l.match.map((m, i) => `<div style="border-radius:14px;padding:12px;color:#fff;background:${i ? 'linear-gradient(140deg,#7B5CFF,#4A2FD6)' : 'linear-gradient(140deg,#FF8A6B,#E8445A)'}"><div class="sm" style="font-weight:800;opacity:.85">TOP ${i + 1}</div><b style="font-family:var(--disp);font-size:18px">${esc(m.g)}</b><div style="font-family:var(--disp);font-size:28px;font-weight:800">${m.p}%</div></div>`).join('')}</div>
+          ${l.votos.length ? `<table class="tbl" style="margin-top:10px"><thead><tr><th>Item</th><th>Quem curtiu</th><th class="num">Votos</th></tr></thead><tbody>${l.votos.map((v) => `<tr><td>${esc(v.item)}<div class="sm muted">${esc(v.g)}</div></td><td>${v.quem.map((q) => `<span class="av sm" title="${esc(l.pessoas[q].n)}" style="${AVC[q % 6]};margin-right:2px">${ini(l.pessoas[q].n)}</span>`).join('')}</td><td class="num"><b>${v.v} de ${l.pessoas.length}</b></td></tr>`).join('')}</tbody></table>` : '<p class="sm muted">Detalhe de votos disponível neste protótipo só para o lead Roma e Florença.</p>'}
+        </div>
+      </div>
+      <div class="col">
+        <div class="card"><h3>${ic('map', 22)} Roteiro gerado no app</h3>
+          ${l.roteiro.length ? l.roteiro.map((d) => `<div class="dia"><b>${esc(d.dia)}</b>${d.itens.map((it) => `<div class="ativ"><span class="h">${it.h}</span><div style="flex:1"><b>${esc(it.nome)}</b> <span class="sm muted">· ${it.dur}</span><div class="row" style="gap:6px;margin-top:4px;flex-wrap:wrap"><span class="pill ${it.tag === 'Sugestão do app' ? 'p-amar' : 'p-verde'}">${esc(it.tag)}</span><span class="pill ${it.warn ? 'p-amar' : 'p-cinza'}">${esc(it.disp)}</span></div></div></div>`).join('')}</div>`).join('') + '<p class="sm muted">O app gera os 6 dias; este protótipo mostra os dias 1 e 2.</p>' : '<p class="sm muted">Roteiro detalhado disponível neste protótipo só para o lead Roma e Florença.</p>'}
+        </div>
+        <div class="card"><h3>${ic('bell', 22)} O que acontece ao aceitar</h3>
+          <div class="ativ"><span class="h">1</span><div>O lead vira um negócio na etapa <b>Lead aceito</b>, com o valor estimado.</div></div>
+          <div class="ativ"><span class="h">2</span><div>Entra uma tarefa automática: <b>falar com o grupo em até 24 h</b>.</div></div>
+          <div class="ativ"><span class="h">3</span><div>O grupo é avisado no app que a agência aceitou o atendimento.</div></div>
+        </div>
+      </div>
+    </div>`;
+}
+
+/* ---------- Pipeline ---------- */
+function telaPipeline() {
+  return `<div class="ph"><div><h1>Pipeline de vendas</h1><p>Cada coluna soma o valor dos negócios. O valor de cada negócio já vem estimado no lead do app. Role para o lado para ver todas as etapas.</p></div><div class="row"><span class="pill p-roxo">Dono: todos</span><button class="btn" data-a="go" data-t="metas">${ic('trophy', 18)}Metas</button></div></div>
+    <div class="kb">${ETAPAS.map((e) => { const ns = S.negocios.filter((n) => n.etapa === e.id); return `<div class="kc"><div class="kh"><span style="color:${e.cor}">${e.nome} <small>· ${ns.length}</small></span><small>${e.prob}%</small></div><div class="sm muted" style="padding:0 4px 8px;font-weight:700">${brl(ns.reduce((a, n) => a + n.valor, 0))}</div>
+      ${ns.map((n) => `<div class="kcard" style="border-top-color:${e.cor}" data-a="go" data-t="negocio" data-id="${n.id}" role="button" tabindex="0"><b>${esc(n.titulo)}</b><div class="meta"><span>${brl(n.valor)} · ${n.pessoas} pessoas</span><span>${n.origem === 'App' ? '<span class="pill p-roxo">Lead do app</span>' : '<span class="pill p-cinza">' + esc(n.origem) + '</span>'} ${n.vistas ? `<span class="pill p-azul">vista ${n.vistas}x</span>` : ''}</span><span>${esc(n.dono)}</span></div>${n.prox && !['ganho', 'perdido'].includes(n.etapa) ? `<div class="prox ${n.prox.late ? 'late' : ''}">Próxima: ${esc(n.prox.t)} · ${esc(n.prox.d)}</div>` : ''}${n.motivo ? `<div class="prox">Motivo da perda: ${esc(n.motivo)}</div>` : ''}</div>`).join('') || '<div class="vazio sm">Nada aqui</div>'}</div>`; }).join('')}</div>`;
+}
+function telaNegocio() {
+  const n = neg(S.id); if (!n) return '<div class="vazio">Negócio não encontrado.</div>';
+  const e = ETAPAS.find((x) => x.id === n.etapa); const l = n.lead ? lead(n.lead) : null; const P = S.prop && S.prop.neg === n.id ? S.prop : null; const C = P ? propCalc(P) : null;
+  const acoes = [];
+  if (n.lead === 'L-1042') {
+    if (!P) acoes.push(`<button class="btn p" data-a="criarProp" data-id="${n.id}">${ic('sparkles', 18)}Criar proposta a partir do roteiro</button>`);
+    else if (!P.enviada) acoes.push(`<button class="btn p" data-a="go" data-t="editor">Continuar proposta (etapa ${P.etapa} de 8)</button>`);
+    else if (n.etapa === 'enviada') acoes.push(`<button class="btn" data-a="simAbriu" data-id="${n.id}">Simular: o grupo abriu no app</button><button class="btn ok" data-a="simAceitou" data-id="${n.id}">Simular: o cabeça do grupo aceitou no app</button>`);
+    else if (n.etapa === 'ganho' && !via('V-40')) acoes.push(`<button class="btn p" data-a="proxPassos" data-id="${n.id}">Venda ganha · próximos passos</button>`);
+    else if (via('V-40')) acoes.push(`<button class="btn p" data-a="go" data-t="viagem" data-id="V-40">Abrir a viagem</button>`);
+  }
+  return `<div class="crumb"><button data-a="go" data-t="pipeline">Pipeline de vendas</button> › ${esc(n.id)}</div>
+    <div class="ph"><div><h1>${esc(n.titulo)}</h1><p>${brl(n.valor)} · ${n.pessoas} pessoas · dono: ${esc(n.dono)} · aberto em ${esc(n.abertura)}</p></div><div class="row">${acoes.join('')}</div></div>
+    <div class="steps">${ETAPAS.filter((x) => x.id !== 'perdido').map((x, i) => { const cur = ETAPAS.findIndex((y) => y.id === n.etapa); return `<span class="st ${x.id === n.etapa ? 'on' : (i < cur && n.etapa !== 'perdido' ? 'ok' : '')}"><span class="n">${i < cur && n.etapa !== 'perdido' ? '✓' : i + 1}</span>${x.nome}</span>`; }).join('')}${n.etapa === 'perdido' ? '<span class="st on"><span class="n">!</span>Perdido</span>' : ''}</div>
+    <div class="g2">
+      <div class="col">
+        <div class="card"><h3>Resumo</h3>
+          <table class="tbl"><tbody>
+            <tr><td class="muted">Etapa</td><td><b>${e.nome}</b> · chance ${e.prob}%</td></tr>
+            <tr><td class="muted">Origem</td><td>${n.origem === 'App' ? '<span class="pill p-roxo">Lead do app</span>' : esc(n.origem)}${l ? ` · <button class="lk" data-a="go" data-t="lead" data-id="${l.id}">ver lead ${l.id}</button>` : ''}</td></tr>
+            <tr><td class="muted">Valor</td><td>${brl(n.valor)} ${P && P.enviada ? '<span class="sm muted">(da proposta enviada)</span>' : n.lead ? '<span class="sm muted">(estimado no lead)</span>' : ''}</td></tr>
+            ${l ? `<tr><td class="muted">Grupo</td><td>${l.pessoas.map((p, i) => `<span class="chip-pessoa" style="margin:2px"><span class="av sm" style="${AVC[i % 6]}">${ini(p.n)}</span>${esc(p.n.split(' ')[0])}</span>`).join('')}</td></tr><tr><td class="muted">Datas</td><td>${l.ida} a ${l.volta} · ${l.noites} noites</td></tr>` : ''}
+            ${C ? `<tr><td class="muted">Proposta</td><td>${brl(C.venda)} · margem ${brl(C.margem)} (${C.pct.toFixed(1).replace('.', ',')}%) <span class="pill ${C.faixa[1]}">${C.faixa[0]}</span></td></tr>` : ''}
+          </tbody></table>
+        </div>
+        ${n.prox && !['ganho', 'perdido'].includes(n.etapa) ? `<div class="card"><h3>${ic('check', 22)} Próxima tarefa</h3><div class="prox ${n.prox.late ? 'late' : ''}" style="padding:10px;border-radius:10px;background:${n.prox.late ? 'var(--verm-c)' : '#F6F4FC'}"><b>${esc(n.prox.t)}</b><div class="sm">${esc(n.prox.d)}</div></div><p class="sm muted" style="margin-bottom:0">Regra: todo negócio aberto tem uma próxima tarefa com data.</p></div>` : ''}
+      </div>
+      <div class="col"><div class="card"><h3>${ic('speech', 22)} Linha do tempo</h3>${(S.ativ[n.id] || []).concat(n.lead ? [{ h: 'hoje', t: 'Lead recebido do app e aceito' }] : [{ h: n.abertura.slice(0, 5), t: 'Negócio criado (' + n.origem + ')' }]).map((a) => `<div class="ativ"><span class="h">${esc(a.h)}</span><div>${esc(a.t)}</div></div>`).join('')}</div></div>
+    </div>`;
+}
+
+/* ---------- Propostas (lista) ---------- */
+function telaPropostas() {
+  const P = S.prop;
+  return `<div class="ph"><div><h1>Propostas</h1><p>No CRM, a proposta nasce do roteiro que o grupo montou no app.</p></div></div>
+    <div class="card" style="padding:0"><table class="tbl"><thead><tr><th>Proposta</th><th>Negócio</th><th>Situação</th><th class="num">Valor</th><th>Visualizações no app</th></tr></thead><tbody>
+      ${P ? `<tr class="cl" data-a="${P.enviada ? 'go' : 'go'}" data-t="${P.enviada ? 'negocio' : 'editor'}" data-id="${P.enviada ? P.neg : ''}"><td><b>${esc(P.titulo)}</b></td><td>${esc(neg(P.neg).titulo)}</td><td>${P.enviada ? (neg(P.neg).etapa === 'ganho' ? '<span class="pill p-verde">Aceita no app</span>' : '<span class="pill p-azul">Enviada ao grupo</span>') : '<span class="pill p-amar">Rascunho · etapa ' + P.etapa + ' de 8</span>'}</td><td class="num">${brl(propCalc(P).venda)}</td><td>${(S.ativ[P.neg] || []).filter((a) => /abriu/.test(a.t)).length ? '2 pessoas' : '—'}</td></tr>` : ''}
+      <tr class="cl" data-a="go" data-t="negocio" data-id="N-202"><td><b>Cancún · Lua de mel Almeida</b></td><td>Cancún · Lua de mel Almeida</td><td><span class="pill p-azul">Enviada</span></td><td class="num">${brl(18900)}</td><td>3 vezes</td></tr>
+      <tr class="cl" data-a="go" data-t="negocio" data-id="N-203"><td><b>Santiago · Equipe Vento Sul</b></td><td>Santiago · Equipe Vento Sul</td><td><span class="pill p-amar">Em negociação</span></td><td class="num">${brl(26400)}</td><td>5 vezes</td></tr>
+    </tbody></table></div>
+    ${P ? '' : `<p class="sm muted" style="margin-top:10px">Para criar a proposta do lead Roma e Florença: aceite o lead e use "Criar proposta a partir do roteiro" no negócio.</p>`}`;
+}
+
+/* ---------- Editor de proposta (8 etapas) ---------- */
+const ETP = ['Destinos e datas', 'Voos', 'Hospedagem', 'Experiências', 'Preço e margem', 'Itinerário', 'Apresentação', 'Enviar ao grupo'];
+function telaEditor() {
+  const P = S.prop; if (!P) return '<div class="vazio">Nenhuma proposta em edição.</div>';
+  const L = lead('L-1042'); const C = propCalc(P);
+  let corpo = '';
+  if (P.etapa === 1) corpo = `<div class="app-ban">${ic('sparkles', 28)}<div><b>Preenchido a partir do app</b><div class="sm muted">Destinos, datas, número de pessoas e saída vieram do lead ${L.id}. Ajuste se o grupo pedir.</div></div></div>
+    <div class="g2" style="margin-top:14px"><label class="f">Saindo de<input class="inp" value="${esc(L.partida)}"></label><label class="f">Cidades<input class="inp" value="Roma (3 noites) · Florença (2 noites)"></label>
+    <label class="f">Ida<input class="inp" value="${L.ida}"></label><label class="f">Volta<input class="inp" value="${L.volta}"></label><label class="f">Pessoas<input class="inp" value="4 (Flávio, Marta, Lúcia e Pedro)"></label><label class="f">Noites<input class="inp" value="5 (calculado pelas datas)" readonly></label></div>`;
+  if (P.etapa === 2) corpo = `<div class="row sp"><h3>Opções de voo</h3><button class="btn" data-a="importarVoos">${ic('sparkles', 18)}Importar voos com IA</button></div>
+    <p class="sm muted">Cole o e-mail da cia. aérea ou envie o PDF da reserva: a IA lê os trechos e confere com as datas da viagem.</p>
+    <div class="card" style="margin-top:10px"><div class="row sp"><b>${esc(P.voos[0].op)}</b><span class="pill p-verde">Incluída no preço</span></div>
+      ${P.voos[0].trechos.length ? `<table class="tbl"><thead><tr><th>Trecho</th><th>Data</th><th>Horário</th><th>Duração</th></tr></thead><tbody>${P.voos[0].trechos.map((t) => `<tr><td><b>${t.r}</b><div class="sm muted">${t.c}</div></td><td>${t.d}</td><td>${t.h}</td><td>${t.dur}</td></tr>`).join('')}</tbody></table>
+        <div class="row" style="margin-top:10px"><span class="pill p-verde">✓ Datas conferidas com a viagem (13/11 a 18/11)</span><label class="f" style="flex-direction:row;align-items:center;gap:8px;margin-left:auto">Custo por pessoa (exemplo)<input class="inp" style="width:120px" type="number" data-f="vooPreco" value="${P.vooPreco}"></label></div>`
+        : '<div class="vazio">Nenhum trecho ainda. Use "Importar voos com IA" para preencher.</div>'}</div>`;
+  if (P.etapa === 3) corpo = `<h3>Hospedagem por cidade</h3><p class="sm muted">Selecione um hotel por cidade. As noites vêm das datas; o preço entra por item no cálculo da margem.</p>
+    ${['Roma', 'Florença'].map((cid) => `<div style="margin-top:12px"><b>${cid}</b><div class="g2" style="margin-top:8px">${P.hoteis.filter((h) => h.cidade === cid).map((h) => `<div class="ex ${h.sel ? 'sel' : ''}"><div class="b"><div class="row sp"><div class="row">${ic('hotel', 30)}<div><b>${esc(h.nome)}</b><div class="sm muted">${esc(h.quarto)} · nota ${h.nota}</div></div></div>${h.sel ? '<span class="pill p-roxo">Selecionado</span>' : ''}</div><div class="row sp" style="margin-top:10px"><span class="sm">${brl(h.diaria)} por noite × ${h.noites} = <b>${brl(h.diaria * h.noites)}</b></span><button class="btn sm ${h.sel ? '' : 'p'}" data-a="selHotel" data-id="${h.id}">${h.sel ? 'Selecionado' : 'Escolher'}</button></div></div></div>`).join('')}</div></div>`).join('')}`;
+  if (P.etapa === 4) corpo = `<h3>Experiências que o grupo curtiu</h3><p class="sm muted">Vêm marcadas as que tiveram 2 votos ou mais no app. Ingressos com horário entram no preço; o que é pago no local fica só no roteiro.</p>
+    <div class="g3" style="margin-top:10px">${P.exps.map((x, i) => `<div class="ex ${x.sel ? 'sel' : ''}">${foto(x.foto) ? `<img class="ph-img" style="border-radius:0" src="${foto(x.foto)}" alt="Foto: ${esc(x.nome)}">` : ''}<div class="b"><div class="row sp"><b>${esc(x.nome)}</b><span class="pill p-roxo">${x.v} de 4</span></div><div class="sm muted" style="margin:4px 0 8px">${esc(x.nota)}${x.preco ? ' · ' + brl(x.preco) + ' por pessoa' : ''}</div><label class="chk"><input type="checkbox" data-a="selExp" data-id="${i}" ${x.sel ? 'checked' : ''}>Incluir na proposta</label></div></div>`).join('')}</div>
+    <div class="card" style="margin-top:14px"><h3>Serviços</h3>${P.servicos.map((s, i) => `<label class="chk" style="padding:6px 0"><input type="checkbox" data-a="selServ" data-id="${i}" ${s.sel ? 'checked' : ''}>${esc(s.nome)} <span class="muted">· ${brl(s.preco)}${s.qtd > 1 ? ' por pessoa' : ''}</span></label>`).join('')}</div>`;
+  if (P.etapa === 5) corpo = `<h3>Preço por item e margem</h3><p class="sm muted">Cada item tem custo; o markup gera o preço de venda. Faixas de margem: abaixo de 10% baixa, de 10% a 15% boa, acima de 15% ótima.</p>
+    <div class="card" style="padding:0;margin-top:10px"><table class="tbl"><thead><tr><th>Grupo</th><th>Item</th><th>Quantidade</th><th class="num">Custo</th></tr></thead><tbody>${C.itens.map((i) => `<tr><td><span class="pill p-cinza">${i.g}</span></td><td>${esc(i.n)}</td><td class="sm muted">${esc(i.q)}</td><td class="num">${brl(i.c)}</td></tr>`).join('')}
+      <tr><td colspan="3"><b>Custo total</b></td><td class="num"><b>${brl(C.custo)}</b></td></tr></tbody></table></div>
+    <div class="g4" style="margin-top:14px"><label class="f">Markup (%)<input class="inp" type="number" min="0" max="40" data-f="markup" value="${P.markup}"></label><div class="kpi"><div class="k">Preço de venda</div><div class="v">${brl(C.venda)}</div><div class="d">${brl(C.pp)} por pessoa</div></div><div class="kpi" style="border-left-color:var(--verde)"><div class="k">Margem da agência</div><div class="v">${brl(C.margem)}</div><div class="d">${C.pct.toFixed(1).replace('.', ',')}% <span class="pill ${C.faixa[1]}">${C.faixa[0]}</span></div></div><label class="f">Parcelas<input class="inp" type="number" min="1" max="12" data-f="parcelas" value="${P.parcelas}"><span class="sm muted">${P.parcelas}x de ${brl(C.venda / P.parcelas)}</span></label></div>`;
+  if (P.etapa === 6) corpo = `<h3>Itinerário dia a dia</h3><p class="sm muted">Veio do roteiro do app. As reservas com horário viram itens do checklist da sala de embarque depois da venda.</p>
+    ${L.roteiro.map((d) => `<div class="dia" style="margin-top:12px"><b>${esc(d.dia)}</b>${d.itens.map((it) => `<div class="ativ"><span class="h">${it.h}</span><div style="flex:1"><b>${esc(it.nome)}</b> <span class="sm muted">· ${it.dur}</span></div>${it.warn ? '<span class="pill p-amar">Reservar</span>' : ''}</div>`).join('')}</div>`).join('')}
+    <p class="sm muted">Dias 3 a 6 (Roma e Florença) seguem o mesmo formato no produto final.</p>`;
+  if (P.etapa === 7) corpo = `<h3>Apresentação</h3><div class="g2"><div class="col"><label class="f">Título<input class="inp" data-f="titulo" value="${esc(P.titulo)}"></label><label class="f">Mensagem para o grupo<textarea class="inp" data-f="msg">${esc(P.msg)}</textarea></label></div>
+    <div><div class="sm" style="font-weight:700;margin-bottom:6px">Foto de capa</div><div class="g3">${['coliseu', 'trevi', 'panteao', 'trattoria', 'gianicolo', 'massa'].map((k) => `<button class="ex ${P.capa === k ? 'sel' : ''}" style="padding:0" data-a="capa" data-v="${k}" aria-label="Capa ${k}"><img class="ph-img" style="border-radius:0" src="${foto(k)}" alt=""></button>`).join('')}</div></div></div>`;
+  if (P.etapa === 8) corpo = `<h3>Enviar ao grupo</h3><div class="g2"><div class="col">
+      <label class="chk"><input type="checkbox" data-a="canal" data-v="canalApp" ${P.canalApp ? 'checked' : ''}><span><b>No app do grupo</b> (recomendado)<div class="sm muted">Os 4 recebem um aviso no celular e veem a proposta dentro da viagem. O cabeça do grupo aceita por lá.</div></span></label>
+      <label class="chk"><input type="checkbox" data-a="canal" data-v="canalLink" ${P.canalLink ? 'checked' : ''}><span><b>Link público</b> (para enviar também por WhatsApp)<div class="sm muted">apptravel.app/p/rodrigues-roma · válido por ${esc(P.validade)}</div></span></label>
+    </div><div class="card" style="background:#FAF8FF"><div class="sm muted" style="font-weight:800">PRÉVIA DO AVISO NO APP</div><div class="row" style="margin-top:8px;background:#fff;border-radius:14px;padding:10px;box-shadow:0 6px 16px rgba(42,27,110,.12)"><div class="av" style="border-radius:10px;background:linear-gradient(135deg,#7B5CFF,#FF7A6B)">${ic('airplane', 20)}</div><div><b class="sm">Agência exemplo A enviou a proposta</b><div class="sm muted">${esc(P.titulo)} · ${brl(C.venda)} (${brl(C.pp)} por pessoa)</div></div></div></div></div>`;
+  return `<div class="crumb"><button data-a="go" data-t="negocio" data-id="${P.neg}">${esc(neg(P.neg).titulo)}</button> › Proposta</div>
+    <div class="ph"><div><h1>Editando proposta</h1><p>${esc(P.titulo)} · ${brl(C.venda)} · margem ${C.pct.toFixed(1).replace('.', ',')}%</p></div></div>
+    <div class="steps">${ETP.map((t, i) => `<button class="st ${P.etapa === i + 1 ? 'on' : (P.etapa > i + 1 ? 'ok' : '')}" data-a="etapa" data-v="${i + 1}"><span class="n">${P.etapa > i + 1 ? '✓' : i + 1}</span>${t}</button>`).join('')}</div>
+    <div class="card">${corpo}
+      <div class="edbar"><button class="btn" data-a="etapa" data-v="${Math.max(1, P.etapa - 1)}" ${P.etapa === 1 ? 'disabled' : ''}>← Voltar</button><div class="row">${P.etapa === 2 && !P.voos[0].trechos.length ? '<span class="sm muted">Importe os voos para continuar</span>' : ''}${P.etapa < 8 ? `<button class="btn p" data-a="etapa" data-v="${P.etapa + 1}" ${P.etapa === 2 && !P.voos[0].trechos.length ? 'disabled' : ''}>Avançar →</button>` : `<button class="btn p" data-a="enviarProp" ${!P.canalApp && !P.canalLink ? 'disabled' : ''}>${ic('airplane', 18)}Enviar proposta ao grupo</button>`}</div></div>
+    </div>`;
+}
+
+/* ---------- Viagens, sala de embarque e despesas ---------- */
+function telaViagens() {
+  return `<div class="ph"><div><h1>Viagens</h1><p>Viagens vendidas. A viagem é criada a partir da proposta aceita.</p></div><button class="btn" data-a="go" data-t="embarque">${ic('ticket', 18)}Sala de embarque</button></div>
+    <div class="card" style="padding:0"><table class="tbl"><thead><tr><th>Viagem</th><th>Datas</th><th>Pessoas</th><th>Etapa</th><th>Checklist</th><th>No app</th><th class="num">Valor</th></tr></thead><tbody>
+    ${S.viagens.map((v) => { const ok = v.check.filter((c) => c.ok).length; return `<tr class="cl" data-a="go" data-t="viagem" data-id="${v.id}"><td><b>${esc(v.titulo)}</b></td><td>${v.ida} a ${v.volta}</td><td>${v.pessoas}</td><td><span class="pill p-roxo">${EMB.find((e) => e.id === v.emb).nome}</span></td><td><span class="pill ${ok === v.check.length ? 'p-verde' : 'p-amar'}">${ok} de ${v.check.length}</span></td><td>${v.app ? '<span class="pill p-verde">Grupo no app</span>' : '<span class="pill p-cinza">Fora do app</span>'}</td><td class="num">${brl(v.valor)}</td></tr>`; }).join('')}
+    </tbody></table></div>`;
+}
+function telaEmbarque() {
+  return `<div class="ph"><div><h1>Sala de embarque</h1><p>Pós-venda até a volta. Cada cartão traz o checklist da etapa e quantos dias faltam para a partida.</p></div></div>
+    <div class="kb">${EMB.map((e, ei) => { const vs = S.viagens.filter((v) => v.emb === e.id); return `<div class="kc"><div class="kh"><span>${e.nome} <small>· ${vs.length}</small></span></div>${vs.map((v) => { const ok = v.check.filter((c) => c.ok).length; return `<div class="kcard" style="border-top-color:${ok === v.check.length ? '#0E6B4C' : '#B45309'}"><b data-a="go" data-t="viagem" data-id="${v.id}" style="cursor:pointer">${esc(v.titulo)}</b><div class="meta"><span>${v.ida} · ${v.pessoas} pessoas</span></div><div style="margin-top:8px">${v.check.map((c, ci) => `<label class="chk sm" style="font-weight:600;padding:2px 0"><input type="checkbox" data-a="check" data-id="${v.id}" data-v="${ci}" ${c.ok ? 'checked' : ''}>${esc(c.t)}</label>`).join('')}</div>${ei < EMB.length - 1 ? `<button class="btn sm ${ok === v.check.length ? 'p' : ''}" style="margin-top:8px;width:100%;justify-content:center" data-a="avancarEmb" data-id="${v.id}">${ok === v.check.length ? 'Avançar para ' + EMB[ei + 1].nome : 'Faltam ' + (v.check.length - ok) + ' itens'}</button>` : ''}</div>`; }).join('') || '<div class="vazio sm">Nada aqui</div>'}</div>`; }).join('')}</div>`;
+}
+function telaViagem() {
+  const v = via(S.id); if (!v) return '<div class="vazio">Viagem não encontrada.</div>';
+  const roma = v.id === 'V-40'; const ab = S.aba;
+  const abas = [['resumo', 'Resumo'], ['checklist', 'Checklist'], ['despesas', 'Despesas do grupo'], ['cobranca', 'Cobrança'], ['tarefas', 'Tarefas']];
+  let corpo = '';
+  if (ab === 'resumo') corpo = `<div class="g2"><div class="card"><h3>Viagem</h3><table class="tbl"><tbody><tr><td class="muted">Datas</td><td>${v.ida} a ${v.volta}</td></tr><tr><td class="muted">Pessoas</td><td>${v.pessoas}</td></tr><tr><td class="muted">Etapa</td><td>${EMB.find((e) => e.id === v.emb).nome}</td></tr><tr><td class="muted">Valor vendido</td><td>${brl(v.valor)}</td></tr><tr><td class="muted">No app</td><td>${v.app ? 'O grupo vê roteiro, vouchers e despesas no app' : 'Grupo fora do app'}</td></tr></tbody></table></div>
+    <div class="card"><h3>Vouchers por atividade</h3>${roma ? lead('L-1042').roteiro[0].itens.filter((i) => i.warn).concat(lead('L-1042').roteiro[1].itens.filter((i) => i.warn)).map((i) => `<div class="ativ"><span class="h">${i.h}</span><div style="flex:1"><b>${esc(i.nome)}</b><div class="sm muted">${v.vouchers && v.vouchers[i.nome] ? 'Voucher anexado · visível no app' : 'Aguardando voucher'}</div></div>${v.vouchers && v.vouchers[i.nome] ? '<span class="pill p-verde">Anexado</span>' : `<button class="btn sm" data-a="voucher" data-id="${v.id}" data-v="${esc(i.nome)}">Anexar voucher</button>`}</div>`).join('') : '<p class="sm muted">Vouchers desta viagem já enviados.</p>'}</div></div>
+    ${roma && v.emb !== 'concluida' ? `<div class="card" style="margin-top:16px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap"><div><b>Fim da jornada</b><div class="sm muted">Simule a volta: o grupo quita as contas no app, avalia a agência e pede a próxima viagem.</div></div><button class="btn p" data-a="simFim">Simular: viagem concluída e quitada no app</button></div>` : ''}`;
+  if (ab === 'checklist') corpo = `<div class="card">${v.check.map((c, ci) => `<label class="chk" style="padding:8px 0;border-bottom:1px solid var(--line)"><input type="checkbox" data-a="check" data-id="${v.id}" data-v="${ci}" ${c.ok ? 'checked' : ''}>${esc(c.t)}</label>`).join('')}<p class="sm muted">Itens criados a partir das reservas com horário do roteiro e dos documentos do grupo.</p></div>`;
+  if (ab === 'despesas') corpo = despesasViagem(v);
+  if (ab === 'cobranca') corpo = cobranca(v);
+  if (ab === 'tarefas') corpo = `<div class="card">${S.tarefas.filter((t) => t.ref === v.id).map((t) => tarefaLinha(t)).join('') || '<div class="vazio">Sem tarefas para esta viagem.</div>'}</div>`;
+  return `<div class="crumb"><button data-a="go" data-t="viagens">Viagens</button> › ${esc(v.id)}</div>
+    <div class="ph"><div><h1>${esc(v.titulo)}</h1><p>${v.ida} a ${v.volta} · ${v.pessoas} pessoas · ${EMB.find((e) => e.id === v.emb).nome}</p></div><button class="btn" data-a="go" data-t="embarque">Ver na sala de embarque</button></div>
+    <div class="tabs">${abas.map((a) => `<button class="tab ${ab === a[0] ? 'on' : ''}" data-a="aba" data-v="${a[0]}">${a[1]}</button>`).join('')}</div>${corpo}`;
+}
+function despesasViagem(v) {
+  const L = lead('L-1042'); const ds = v.despesas || [];
+  if (!v.app) return '<div class="card vazio">Este grupo não usa o app: as despesas do grupo não se aplicam.</div>';
+  const nomes = L.pessoas.map((p) => p.n.split(' ')[0]);
+  const f = S.form || { desc: '', valor: '', moeda: 'EUR', pagou: 0, part: [true, true, true, true] };
+  return `<div class="app-ban" style="margin-bottom:14px">${ic('receipt', 28)}<div><b>Despesas lançadas pela agência aparecem no app do grupo</b><div class="sm muted">O grupo só visualiza; quem gerencia é a agência. Cada pessoa recebe um aviso: "a agência adicionou uma despesa". O app não movimenta dinheiro: só registra quem deve a quem.</div></div></div>
+    <div class="g2"><div class="card"><h3>Lançar despesa</h3>
+      <label class="f">Descrição<input class="inp" data-f2="desc" value="${esc(f.desc)}" placeholder="Ex.: Passeio guiado no Vaticano"></label>
+      <div class="g2" style="margin-top:10px"><label class="f">Valor<input class="inp" type="number" data-f2="valor" value="${esc(f.valor)}" placeholder="0"></label><label class="f">Moeda<select class="inp" data-f2="moeda"><option value="EUR" ${f.moeda === 'EUR' ? 'selected' : ''}>€ euro</option><option value="BRL" ${f.moeda === 'BRL' ? 'selected' : ''}>R$ real</option></select></label></div>
+      <label class="f" style="margin-top:10px">Quem pagou<select class="inp" data-f2="pagou">${nomes.map((n, i) => `<option value="${i}" ${+f.pagou === i ? 'selected' : ''}>${n}</option>`).join('')}</select></label>
+      <div class="sm" style="font-weight:700;margin:10px 0 4px">Dividir entre quem participa</div><div class="row" style="flex-wrap:wrap">${nomes.map((n, i) => `<label class="chk"><input type="checkbox" data-a="partD" data-v="${i}" ${f.part[i] ? 'checked' : ''}>${n}</label>`).join('')}</div>
+      <button class="btn p" style="margin-top:12px" data-a="lancarD" data-id="${v.id}">Lançar e avisar o grupo</button>
+    </div>
+    <div class="card"><h3>Lançadas pela agência (${ds.length})</h3>${ds.length ? ds.map((d, i) => `<div class="ativ"><span class="h">${ic(d.e || 'receipt', 26)}</span><div style="flex:1"><b>${esc(d.desc)}</b><div class="sm muted">${d.moeda === 'EUR' ? eur2(d.valor) : brl2(d.valor)} · pago por ${nomes[d.pagou]} · dividido entre ${d.part.filter(Boolean).length} (${nomes.filter((n, i) => d.part[i]).join(', ')})</div><div class="sm" style="color:var(--verde);font-weight:700">Visível no app · grupo avisado</div></div><button class="lk sm" data-a="exclD" data-id="${v.id}" data-v="${i}">Excluir</button></div>`).join('') : '<div class="vazio">Nenhuma despesa lançada ainda.</div>'}</div></div>`;
+}
+function cobranca(v) {
+  if (!v.valor) return '';
+  const par = 10; const ent = Math.round(v.valor * 0.3); const resto = v.valor - ent; const pv = resto / (par - 1);
+  const linhas = [{ t: 'Entrada (30%)', d: 'no aceite', val: ent, ok: true }].concat(Array.from({ length: par - 1 }, (x, i) => ({ t: 'Parcela ' + (i + 2) + ' de ' + par, d: 'dia 10/' + String(((11 + i) % 12) + 1).padStart(2, '0'), val: pv, ok: false })));
+  return `<div class="card"><h3>${ic('moneybag', 22)} Cobrança da agência</h3><p class="sm muted">Controle do que o cliente paga à agência pelo pacote (o rateio entre o grupo fica em "Despesas do grupo").</p>
+    <table class="tbl"><thead><tr><th>Parcela</th><th>Vencimento</th><th class="num">Valor</th><th>Situação</th></tr></thead><tbody>${linhas.slice(0, 5).map((l) => `<tr><td>${l.t}</td><td>${l.d}</td><td class="num">${brl2(l.val)}</td><td>${l.ok ? '<span class="pill p-verde">Recebida</span>' : '<span class="pill p-cinza">A receber</span>'}</td></tr>`).join('')}<tr><td colspan="4" class="sm muted">+ ${par - 5} parcelas</td></tr></tbody></table></div>`;
+}
+function telaDespesas() {
+  const vs = S.viagens.filter((v) => v.app);
+  return `<div class="ph"><div><h1>Despesas e cobrança</h1><p>Despesas que a agência lança para os grupos no app e o que cada cliente paga à agência.</p></div></div>
+    <div class="card" style="padding:0"><table class="tbl"><thead><tr><th>Viagem</th><th>Despesas lançadas</th><th class="num">Valor vendido</th><th>Cobrança</th></tr></thead><tbody>${vs.map((v) => `<tr class="cl" data-a="goViagemAba" data-id="${v.id}" data-v="despesas"><td><b>${esc(v.titulo)}</b></td><td>${(v.despesas || []).length}</td><td class="num">${brl(v.valor)}</td><td><span class="pill p-verde">Entrada recebida</span></td></tr>`).join('')}</tbody></table></div>`;
+}
+
+/* ---------- Metas, clientes, tarefas, reputação ---------- */
+function telaMetas() {
+  const ganhos = S.negocios.filter((n) => n.etapa === 'ganho'); const tot = ganhos.reduce((a, n) => a + n.valor, 0); const meta = 90000;
+  const abertos = S.negocios.filter((n) => !['ganho', 'perdido'].includes(n.etapa)); const prev = abertos.reduce((a, n) => a + n.valor * ETAPAS.find((e) => e.id === n.etapa).prob / 100, 0);
+  const app = S.negocios.filter((n) => n.origem === 'App'); const outros = S.negocios.filter((n) => n.origem !== 'App');
+  const taxa = (arr) => { const f = arr.filter((n) => ['ganho', 'perdido'].includes(n.etapa)); return f.length ? Math.round(f.filter((n) => n.etapa === 'ganho').length / f.length * 100) : 0; };
+  return `<div class="ph"><div><h1>Metas e resultados</h1><p>Uma única fonte de verdade: os negócios do funil. Outubro de 2026.</p></div></div>
+    <div class="card"><div class="row sp"><h3>Meta de outubro: ${brl(meta)}</h3><span class="pill ${tot >= meta ? 'p-verde' : 'p-amar'}">${Math.round(tot / meta * 100)}% atingido</span></div><div class="bar" style="height:14px"><div style="height:14px;width:${Math.min(100, tot / meta * 100)}%"></div></div>
+      <div class="g4" style="margin-top:14px"><div class="kpi" style="border-left-color:var(--verde)"><div class="k">Ganho</div><div class="v">${brl(tot)}</div><div class="d">${ganhos.length} vendas</div></div><div class="kpi"><div class="k">Falta</div><div class="v">${brl(Math.max(0, meta - tot))}</div><div class="d">1 dia útil no mês</div></div><div class="kpi" style="border-left-color:var(--azul)"><div class="k">Previsto ponderado</div><div class="v">${brl(prev)}</div><div class="d">abertos × chance da etapa</div></div><div class="kpi" style="border-left-color:var(--coral)"><div class="k">Se fechar o previsto</div><div class="v">${brl(tot + prev)}</div><div class="d">${tot + prev >= meta ? 'bate a meta' : 'ainda abaixo da meta'}</div></div></div></div>
+    <div class="g2" style="margin-top:16px"><div class="card"><h3>Valor por etapa</h3>${ETAPAS.map((e) => { const v = S.negocios.filter((n) => n.etapa === e.id).reduce((a, n) => a + n.valor, 0); return `<div style="margin-bottom:10px"><div class="row sp sm"><b>${e.nome}</b><span>${brl(v)}</span></div><div class="bar"><div style="width:${Math.min(100, v / 60000 * 100)}%;background:${e.cor}"></div></div></div>`; }).join('')}</div>
+      <div class="card"><h3>Leads do app contra outras origens</h3><table class="tbl"><thead><tr><th>Origem</th><th class="num">Negócios</th><th class="num">Valor</th><th class="num">Taxa de ganho</th></tr></thead><tbody><tr><td><span class="pill p-roxo">App</span></td><td class="num">${app.length}</td><td class="num">${brl(app.reduce((a, n) => a + n.valor, 0))}</td><td class="num">${taxa(app)}%</td></tr><tr><td>Outras</td><td class="num">${outros.length}</td><td class="num">${brl(outros.reduce((a, n) => a + n.valor, 0))}</td><td class="num">${taxa(outros)}%</td></tr></tbody></table><p class="sm muted">Números de exemplo do protótipo.</p></div></div>`;
+}
+function telaClientes() {
+  const L = lead('L-1042'); const aceito = L.status === 'aceito';
+  const grupos = [{ n: 'Família Rodrigues', p: L.pessoas.map((x) => x.n), app: true, viagens: aceito ? 1 : 0, ultima: aceito ? 'Roma e Florença' : '—', pass: 'válidos (4 de 4)' }, { n: 'Família Duarte', p: ['Renata Duarte', 'Caio Duarte', 'Bia Duarte', 'Leo Duarte'], app: true, viagens: 2, ultima: 'Paris', pass: '3 de 4 válidos' }, { n: 'Família Teixeira', p: ['Paulo Teixeira', '+4'], app: false, viagens: 1, ultima: 'Gramado', pass: '—' }];
+  return `<div class="ph"><div><h1>Clientes e grupos</h1><p>O cliente viaja em grupo: aqui ficam as pessoas e os grupos com quem já viajaram.</p></div></div>
+    <div class="card" style="padding:0"><table class="tbl"><thead><tr><th>Grupo</th><th>Pessoas</th><th>App</th><th>Viagens</th><th>Última</th><th>Passaportes</th></tr></thead><tbody>${grupos.map((g, i) => `<tr><td><b>${esc(g.n)}</b></td><td>${g.p.map((p, j) => `<span class="av sm" title="${esc(p)}" style="${AVC[j % 6]};margin-right:2px">${p[0] === '+' ? p : ini(p)}</span>`).join('')}</td><td>${g.app ? '<span class="pill p-verde">Conta no app</span>' : '<span class="pill p-cinza">Sem conta</span>'}</td><td>${g.viagens}</td><td>${esc(g.ultima)}</td><td class="sm">${esc(g.pass)}</td></tr>`).join('')}</tbody></table></div>
+    <p class="sm muted" style="margin-top:8px">${ic('lock', 14, 'display:inline;vertical-align:-2px')} Documentos (CPF e passaporte) ficam mascarados na lista e só aparecem no detalhe, para quem tem permissão.</p>`;
+}
+function telaTarefas() {
+  const g = [['atrasada', 'Atrasadas'], ['hoje', 'Hoje'], ['proximas', 'Próximas']];
+  return `<div class="ph"><div><h1>Tarefas</h1><p>Situações simples (aberta ou concluída), com "atrasada" calculado sozinho. A automação cria tarefas a partir do que acontece no app.</p></div></div>
+    <div class="g3">${g.map((x) => `<div class="card"><h3>${x[1]} (${S.tarefas.filter((t) => t.grupo === x[0] && !t.feito).length})</h3>${S.tarefas.filter((t) => t.grupo === x[0]).map((t) => tarefaLinha(t)).join('') || '<div class="vazio sm">Nada aqui</div>'}</div>`).join('')}</div>`;
+}
+function telaReputacao() {
+  const m = S.avals.reduce((a, x) => a + x.n, 0) / S.avals.length;
+  return `<div class="ph"><div><h1>Avaliações e ranking</h1><p>Nota dada pelos grupos no app depois da viagem quitada. Pagar não muda a posição no ranking.</p></div></div>
+    <div class="g3" style="margin-bottom:16px"><div class="kpi" style="border-left-color:#E8A400"><div class="k">Nota média</div><div class="v">${m.toFixed(1).replace('.', ',')} ★</div><div class="d">${S.avals.length} avaliações</div></div><div class="kpi"><div class="k">Posição no ranking (exemplo)</div><div class="v">2º</div><div class="d">agências credenciadas em São Paulo</div></div><div class="kpi" style="border-left-color:var(--verde)"><div class="k">Grupos que voltaram</div><div class="v">${S.recompra ? 1 : 0}</div><div class="d">recompra pelo app</div></div></div>
+    <div class="card">${S.avals.map((a) => `<div class="ativ"><span class="h" style="min-width:86px;color:#E8A400;letter-spacing:1px">${'★'.repeat(a.n)}<span style="color:#D9D4EA">${'★'.repeat(5 - a.n)}</span></span><div style="flex:1"><b>${esc(a.q)}</b> <span class="sm muted">· ${esc(a.d)}</span>${a.nova ? ' <span class="pill p-verde">Nova</span>' : ''}<div>${esc(a.t)}</div></div></div>`).join('')}</div>`;
+}
+
+/* ============================== AÇÕES ============================== */
+const ACT = {
+  go: (d) => go(d.t, d.id || null),
+  goViagemAba: (d) => go('viagem', d.id, { aba: d.v }),
+  aba: (d) => set({ aba: d.v }),
+  guia: () => set({ guia: !S.guia }),
+  notif: () => set({ notifOn: !S.notifOn }),
+  lerTudo: () => { S.notifs.forEach((n) => { n.nova = false; }); render(); },
+  abrirNotif: (d) => { const n = S.notifs.find((x) => x.id === d.id); n.nova = false; go(n.go[0], n.go[1]); },
+  criar: () => set({ modal: 'criar' }),
+  fechar: () => set({ modal: null }),
+  reiniciar: () => { S = inicial(); render(); toast('Protótipo reiniciado'); },
+  recusar: (d) => set({ modal: { tipo: 'recusar', id: d.id } }),
+  confRecusar: (d) => { const l = lead(d.id); l.status = 'recusado'; S.modal = null; toast('Lead recusado. O grupo pode escolher outra agência no app; nada foi cobrado.'); go('leads'); },
+  aceitar: (d) => {
+    const l = lead(d.id); l.status = 'aceito';
+    const nid = 'N-' + (210 + S.negocios.length);
+    S.negocios.unshift({ id: nid, lead: l.id, titulo: l.titulo + ' · Família ' + l.contato.nome.split(' ').pop(), etapa: 'aceito', valor: l.valorEst, dono: 'Ana Souza', origem: 'App', abertura: '30/10/2026', pessoas: l.pessoas.length, prox: { t: 'Falar com o grupo em até 24 h', d: 'Hoje', late: false } });
+    S.tarefas.unshift({ id: 'T' + Date.now(), t: 'Falar com o grupo em até 24 h · ' + l.titulo, ref: nid, quando: 'Hoje', grupo: 'hoje', feito: false, auto: true });
+    ativ(nid, 'agora', 'Lead aceito por Ana Souza · grupo avisado no app');
+    if (l.id === 'L-1042') marcar('p3');
+    S.notifs.forEach((n) => { if (n.go[1] === l.id) n.nova = false; });
+    go('negocio', nid); toast('Lead aceito: virou negócio no funil e o grupo foi avisado no app');
+  },
+  criarProp: (d) => { const n = neg(d.id); S.prop = novaProposta(n.id); n.etapa = 'montando'; n.prox = { t: 'Enviar a proposta ao grupo', d: 'Amanhã', late: false }; ativ(n.id, 'agora', 'Proposta criada a partir do roteiro do app'); marcar('p4'); go('editor'); toast('Proposta criada com destinos, datas e atrações do app'); },
+  etapa: (d) => { S.prop.etapa = +d.v; if (+d.v >= 6) marcar('p5'); render(); window.scrollTo(0, 0); },
+  importarVoos: () => { S.prop.voos[0].trechos = [{ r: 'GRU → FCO', c: 'Cia. aérea (exemplo) · voo noturno', d: '12/11', h: '23:55 → 15:50 (+1)', dur: '11h55' }, { r: 'FCO → GRU', c: 'Cia. aérea (exemplo)', d: '18/11', h: '22:10 → 05:40 (+1)', dur: '12h30' }]; render(); toast('IA leu 2 trechos e conferiu com as datas da viagem'); },
+  selHotel: (d) => { const h = S.prop.hoteis.find((x) => x.id === d.id); S.prop.hoteis.forEach((x) => { if (x.cidade === h.cidade) x.sel = x.id === h.id; }); render(); },
+  selExp: (d) => { const x = S.prop.exps[+d.id]; x.sel = !x.sel; render(); },
+  selServ: (d) => { const x = S.prop.servicos[+d.id]; x.sel = !x.sel; render(); },
+  capa: (d) => { S.prop.capa = d.v; render(); },
+  canal: (d) => { S.prop[d.v] = !S.prop[d.v]; render(); },
+  enviarProp: () => { const P = S.prop; const n = neg(P.neg); const C = propCalc(P); P.enviada = true; n.etapa = 'enviada'; n.valor = C.venda; n.prox = { t: 'Follow-up se o grupo não abrir em 2 dias', d: '01/11', late: false }; ativ(n.id, 'agora', 'Proposta enviada ao grupo no app' + (P.canalLink ? ' e por link' : '') + ' · ' + brl(C.venda)); S.tarefas.unshift({ id: 'T' + Date.now(), t: 'Follow-up se o grupo não abrir a proposta · Roma e Florença', ref: n.id, quando: '01/11', grupo: 'proximas', feito: false, auto: true }); marcar('p5'); marcar('p6'); go('negocio', n.id); toast('Proposta enviada: os 4 receberam o aviso no app'); },
+  simAbriu: (d) => { ativ(d.id, 'agora', 'Flávio e Marta abriram a proposta no app'); S.notifs.unshift({ id: 'n' + Date.now(), t: 'Família Rodrigues abriu a proposta', s: 'Flávio e Marta viram Roma e Florença no app', nova: true, go: ['negocio', d.id], e: 'speech' }); render(); toast('O grupo abriu a proposta no app'); },
+  simAceitou: (d) => { const n = neg(d.id); n.etapa = 'ganho'; n.fechamento = '30/10/2026'; ativ(n.id, 'agora', 'Flávio (cabeça do grupo) aceitou a proposta no app · venda ganha'); S.notifs.unshift({ id: 'n' + Date.now(), t: 'Proposta aceita no app!', s: 'Roma e Florença · Família Rodrigues', nova: true, go: ['negocio', n.id], e: 'party' }); marcar('p7'); S.modal = { tipo: 'ganho', id: n.id }; render(); },
+  proxPassos: (d) => set({ modal: { tipo: 'ganho', id: d.id } }),
+  criarViagem: (d) => { const n = neg(d.id); const C = propCalc(S.prop); S.viagens.unshift({ id: 'V-40', titulo: 'Roma e Florença · Família Rodrigues', ida: '13/11/2026', volta: '18/11/2026', emb: 'emissoes', pessoas: 4, valor: C.venda, app: true, vouchers: {}, despesas: [], check: [{ t: 'Emitir bilhetes aéreos (4)', ok: false }, { t: 'Passaportes válidos (4 de 4)', ok: true }, { t: 'Seguro viagem emitido', ok: false }, { t: 'Reservar ingresso Coliseu · 13/11 09:00', ok: false }, { t: 'Reservar aula de massa · 14/11 10:30', ok: false }, { t: 'Entrada recebida (30%)', ok: true }] }); S.modal = null; ativ(n.id, 'agora', 'Viagem criada e enviada para a sala de embarque'); toast('Viagem criada: roteiro, vouchers e despesas agora aparecem no app'); go('embarque'); },
+  check: (d) => { const v = via(d.id); v.check[+d.v].ok = !v.check[+d.v].ok; if (v.id === 'V-40' && v.check.every((c) => c.ok)) marcar('p8'); render(); },
+  avancarEmb: (d) => { const v = via(d.id); const ok = v.check.every((c) => c.ok); if (!ok) { toast('Conclua o checklist antes de avançar'); return; } const i = EMB.findIndex((e) => e.id === v.emb); v.emb = EMB[i + 1].id; if (v.id === 'V-40') marcar('p8'); v.check = v.check.map((c) => ({ ...c })); render(); toast(v.titulo + ' → ' + EMB[i + 1].nome); },
+  voucher: (d) => { const v = via(d.id); v.vouchers[d.v] = true; render(); toast('Voucher anexado: o grupo já vê no app'); },
+  partD: (d) => { const f = S.form || { desc: '', valor: '', moeda: 'EUR', pagou: 0, part: [true, true, true, true] }; f.part[+d.v] = !f.part[+d.v]; S.form = f; render(); },
+  lancarD: (d) => {
+    const v = via(d.id); const f = S.form || {}; const val = parseFloat(String(f.valor || '').replace(',', '.'));
+    if (!f.desc || !(val > 0)) { toast('Preencha descrição e valor'); return; }
+    if (!(f.part || []).some(Boolean)) { toast('Escolha pelo menos 1 pessoa'); return; }
+    v.despesas.push({ desc: f.desc, valor: val, moeda: f.moeda || 'EUR', pagou: +f.pagou || 0, part: f.part.slice(), e: 'receipt' });
+    S.form = null; marcar('p9'); render(); toast('Despesa lançada: o grupo recebeu o aviso "a agência adicionou uma despesa"');
+  },
+  simFim: () => {
+    const v = via('V-40'); v.emb = 'concluida';
+    S.avals.unshift({ q: 'Família Rodrigues', n: 5, t: 'Roteiro exatamente como votamos no app e tudo resolvido pelo app até o acerto final.', d: 'nov/2026', nova: true });
+    S.leads.unshift({ id: 'L-1051', status: 'novo', recompra: true, recebido: 'Agora', prazo: 'Responder até amanhã', urg: false, origem: 'app', titulo: 'Próxima viagem · destino em escolha', pais: 'A definir', cidades: [], ida: 'a definir', volta: 'a definir', dias: 0, noites: 0, partida: 'São Paulo (GRU)', tipo: 'Família', valorEst: 32000, precoLead: 0, foto: '', contato: { nome: 'Flávio Rodrigues', email: 'flavio@email.com', tel: '(11) 98888-7777' }, pessoas: lead('L-1042').pessoas, leitura: 'Custo-benefício', alerta: 'Recompra: sem custo de lead (exemplo)', match: [{ g: 'Gastronomia', p: 82, emo: 'food' }], votos: [], roteiro: [] });
+    S.recompra = true;
+    S.notifs.unshift({ id: 'n' + Date.now(), t: 'Nova avaliação: 5 estrelas', s: 'Família Rodrigues avaliou a agência no app', nova: true, go: ['reputacao', ''], e: 'star' });
+    S.notifs.unshift({ id: 'n' + (Date.now() + 1), t: 'Recompra: Família Rodrigues quer viajar de novo', s: 'Lead da próxima viagem, com o mesmo grupo', nova: true, go: ['lead', 'L-1051'], e: 'restore' });
+    marcar('p10'); go('reputacao'); toast('Viagem quitada no app: chegaram a avaliação e o lead da próxima viagem');
+  },
+  exclD: (d) => { const v = via(d.id); const x = v.despesas.splice(+d.v, 1)[0]; render(); toast('Despesa "' + x.desc + '" excluída: o grupo foi avisado no app'); },
+  feitoT: (d) => { const t = S.tarefas.find((x) => x.id === d.id); t.feito = !t.feito; render(); }
+};
+
+/* ---------- modais ---------- */
+function modal() {
+  const M = S.modal; if (!M) return '';
+  let c = '';
+  if (M === 'criar') c = `<h2 style="font-size:20px">Criar</h2><p class="muted">No produto, você cria negócio, cliente, tarefa ou proposta manualmente. Neste protótipo, a jornada principal começa por um lead que o grupo gerou no app.</p><div class="row" style="margin-top:14px;flex-wrap:wrap"><button class="btn p" data-a="go" data-t="leads">Ver leads do app</button><button class="btn" data-a="fechar">Fechar</button></div>`;
+  if (M.tipo === 'recusar') c = `<h2 style="font-size:20px">Recusar o lead?</h2><p class="muted">O grupo é avisado no app e pode escolher outra agência. Nada é cobrado.</p><label class="f">Motivo<select class="inp"><option>Sem disponibilidade nas datas</option><option>Destino fora da nossa especialidade</option><option>Outro</option></select></label><div class="row" style="margin-top:14px;justify-content:flex-end"><button class="btn" data-a="fechar">Cancelar</button><button class="btn dg" data-a="confRecusar" data-id="${M.id}">Recusar lead</button></div>`;
+  if (M.tipo === 'ganho') c = `<div style="text-align:center">${ic('party', 64, 'margin:0 auto')}<h2 style="font-size:22px;margin-top:8px">Venda ganha!</h2><p class="muted">O cabeça do grupo aceitou a proposta no app. Próximos passos:</p></div>
+    <div class="ativ"><span class="h">1</span><div><b>Criar a viagem</b> a partir da proposta (roteiro, voos, hotéis e preços).</div></div><div class="ativ"><span class="h">2</span><div><b>Enviar para a sala de embarque</b> com o checklist de emissões, documentos e reservas.</div></div><div class="ativ"><span class="h">3</span><div><b>Lançar despesas do grupo</b>, que aparecem no app.</div></div>
+    <div class="row" style="margin-top:14px;justify-content:flex-end"><button class="btn" data-a="fechar">Depois</button><button class="btn p" data-a="criarViagem" data-id="${M.id}">Criar viagem e enviar para embarque</button></div>`;
+  return `<div class="ov" data-a="fecharFora"><div class="modal" role="dialog" aria-modal="true">${c}</div></div>`;
+}
+
+/* ============================== RENDER ============================== */
+const TELAS = { inicio: telaInicio, leads: telaLeads, lead: telaLead, pipeline: telaPipeline, negocio: telaNegocio, propostas: telaPropostas, editor: telaEditor, viagens: telaViagens, viagem: telaViagem, embarque: telaEmbarque, despesas: telaDespesas, metas: telaMetas, clientes: telaClientes, tarefas: telaTarefas, reputacao: telaReputacao };
+function render() {
+  const sy = window.scrollY;
+  document.getElementById('root').innerHTML = `<div class="app ${S.guia ? 'guia-on' : ''}">${side()}<main class="main"><div class="aviso-pc">Este protótipo foi feito para computador. No celular dá para navegar, mas a experiência completa é numa tela maior.</div>${barraTopo()}<div class="content">${(TELAS[S.tela] || telaInicio)()}</div></main>${S.guia ? guia() : ''}</div>${modal()}${S.toast ? `<div class="toast" role="status">${esc(S.toast)}</div>` : ''}`;
+  window.scrollTo(0, sy);
+}
+document.addEventListener('click', (e) => {
+  const el = e.target.closest('[data-a]'); if (!el) { if (S.notifOn && !e.target.closest('.notif')) set({ notifOn: false }); return; }
+  const a = el.dataset.a;
+  if (a === 'fecharFora') { if (e.target === el) set({ modal: null }); return; }
+  if (ACT[a]) { if (el.tagName !== 'INPUT') e.preventDefault(); ACT[a](el.dataset); }
+});
+document.addEventListener('keydown', (e) => { if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('kcard')) { e.preventDefault(); e.target.click(); } if (e.key === 'Escape' && S.modal) set({ modal: null }); });
+document.addEventListener('input', (e) => {
+  const t = e.target;
+  if (t.dataset.f && S.prop) { S.prop[t.dataset.f] = t.type === 'number' ? +t.value : t.value; }
+  if (t.dataset.f2) { S.form = S.form || { desc: '', valor: '', moeda: 'EUR', pagou: 0, part: [true, true, true, true] }; S.form[t.dataset.f2] = t.value; }
+});
+document.addEventListener('change', (e) => { const t = e.target; if (t.dataset.f && S.prop && t.type === 'number') render(); if (t.dataset.f2 && t.tagName === 'SELECT') render(); });
+marcar('p1');
+render();
+</script>
+</body>
+</html>
