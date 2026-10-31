@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AppTravel Group CRM</title>
-<meta name="description" content="Protótipo navegável do CRM da agência: o lead gerado pelo grupo no app vira negócio, proposta, viagem e pós-venda.">
-<meta property="og:title" content="AppTravel Group CRM">
+<title>AppTravel Group: visão integrada</title>
+<meta name="description" content="Protótipo navegável da visão integrada: o celular do grupo e o CRM da agência lado a lado, do lead à recompra.">
+<meta property="og:title" content="AppTravel Group: visão integrada">
 <meta property="og:description" content="Protótipo navegável do CRM da agência, conectado ao app do grupo.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -28,7 +28,7 @@ a{color:var(--roxo)}
 h1,h2,h3{font-family:var(--disp);margin:0;letter-spacing:-.3px}
 :focus-visible{outline:3px solid #BFB2FF;outline-offset:2px}
 .app{display:grid;grid-template-columns:248px 1fr;min-height:100vh}
-.app.guia-on{grid-template-columns:248px 1fr 340px}
+.app.guia-on{grid-template-columns:232px minmax(0,1fr) 410px}
 /* menu */
 .side{background:#fff;border-right:1px solid var(--line);padding:16px 12px;position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;gap:4px}
 .brand{display:flex;align-items:center;gap:10px;padding:4px 8px 12px}
@@ -70,7 +70,7 @@ h1,h2,h3{font-family:var(--disp);margin:0;letter-spacing:-.3px}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 .lk{border:none;background:none;color:var(--roxo);font-weight:700;padding:0}
 /* cartões e grades */
-.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;overflow-x:auto}
 .card h3{font-size:16px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
@@ -127,7 +127,42 @@ textarea.inp{height:auto;min-height:90px;padding:10px 12px;resize:vertical}
 .ex.sel{border-color:var(--roxo)}
 .ex .b{padding:10px 12px}
 /* drawer, modal, toast */
-.guia{background:#fff;border-left:1px solid var(--line);position:sticky;top:0;height:100vh;overflow-y:auto;padding:18px 16px}
+.guia{background:#EFEBFA;border-left:1px solid var(--line);position:sticky;top:0;height:100vh;overflow-y:auto;padding:14px 14px 20px;display:flex;flex-direction:column;gap:10px}
+.passo-atual{background:#fff;border-radius:16px;padding:12px 14px;border:1px solid var(--line)}
+.ator{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;padding:3px 9px;border-radius:999px}
+.ator.a-app{background:#FFE9E4;color:#B4381F}.ator.a-crm{background:var(--roxo-c);color:var(--roxo2)}
+details.todos summary{cursor:pointer;font-size:12px;font-weight:800;color:var(--roxo2);padding:4px 2px}
+.pers{display:flex;gap:6px}
+.pers button{flex:1;border:1px solid var(--line2);background:#fff;border-radius:12px;padding:7px 8px;font-weight:800;font-size:12px;text-align:left;line-height:15px}
+.pers button span{display:block;font-weight:600;color:var(--muted);font-size:11px}
+.pers button.on{border-color:var(--coral);box-shadow:0 0 0 2px #FFD5CC}
+.fone{background:#1E1840;border-radius:38px;padding:10px;box-shadow:0 20px 40px rgba(30,24,64,.25)}
+.tela{background:#F7F5FC;border-radius:30px;height:max(460px,calc(100vh - 330px));overflow-y:auto;position:relative}
+.tela .sb{display:flex;justify-content:space-between;font-size:11px;font-weight:800;padding:10px 20px 4px;color:var(--ink)}
+.tela .hd{padding:6px 16px 10px}
+.tela .hd b{font-family:var(--disp);font-size:18px;display:block}
+.tela .pc{background:#fff;border-radius:18px;margin:0 12px 10px;padding:12px;border:1px solid var(--line)}
+.tela .pc h4{margin:0 0 8px;font-family:var(--disp);font-size:14px;display:flex;align-items:center;gap:6px}
+.tela .bt{width:100%;height:44px;border-radius:14px;border:none;background:linear-gradient(135deg,#7B5CFF,#4A2FD6);color:#fff;font-weight:800;margin-top:8px}
+.tela .bt.sec{background:#fff;color:var(--roxo2);border:1px solid var(--line2)}
+.tela .bt:disabled{opacity:.45}
+.tela .volta{border:none;background:none;color:var(--roxo2);font-weight:800;padding:0;font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{border:1px solid var(--line2);background:#fff;border-radius:999px;padding:7px 11px;font-size:12px;font-weight:700}
+.chips button.on{background:var(--roxo);border-color:var(--roxo);color:#fff}
+.marco{display:flex;gap:10px;padding:6px 0;position:relative}
+.marco .bo{width:20px;height:20px;border-radius:999px;border:2px solid var(--line2);flex:none;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;background:#fff}
+.marco.ok .bo{background:var(--verde);border-color:var(--verde)}
+.marco.ag .bo{border-color:var(--coral);box-shadow:0 0 0 3px #FFE1DA}
+.marco b{display:block;font-size:13px}
+.marco span{font-size:12px;color:var(--muted)}
+.aviso{display:flex;gap:8px;padding:8px;border-radius:12px;background:#FFF6F2;margin-bottom:6px;font-size:12px}
+.reac{display:flex;gap:6px;margin-top:6px}
+.reac button{border:1px solid var(--line2);background:#fff;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:700}
+.reac button.on{background:var(--verde-c);border-color:var(--verde);color:var(--verde)}
+.reac button.on.tr{background:var(--amar-c);border-color:#E8B54A;color:var(--amar)}
+.estrelas button{border:none;background:none;font-size:30px;color:#D9D4EA;padding:0 2px}
+.estrelas button.on{color:#E8A400}
 .passo{display:flex;gap:10px;padding:10px;border-radius:12px;align-items:flex-start}
 .passo.atual{background:var(--roxo-c)}
 .passo .c{width:24px;height:24px;border-radius:999px;border:2px solid var(--line2);flex:none;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--muted)}
@@ -151,7 +186,7 @@ textarea.inp{height:auto;min-height:90px;padding:10px 12px;resize:vertical}
 .ativ:last-child{border-bottom:none}
 .ativ .h{min-width:52px;font-weight:800;color:var(--roxo2)}
 .star{width:18px;height:18px}
-@media (max-width:1180px){.app.guia-on{grid-template-columns:220px 1fr}.app.guia-on .guia{position:fixed;right:0;top:0;width:340px;z-index:40;box-shadow:-10px 0 30px rgba(0,0,0,.12)}}
+@media (max-width:1240px){.app.guia-on{grid-template-columns:220px 1fr}.app.guia-on .guia{position:fixed;right:0;top:0;width:410px;z-index:40;box-shadow:-10px 0 30px rgba(0,0,0,.12)}}
 @media (max-width:900px){
   .app,.app.guia-on{grid-template-columns:1fr}
   .side{position:static;height:auto;flex-direction:row;flex-wrap:wrap;overflow-x:auto}
@@ -205,17 +240,17 @@ const EMB = [
 /* ---------- lead principal: exatamente o que o protótipo do app gera ---------- */
 function leadRoma() {
   return {
-    id: 'L-1042', status: 'novo', recebido: 'Hoje, 09:12', prazo: 'Responder até amanhã, 09:12', urg: false, origem: 'app',
+    id: 'L-1042', status: 'app', recebido: 'Agora', prazo: 'Responder até seg 02/11, 09:12 (1 dia útil)', urg: false, origem: 'app',
     titulo: 'Roma e Florença', pais: 'Itália', cidades: ['Roma', 'Florença'], ida: '13/11/2026', volta: '18/11/2026', dias: 6, noites: 5,
     partida: 'São Paulo (GRU)', tipo: 'Família', horario: '09:00 às 21:00', valorEst: 32000, precoLead: 270, foto: 'coliseu',
     contato: { nome: 'Flávio Rodrigues', email: 'flavio@email.com', tel: '(11) 98888-7777' },
     pessoas: [
-      { n: 'Flávio Rodrigues', papel: 'Cabeça do grupo', faixa: 'R$ 300 a R$ 600' },
-      { n: 'Marta Rodrigues', papel: 'Mãe', faixa: 'R$ 300 a R$ 600' },
-      { n: 'Lúcia Rodrigues', papel: 'Avó', faixa: 'Até R$ 300' },
-      { n: 'Pedro Rodrigues', papel: 'Irmão', faixa: 'R$ 600 a R$ 1.000' }
+      { n: 'Flávio Rodrigues', papel: 'Cabeça do grupo', faixa: 'R$ 300 a R$ 600', total: 'R$ 5 mil a R$ 10 mil', tel: '(11) 98888-7777', email: 'flavio@email.com' },
+      { n: 'Marta Rodrigues', papel: 'Mãe', faixa: '—', total: '—', tel: '(11) 98888-1111', email: 'marta@email.com' },
+      { n: 'Lúcia Rodrigues', papel: 'Avó', faixa: 'Até R$ 300', total: 'Até R$ 5 mil', tel: '(11) 98888-2222', email: 'lucia@email.com' },
+      { n: 'Pedro Rodrigues', papel: 'Irmão', faixa: 'R$ 600 a R$ 1.000', total: 'R$ 10 mil a R$ 20 mil', tel: '(11) 98888-3333', email: 'pedro@email.com' }
     ],
-    leitura: 'Custo-benefício', alerta: 'O grupo declarou custo-benefício, mas curtiu itens um pouco mais caros.',
+    leitura: 'Custo-benefício', alerta: 'O grupo declarou custo-benefício, mas curtiu itens um pouco mais caros. Uma pessoa declarou até R$ 5 mil no total.',
     match: [{ g: 'Gastronomia', p: 82, emo: 'food' }, { g: 'Pontos turísticos', p: 71, emo: 'classic' }],
     votos: [
       { item: 'Trattoria em Trastevere', g: 'Gastronomia', v: 4, quem: [0, 1, 2, 3], foto: 'trattoria' },
@@ -279,20 +314,21 @@ function viagensIniciais() {
 }
 function inicial() {
   return {
-    tela: 'inicio', id: null, aba: 'resumo', notifOn: false, guia: window.innerWidth > 1180, criarOn: false, modal: null, toast: '',
+    tela: 'inicio', id: null, aba: 'resumo', notifOn: false, guia: window.innerWidth > 900, criarOn: false, modal: null, toast: '',
     leads: leadsIniciais(), negocios: negociosIniciais(), tarefas: tarefasIniciais(), viagens: viagensIniciais(),
-    notifs: [{ id: 'n1', t: 'Novo lead do app: Roma e Florença', s: 'Grupo de 4 pessoas · 13 a 18/11 · responder até amanhã, 09:12', nova: true, go: ['lead', 'L-1042'], e: 'airplane' },
-             { id: 'n2', t: 'Lead do app perto do prazo: Orlando', s: 'Responder até hoje, 18:40', nova: true, go: ['lead', 'L-1043'], e: 'hourglass' },
+    notifs: [{ id: 'n2', t: 'Lead do app perto do prazo: Orlando', s: 'Responder até hoje, 18:40', nova: true, go: ['lead', 'L-1043'], e: 'hourglass' },
              { id: 'n3', t: 'Proposta Cancún vista 3 vezes', s: 'Lua de mel Almeida · última visualização ontem', nova: false, go: ['negocio', 'N-202'], e: 'speech' }],
     avals: [{ q: 'Família Duarte', n: 5, t: 'Proposta clara e roteiro do jeito que o grupo escolheu no app.', d: 'set/2026' }, { q: 'Grupo Vento Sul', n: 5, t: 'Respondeu rápido e resolveu a troca de voo.', d: 'ago/2026' }, { q: 'Casal Prado', n: 4, t: 'Atendimento bom, preço acima do esperado.', d: 'jul/2026' }],
-    prop: null, feitos: {}, recompra: false, ativ: {}
+    prop: null, feitos: {}, recompra: false, ativ: {},
+    ph: { p: 'marta', tela: 'home', ag: 0 }, orc: { faixa: '', total: '' }, enviado: false, recusado: false, reac: { flavio: {}, marta: {} }, aval: {}, avisos: []
   };
 }
 let S = inicial();
 const marcar = (k) => { S.feitos[k] = true; };
 function set(p) { Object.assign(S, p); render(); }
 function toast(t) { S.toast = t; render(); clearTimeout(toast.t); toast.t = setTimeout(() => { S.toast = ''; render(); }, 2600); }
-const go = (tela, id, extra) => { Object.assign(S, { tela: tela, id: id || null, notifOn: false, criarOn: false, modal: null, aba: (extra && extra.aba) || 'resumo' }); if (tela === 'inicio') marcar('p1'); if (tela === 'lead' && id === 'L-1042') marcar('p2'); render(); window.scrollTo(0, 0); };
+const go = (tela, id, extra) => { Object.assign(S, { tela: tela, id: id || null, notifOn: false, criarOn: false, modal: null, aba: (extra && extra.aba) || 'resumo' }); if (tela === 'lead' && id === 'L-1042' && S.enviado) marcar('p3'); render(); window.scrollTo(0, 0); };
+const aviso = (t, s, e, quem) => { S.avisos.unshift({ t: t, s: s, e: e || 'bell', quem: quem || 'todos' }); };
 const lead = (id) => S.leads.find((l) => l.id === id);
 const neg = (id) => S.negocios.find((n) => n.id === id);
 const via = (id) => S.viagens.find((v) => v.id === id);
@@ -317,7 +353,7 @@ function novaProposta(nid) {
       { nome: 'Transfer aeroporto ↔ hotel', preco: 480, qtd: 1, sel: true }
     ],
     vooPreco: 5200, capa: 'coliseu', msg: 'Olá, família Rodrigues! Montamos a proposta a partir do roteiro que vocês escolheram juntos no app: Coliseu, Trattoria em Trastevere e aula de massa fresca já estão incluídos.',
-    canalApp: true, canalLink: true, validade: '7 dias'
+    canal: 'app', validade: '7 dias'
   };
 }
 function propCalc(P) {
@@ -330,29 +366,29 @@ function propCalc(P) {
   return { itens: itens, custo: custo, venda: venda, margem: margem, pct: pct, pp: venda / 4, faixa: pct < 10 ? ['Margem baixa', 'p-verm'] : pct <= 15 ? ['Margem boa', 'p-verde'] : ['Margem ótima', 'p-verde'] };
 }
 
-/* ---------- roteiro de validação (painel à direita) ---------- */
+/* ---------- roteiro integrado: quem age em cada passo (app ou CRM) ---------- */
+const PASSOS = [
+  ['p1', 'app', 'Marta', 'Marta responde ao orçamento', 'Gasto por dia no destino e orçamento total. Privado para o grupo, com o aviso de que a agência escolhida verá.', ['app', 'marta', 'orc']],
+  ['p2', 'app', 'Flávio', 'Flávio escolhe a agência e envia', 'Lista ordenada pelo score. Ele autoriza por todos e as escolhas travam.', ['app', 'flavio', 'agencias']],
+  ['p3', 'crm', 'Ana', 'Ana abre o lead no CRM', 'Chegou no sininho: prévia sem nomes nem contatos, 1 dia útil para decidir.', ['lead', 'L-1042']],
+  ['p4', 'crm', 'Ana', 'Ana aceita o lead', 'Libera nomes e contatos de todos. O grupo vê no celular quem vai atender e até quando.', ['lead', 'L-1042']],
+  ['p5', 'crm', 'Ana', 'Ana marca "contato feito"', 'Ela falou com o Flávio pelos canais da agência, em até 24 h.', ['neg']],
+  ['p6', 'crm', 'Ana', 'Ana monta a proposta e envia pelo app', 'Nasce do roteiro do grupo. Também dá para enviar por fora e marcar o ganho com o valor.', ['neg']],
+  ['p7', 'app', 'Marta', 'Marta reage à proposta', 'Item a item: 👍 ou "trocaria". A agência vê o consenso.', ['app', 'marta', 'proposta']],
+  ['p8', 'app', 'Flávio', 'Flávio aceita a proposta', 'Só o cabeça do grupo aceita. O negócio vai para "ganho" no CRM.', ['app', 'flavio', 'proposta']],
+  ['p9', 'crm', 'Ana', 'Ana cria a viagem e compra os itens', 'Cada item comprado chega ao celular com status, voucher e valor.', ['via', 'resumo']],
+  ['p10', 'crm', 'Ana', 'Ana lança uma despesa para o grupo', 'Aparece no app como "lançada pela agência", só para ver.', ['via', 'despesas']],
+  ['p11', 'app', 'Marta', 'Na volta, Marta avalia a agência', 'No dia seguinte à volta, cada pessoa avalia. Não depende de acertar as contas.', ['app', 'marta', 'avaliar']],
+  ['p12', 'app', 'Flávio', 'Flávio planeja a próxima viagem', 'Com nota do grupo 4 ou mais, o lead volta para a agência que atendeu.', ['app', 'flavio', 'home']]
+];
 function alvo(p) {
   const n = S.negocios.find((x) => x.lead === 'L-1042');
-  if (p[0] === 'p4' && n) return ['negocio', n.id];
-  if ((p[0] === 'p5' || p[0] === 'p6') && S.prop) return ['editor'];
-  if (p[0] === 'p7' && n) return ['negocio', n.id];
-  if (p[0] === 'p8' && !via('V-40') && n) return ['negocio', n.id];
-  if ((p[0] === 'p9' || p[0] === 'p10') && via('V-40')) return ['viagem', 'V-40', 'despesas'];
-  return p[3];
+  const t = p[5];
+  if (t[0] === 'neg') return n ? (S.prop && !S.prop.enviada && p[0] === 'p6' ? ['editor'] : ['negocio', n.id]) : ['lead', 'L-1042'];
+  if (t[0] === 'via') return via('V-40') ? ['viagem', 'V-40', t[1]] : (n ? ['negocio', n.id] : null);
+  if (p[0] === 'p11' && !(via('V-40') && via('V-40').emb === 'concluida')) return via('V-40') ? ['viagem', 'V-40', 'resumo'] : null;
+  return t;
 }
-const PASSOS = [
-  ['p1', 'Ver o novo lead no início', 'O lead do grupo chega sozinho, vindo do app.', ['inicio']],
-  ['p2', 'Abrir o lead Roma e Florença', 'Grupo, orçamento por pessoa, gostos, match e roteiro.', ['lead', 'L-1042']],
-  ['p3', 'Aceitar o lead', 'Vira negócio no funil, com valor estimado e tarefa.', ['lead', 'L-1042']],
-  ['p4', 'Criar a proposta a partir do roteiro', 'Destinos, datas e atrações já vêm preenchidos.', ['leads']],
-  ['p5', 'Precificar voos, hotéis e serviços', 'Preço por item, total e margem calculados.', null],
-  ['p6', 'Enviar a proposta para o app do grupo', 'O grupo recebe um aviso no celular.', null],
-  ['p7', 'Simular: o grupo aceita no app', 'O negócio vai para "Ganho" sozinho.', null],
-  ['p8', 'Criar a viagem e cumprir o checklist', 'Sala de embarque com documentos e reservas.', ['embarque']],
-  ['p9', 'Lançar despesas do grupo', 'Aparecem no app como "lançada pela agência".', null],
-  ['p10', 'Viagem quitada: avaliação e recompra', 'Estrelas no ranking e lead da próxima viagem.', null]
-];
-
 /* ============================== TELAS ============================== */
 function navItem(id, rot, emo, cnt) { const on = S.tela === id || (id === 'leads' && S.tela === 'lead') || (id === 'pipeline' && S.tela === 'negocio') || (id === 'propostas' && S.tela === 'editor') || (id === 'viagens' && S.tela === 'viagem') || (id === 'clientes' && S.tela === 'cliente'); return `<button class="nav ${on ? 'on' : ''}" data-a="go" data-t="${id}">${ic(emo)}${rot}${cnt ? `<span class="cnt">${cnt}</span>` : ''}</button>`; }
 function side() {
@@ -382,9 +418,9 @@ function barraTopo() {
   return `<div class="top">
     <label class="busca">${ic('globe', 18)}<input placeholder="Buscar cliente, negócio, proposta ou viagem" aria-label="Buscar"></label>
     <div style="flex:1"></div>
-    <button class="btn" data-a="guia">${ic('map', 18)}${S.guia ? 'Ocultar roteiro de validação' : 'Roteiro de validação'}</button>
+    <button class="btn" data-a="guia">${ic('map', 18)}${S.guia ? 'Ocultar celular do grupo' : 'Mostrar celular do grupo'}</button>
     <div style="position:relative"><button class="ib" data-a="notif" aria-label="Notificações">${ic('bell', 20)}${n ? `<span class="bd">${n}</span>` : ''}</button>${S.notifOn ? notifs() : ''}</div>
-    <div class="user"><span class="av" style="${AVC[0]}">AS</span><div><div>Ana Souza</div><div class="sm muted">Agente · São Paulo</div></div></div>
+    <div class="user"><span class="av" style="${AVC[0]}">AS</span><div><div>Ana Souza</div><div class="sm muted">Dona da agência</div></div></div>
   </div>`;
 }
 function notifs() {
@@ -392,16 +428,19 @@ function notifs() {
     ${S.notifs.map((x) => `<button class="it ${x.nova ? 'nova' : ''}" data-a="abrirNotif" data-id="${x.id}">${ic(x.e, 28)}<span><b style="display:block;font-size:13px">${esc(x.t)}</b><span class="sm muted">${esc(x.s)}</span></span></button>`).join('')}</div>`;
 }
 function guia() {
-  const idx = PASSOS.findIndex((p) => !S.feitos[p[0]]);
-  return `<aside class="guia" aria-label="Roteiro de validação">
-    <div class="row sp"><h3 style="font-size:17px">Roteiro de validação</h3><button class="lk sm" data-a="guia">Fechar</button></div>
-    <p class="sm muted" style="margin:6px 0 12px">Siga os passos para ver a jornada completa: do lead que o grupo gerou no app até a recompra. Cada passo se marca sozinho quando você o faz.</p>
-    <div class="bar" style="margin-bottom:12px"><div style="width:${Math.round(Object.keys(S.feitos).filter((k) => k[0] === 'p').length / PASSOS.length * 100)}%"></div></div>
-    ${PASSOS.map((p, i) => `<div class="passo ${S.feitos[p[0]] ? 'feito' : ''} ${i === idx ? 'atual' : ''}"><span class="c">${S.feitos[p[0]] ? '✓' : i + 1}</span><div style="flex:1"><b>${p[1]}</b><span>${p[2]}</span>${i === idx && alvo(p) ? `<div style="margin-top:6px"><button class="btn sm" data-a="${alvo(p)[0] === 'viagem' ? 'goViagemAba' : 'go'}" data-t="${alvo(p)[0]}" data-id="${alvo(p)[1] || ''}" data-v="${alvo(p)[2] || ''}">Ir para este passo</button></div>` : ''}</div></div>`).join('')}
-    ${idx === -1 ? `<div class="card" style="margin-top:10px;text-align:center">${ic('party', 48, 'margin:0 auto')}<b>Jornada completa!</b><p class="sm muted">Você viu o ciclo inteiro: lead do app, venda, entrega e recompra.</p></div>` : ''}
+  const idx = PASSOS.findIndex((p) => !S.feitos[p[0]]); const P0 = PASSOS[idx]; const a = P0 ? alvo(P0) : null;
+  const feitos = PASSOS.filter((p) => S.feitos[p[0]]).length;
+  return `<aside class="guia" aria-label="Visão integrada">
+    <div class="row sp"><h3 style="font-size:16px">Visão integrada · ${feitos} de ${PASSOS.length}</h3><button class="lk sm" data-a="guia">Ocultar</button></div>
+    <div class="bar"><div style="width:${Math.round(feitos / PASSOS.length * 100)}%"></div></div>
+    ${P0 ? `<div class="passo-atual"><div class="row sp"><span class="ator a-${P0[1]}">${P0[1] === 'app' ? ic('waving', 14) + P0[2] + ' · celular' : ic('house', 14) + 'Ana · CRM, à esquerda'}</span><span class="sm muted">passo ${idx + 1}</span></div><b style="display:block;margin-top:6px">${P0[3]}</b><span class="sm muted">${P0[4]}</span>${a ? `<div style="margin-top:8px"><button class="btn sm p" data-a="irPasso" data-v="${idx}">Ir para este passo</button></div>` : ''}</div>`
+      : `<div class="passo-atual" style="text-align:center">${ic('party', 40, 'margin:0 auto')}<b>Jornada completa!</b><div class="sm muted">Do orçamento da Marta à recompra, passando pela operação da agência.</div></div>`}
+    <details class="todos"><summary>Ver todos os passos</summary>${PASSOS.map((p, i) => `<div class="passo ${S.feitos[p[0]] ? 'feito' : ''} ${i === idx ? 'atual' : ''}"><span class="c">${S.feitos[p[0]] ? '✓' : i + 1}</span><div><b>${p[3]}</b><span>${p[1] === 'app' ? p[2] + ' · celular' : 'Ana · CRM'}</span></div></div>`).join('')}</details>
+    <div class="pers">${[['flavio', 'Flávio', 'cabeça do grupo'], ['marta', 'Marta', 'membro do grupo']].map((x) => `<button class="${S.ph.p === x[0] ? 'on' : ''}" data-a="ph" data-v="${x[0]}">${x[1]}<span>${x[2]}</span></button>`).join('')}</div>
+    <div class="fone"><div class="tela" id="tela">${fone()}</div></div>
+    <p class="sm muted" style="margin:0">Celular do grupo (app) à direita e CRM da agência à esquerda: o que um faz aparece no outro. Dados de exemplo.</p>
   </aside>`;
 }
-
 /* ---------- Início ---------- */
 function telaInicio() {
   const novos = S.leads.filter((l) => l.status === 'novo');
@@ -455,36 +494,37 @@ function telaLeads() {
   const ab = S.aba === 'resumo' ? 'novo' : S.aba;
   const lista = S.leads.filter((l) => l.status === ab);
   return `<div class="ph"><div><h1>Leads do app</h1><p>Grupos que escolheram sua agência no app, com destino, datas, orçamento, gostos e roteiro. Cada lead é exclusivo da sua agência.</p></div></div>
-    <div class="app-ban" style="margin-bottom:16px">${ic('sparkles', 32)}<div><b>Como funciona</b><div class="sm muted">O grupo monta a viagem no app (Jornada 1) e o cabeça do grupo escolhe sua agência. O lead chega aqui já qualificado. Você aceita em até 24 h; o valor do lead (exemplo: ${brl(270)} para grupo de 4 em viagem internacional) só é cobrado no aceite.</div></div></div>
+    <div class="app-ban" style="margin-bottom:16px">${ic('sparkles', 32)}<div><b>Como funciona</b><div class="sm muted">O grupo fecha as escolhas e o roteiro no app e o cabeça do grupo escolhe sua agência. Você vê uma prévia sem nomes nem contatos e tem até 1 dia útil para aceitar. Se recusar ou o prazo vencer, o lead segue para a próxima agência pelo score.</div></div></div>
     <div class="tabs">${[['novo', 'Novos'], ['aceito', 'Aceitos'], ['recusado', 'Recusados']].map((t) => `<button class="tab ${ab === t[0] ? 'on' : ''}" data-a="aba" data-v="${t[0]}">${t[1]} (${S.leads.filter((l) => l.status === t[0]).length})</button>`).join('')}</div>
     <div class="card" style="padding:0">${lista.length ? `<table class="tbl"><thead><tr><th>Grupo e destino</th><th>Datas</th><th>Pessoas</th><th>Orçamento</th><th>Match</th><th class="num">Valor estimado</th><th>Prazo</th></tr></thead><tbody>
-      ${lista.map((l) => `<tr class="cl" data-a="go" data-t="lead" data-id="${l.id}"><td><div class="row">${ic(l.match[0].emo, 26)}<div><b>${esc(l.titulo)}</b> ${l.recompra ? '<span class="pill p-verde">Recompra</span>' : ''}<div class="sm muted">${esc(l.contato.nome)} · ${esc(l.tipo)}</div></div></div></td><td>${l.ida}<div class="sm muted">${l.noites} noites</div></td><td>${l.pessoas.length}</td><td>${esc(l.leitura)}</td><td><span class="pill p-roxo">${esc(l.match[0].g)} ${l.match[0].p}%</span></td><td class="num">${brl(l.valorEst)}</td><td><span class="pill ${l.urg && l.status === 'novo' ? 'p-verm' : 'p-cinza'}">${l.status === 'novo' ? esc(l.prazo) : l.status === 'aceito' ? 'Aceito' : 'Recusado'}</span></td></tr>`).join('')}
+      ${lista.map((l) => `<tr class="cl" data-a="go" data-t="lead" data-id="${l.id}"><td><div class="row">${ic(l.match[0].emo, 26)}<div><b>${esc(l.titulo)}</b> ${l.recompra ? '<span class="pill p-verde">Recompra</span>' : ''}<div class="sm muted">${l.status === 'novo' ? '' : esc(l.contato.nome) + ' · '}${esc(l.tipo)}</div></div></div></td><td>${l.ida}<div class="sm muted">${l.noites} noites</div></td><td>${l.pessoas.length}</td><td>${esc(l.leitura)}</td><td><span class="pill p-roxo">${esc(l.match[0].g)} ${l.match[0].p}%</span></td><td class="num">${brl(l.valorEst)}</td><td><span class="pill ${l.urg && l.status === 'novo' ? 'p-verm' : 'p-cinza'}">${l.status === 'novo' ? esc(l.prazo) : l.status === 'aceito' ? 'Aceito' : 'Recusado'}</span></td></tr>`).join('')}
     </tbody></table>` : '<div class="vazio">Nenhum lead nesta aba.</div>'}</div>`;
 }
 function telaLead() {
   const l = lead(S.id); if (!l) return '<div class="vazio">Lead não encontrado.</div>';
   const n = S.negocios.find((x) => x.lead === l.id);
+  const prev = l.status === 'novo';
+  const nome = (i) => prev ? 'Pessoa ' + (i + 1) : l.pessoas[i].n;
   return `<div class="crumb"><button data-a="go" data-t="leads">Leads do app</button> › ${esc(l.id)}</div>
     <div class="ph"><div><h1>${esc(l.titulo)} · ${l.pessoas.length} pessoas</h1><p>${esc(l.pais)} · ${l.ida} a ${l.volta} (${l.dias} dias, ${l.noites} noites) · saindo de ${esc(l.partida)} · viagem em ${esc(l.tipo.toLowerCase())}</p></div>
       <div class="row">${l.status === 'novo' ? `<span class="pill ${l.urg ? 'p-verm' : 'p-amar'}">${esc(l.prazo)}</span><button class="btn dg" data-a="recusar" data-id="${l.id}">Recusar</button><button class="btn p" data-a="aceitar" data-id="${l.id}">Aceitar lead</button>` : l.status === 'aceito' ? `<span class="pill p-verde">Aceito</span>${n ? `<button class="btn p" data-a="go" data-t="negocio" data-id="${n.id}">Abrir negócio</button>` : ''}` : '<span class="pill p-cinza">Recusado</span>'}</div></div>
     ${l.recompra ? `<div class="app-ban" style="margin-bottom:16px">${ic('restore', 28)}<div><b>Recompra: o mesmo grupo quer viajar de novo com você</b><div class="sm muted">Gerado pelo botão "Planejar a próxima viagem com este grupo" no fim da viagem anterior. O grupo ainda vai escolher o destino no app.</div></div></div>` : ''}
     <div class="g3" style="margin-bottom:16px">
       <div class="kpi"><div class="k">Valor estimado do negócio</div><div class="v">${brl(l.valorEst)}</div><div class="d">exemplo: ${l.pessoas.length} pessoas × ${brl(l.valorEst / l.pessoas.length)}</div></div>
-      <div class="kpi" style="border-left-color:var(--coral)"><div class="k">Valor do lead (exemplo)</div><div class="v">${brl(l.precoLead)}</div><div class="d">cobrado só se você aceitar</div></div>
-      <div class="kpi" style="border-left-color:var(--verde)"><div class="k">Leitura do orçamento do grupo</div><div class="v" style="font-size:20px">${esc(l.leitura)}</div><div class="d">${esc(l.alerta || 'Faixas por pessoa abaixo')}</div></div>
+      <div class="kpi" style="border-left-color:var(--coral)"><div class="k">Orçamento total declarado</div><div class="v" style="font-size:20px">${l.pessoas.filter((x) => x.total && x.total !== '—').length} de ${l.pessoas.length} responderam</div><div class="d">viagem inteira por pessoa, com passagem e hotel · detalhe abaixo</div></div>
+      <div class="kpi" style="border-left-color:var(--verde)"><div class="k">Sinal para a abordagem</div><div class="v" style="font-size:20px">${esc(l.leitura)}</div><div class="d">${esc(l.alerta || 'Faixas por pessoa abaixo')}</div></div>
     </div>
     <div class="g2">
       <div class="col">
         <div class="card"><h3>${ic('hug', 22)} Quem vai</h3>
-          <table class="tbl"><thead><tr><th>Pessoa</th><th>Papel</th><th>Gasto por dia no destino</th></tr></thead><tbody>
-          ${l.pessoas.map((p, i) => `<tr><td><div class="row"><span class="av sm" style="${AVC[i % 6]}">${ini(p.n)}</span>${esc(p.n)}</div></td><td>${esc(p.papel)}</td><td>${esc(p.faixa)}</td></tr>`).join('')}
+          <table class="tbl"><thead><tr><th>Pessoa</th><th>Por dia no destino</th><th>Viagem inteira</th>${prev ? '' : '<th>Contato</th>'}</tr></thead><tbody>
+          ${l.pessoas.map((p, i) => `<tr><td><div class="row"><span class="av sm" style="${AVC[i % 6]}">${prev ? 'P' + (i + 1) : ini(p.n)}</span><div>${esc(nome(i))}<div class="sm muted">${esc(p.papel)}</div></div></div></td><td>${esc(p.faixa)}</td><td>${esc(p.total || '—')}</td>${prev ? '' : `<td class="sm">${esc(p.tel || (i === 0 ? l.contato.tel : '—'))}<div class="muted">${esc(p.email || (i === 0 ? l.contato.email : ''))}</div></td>`}</tr>`).join('')}
           </tbody></table>
-          <p class="sm muted" style="margin:8px 0 0">${ic('lock', 14, 'display:inline;vertical-align:-2px')} No app a faixa é privada: o grupo vê só a leitura coletiva. A agência vê por pessoa.</p>
-          <div class="row" style="margin-top:12px;flex-wrap:wrap"><span class="chip-pessoa"><span class="av sm" style="${AVC[0]}">${ini(l.contato.nome)}</span>${esc(l.contato.nome)}</span><span class="sm muted">${esc(l.contato.email)} · ${esc(l.contato.tel)}</span></div>
+          <p class="sm muted" style="margin:8px 0 0">${ic('lock', 14, 'display:inline;vertical-align:-2px')} ${prev ? 'Prévia: nomes e contatos aparecem depois do aceite.' : 'O cabeça do grupo autorizou por todos. No app, as faixas continuam privadas para o grupo.'}</p>
         </div>
         <div class="card"><h3>${ic('trophy', 22)} O match do grupo</h3>
           <div class="g2">${l.match.map((m, i) => `<div style="border-radius:14px;padding:12px;color:#fff;background:${i ? 'linear-gradient(140deg,#7B5CFF,#4A2FD6)' : 'linear-gradient(140deg,#FF8A6B,#E8445A)'}"><div class="sm" style="font-weight:800;opacity:.85">TOP ${i + 1}</div><b style="font-family:var(--disp);font-size:18px">${esc(m.g)}</b><div style="font-family:var(--disp);font-size:28px;font-weight:800">${m.p}%</div></div>`).join('')}</div>
-          ${l.votos.length ? `<table class="tbl" style="margin-top:10px"><thead><tr><th>Item</th><th>Quem curtiu</th><th class="num">Votos</th></tr></thead><tbody>${l.votos.map((v) => `<tr><td>${esc(v.item)}<div class="sm muted">${esc(v.g)}</div></td><td>${v.quem.map((q) => `<span class="av sm" title="${esc(l.pessoas[q].n)}" style="${AVC[q % 6]};margin-right:2px">${ini(l.pessoas[q].n)}</span>`).join('')}</td><td class="num"><b>${v.v} de ${l.pessoas.length}</b></td></tr>`).join('')}</tbody></table>` : '<p class="sm muted">Detalhe de votos disponível neste protótipo só para o lead Roma e Florença.</p>'}
+          ${l.votos.length ? `<table class="tbl" style="margin-top:10px"><thead><tr><th>Item</th><th>Quem curtiu</th><th class="num">Votos</th></tr></thead><tbody>${l.votos.map((v) => `<tr><td>${esc(v.item)}<div class="sm muted">${esc(v.g)}</div></td><td>${v.quem.map((q) => `<span class="av sm" title="${esc(nome(q))}" style="${AVC[q % 6]};margin-right:2px">${prev ? 'P' + (q + 1) : ini(l.pessoas[q].n)}</span>`).join('')}</td><td class="num"><b>${v.v} de ${l.pessoas.length}</b></td></tr>`).join('')}</tbody></table>` : '<p class="sm muted">Detalhe de votos disponível neste protótipo só para o lead Roma e Florença.</p>'}
         </div>
       </div>
       <div class="col">
@@ -493,8 +533,9 @@ function telaLead() {
         </div>
         <div class="card"><h3>${ic('bell', 22)} O que acontece ao aceitar</h3>
           <div class="ativ"><span class="h">1</span><div>O lead vira um negócio na etapa <b>Lead aceito</b>, com o valor estimado.</div></div>
-          <div class="ativ"><span class="h">2</span><div>Entra uma tarefa automática: <b>falar com o grupo em até 24 h</b>.</div></div>
-          <div class="ativ"><span class="h">3</span><div>O grupo é avisado no app que a agência aceitou o atendimento.</div></div>
+          <div class="ativ"><span class="h">2</span><div>Aparecem <b>nome, telefone e e-mail de todas as pessoas</b>, e entra a tarefa <b>falar com o cabeça do grupo em até 24 h</b>.</div></div>
+          <div class="ativ"><span class="h">3</span><div>O grupo vê no app que a agência aceitou, com o seu nome e o prazo do contato.</div></div>
+          <div class="ativ"><span class="h">4</span><div>Se você recusar, ou não responder em 1 dia útil, o lead segue para a <b>próxima agência pelo score</b>.</div></div>
         </div>
       </div>
     </div>`;
@@ -511,9 +552,11 @@ function telaNegocio() {
   const e = ETAPAS.find((x) => x.id === n.etapa); const l = n.lead ? lead(n.lead) : null; const P = S.prop && S.prop.neg === n.id ? S.prop : null; const C = P ? propCalc(P) : null;
   const acoes = [];
   if (n.lead === 'L-1042') {
+    if (!n.contato) acoes.push(`<button class="btn" data-a="contatoFeito" data-id="${n.id}">${ic('check', 18)}Marcar contato feito</button>`);
     if (!P) acoes.push(`<button class="btn p" data-a="criarProp" data-id="${n.id}">${ic('sparkles', 18)}Criar proposta a partir do roteiro</button>`);
     else if (!P.enviada) acoes.push(`<button class="btn p" data-a="go" data-t="editor">Continuar proposta (etapa ${P.etapa} de 8)</button>`);
-    else if (n.etapa === 'enviada') acoes.push(`<button class="btn" data-a="simAbriu" data-id="${n.id}">Simular: o grupo abriu no app</button><button class="btn ok" data-a="simAceitou" data-id="${n.id}">Simular: o cabeça do grupo aceitou no app</button>`);
+    else if (n.etapa === 'enviada' && P.canal === 'fora') acoes.push(`<button class="btn ok" data-a="ganhoFora" data-id="${n.id}">Marcar ganho (venda por fora)</button>`);
+    else if (n.etapa === 'enviada') acoes.push(`<span class="pill p-amar">Aguardando o grupo no app →</span>`);
     else if (n.etapa === 'ganho' && !via('V-40')) acoes.push(`<button class="btn p" data-a="proxPassos" data-id="${n.id}">Venda ganha · próximos passos</button>`);
     else if (via('V-40')) acoes.push(`<button class="btn p" data-a="go" data-t="viagem" data-id="V-40">Abrir a viagem</button>`);
   }
@@ -531,6 +574,7 @@ function telaNegocio() {
             ${C ? `<tr><td class="muted">Proposta</td><td>${brl(C.venda)} · margem ${brl(C.margem)} (${C.pct.toFixed(1).replace('.', ',')}%) <span class="pill ${C.faixa[1]}">${C.faixa[0]}</span></td></tr>` : ''}
           </tbody></table>
         </div>
+        ${P && P.enviada && P.canal === 'app' ? reacoesCard(P) : ''}
         ${n.prox && !['ganho', 'perdido'].includes(n.etapa) ? `<div class="card"><h3>${ic('check', 22)} Próxima tarefa</h3><div class="prox ${n.prox.late ? 'late' : ''}" style="padding:10px;border-radius:10px;background:${n.prox.late ? 'var(--verm-c)' : '#F6F4FC'}"><b>${esc(n.prox.t)}</b><div class="sm">${esc(n.prox.d)}</div></div><p class="sm muted" style="margin-bottom:0">Regra: todo negócio aberto tem uma próxima tarefa com data.</p></div>` : ''}
       </div>
       <div class="col"><div class="card"><h3>${ic('speech', 22)} Linha do tempo</h3>${(S.ativ[n.id] || []).concat(n.lead ? [{ h: 'hoje', t: 'Lead recebido do app e aceito' }] : [{ h: n.abertura.slice(0, 5), t: 'Negócio criado (' + n.origem + ')' }]).map((a) => `<div class="ativ"><span class="h">${esc(a.h)}</span><div>${esc(a.t)}</div></div>`).join('')}</div></div>
@@ -579,14 +623,14 @@ function telaEditor() {
   if (P.etapa === 7) corpo = `<h3>Apresentação</h3><div class="g2"><div class="col"><label class="f">Título<input class="inp" data-f="titulo" value="${esc(P.titulo)}"></label><label class="f">Mensagem para o grupo<textarea class="inp" data-f="msg">${esc(P.msg)}</textarea></label></div>
     <div><div class="sm" style="font-weight:700;margin-bottom:6px">Foto de capa</div><div class="g3">${['coliseu', 'trevi', 'panteao', 'trattoria', 'gianicolo', 'massa'].map((k) => `<button class="ex ${P.capa === k ? 'sel' : ''}" style="padding:0" data-a="capa" data-v="${k}" aria-label="Capa ${k}"><img class="ph-img" style="border-radius:0" src="${foto(k)}" alt=""></button>`).join('')}</div></div></div>`;
   if (P.etapa === 8) corpo = `<h3>Enviar ao grupo</h3><div class="g2"><div class="col">
-      <label class="chk"><input type="checkbox" data-a="canal" data-v="canalApp" ${P.canalApp ? 'checked' : ''}><span><b>No app do grupo</b> (recomendado)<div class="sm muted">Os 4 recebem um aviso no celular e veem a proposta dentro da viagem. O cabeça do grupo aceita por lá.</div></span></label>
-      <label class="chk"><input type="checkbox" data-a="canal" data-v="canalLink" ${P.canalLink ? 'checked' : ''}><span><b>Link público</b> (para enviar também por WhatsApp)<div class="sm muted">apptravel.app/p/rodrigues-roma · válido por ${esc(P.validade)}</div></span></label>
+      <label class="chk"><input type="radio" name="canal" data-a="canal" data-v="app" ${P.canal === 'app' ? 'checked' : ''}><span><b>Pelo app do grupo</b><div class="sm muted">Os 4 recebem um aviso e reagem item a item. Só o cabeça do grupo aceita, e o negócio vai sozinho para "ganho".</div></span></label>
+      <label class="chk"><input type="radio" name="canal" data-a="canal" data-v="fora" ${P.canal === 'fora' ? 'checked' : ''}><span><b>Por fora</b> (link, WhatsApp ou PDF)<div class="sm muted">Você fecha pelos seus canais e marca "ganho" informando o valor da venda.</div></span></label>
     </div><div class="card" style="background:#FAF8FF"><div class="sm muted" style="font-weight:800">PRÉVIA DO AVISO NO APP</div><div class="row" style="margin-top:8px;background:#fff;border-radius:14px;padding:10px;box-shadow:0 6px 16px rgba(42,27,110,.12)"><div class="av" style="border-radius:10px;background:linear-gradient(135deg,#7B5CFF,#FF7A6B)">${ic('airplane', 20)}</div><div><b class="sm">Agência exemplo A enviou a proposta</b><div class="sm muted">${esc(P.titulo)} · ${brl(C.venda)} (${brl(C.pp)} por pessoa)</div></div></div></div></div>`;
   return `<div class="crumb"><button data-a="go" data-t="negocio" data-id="${P.neg}">${esc(neg(P.neg).titulo)}</button> › Proposta</div>
     <div class="ph"><div><h1>Editando proposta</h1><p>${esc(P.titulo)} · ${brl(C.venda)} · margem ${C.pct.toFixed(1).replace('.', ',')}%</p></div></div>
     <div class="steps">${ETP.map((t, i) => `<button class="st ${P.etapa === i + 1 ? 'on' : (P.etapa > i + 1 ? 'ok' : '')}" data-a="etapa" data-v="${i + 1}"><span class="n">${P.etapa > i + 1 ? '✓' : i + 1}</span>${t}</button>`).join('')}</div>
     <div class="card">${corpo}
-      <div class="edbar"><button class="btn" data-a="etapa" data-v="${Math.max(1, P.etapa - 1)}" ${P.etapa === 1 ? 'disabled' : ''}>← Voltar</button><div class="row">${P.etapa === 2 && !P.voos[0].trechos.length ? '<span class="sm muted">Importe os voos para continuar</span>' : ''}${P.etapa < 8 ? `<button class="btn p" data-a="etapa" data-v="${P.etapa + 1}" ${P.etapa === 2 && !P.voos[0].trechos.length ? 'disabled' : ''}>Avançar →</button>` : `<button class="btn p" data-a="enviarProp" ${!P.canalApp && !P.canalLink ? 'disabled' : ''}>${ic('airplane', 18)}Enviar proposta ao grupo</button>`}</div></div>
+      <div class="edbar"><button class="btn" data-a="etapa" data-v="${Math.max(1, P.etapa - 1)}" ${P.etapa === 1 ? 'disabled' : ''}>← Voltar</button><div class="row">${P.etapa === 2 && !P.voos[0].trechos.length ? '<span class="sm muted">Importe os voos para continuar</span>' : ''}${P.etapa < 8 ? `<button class="btn p" data-a="etapa" data-v="${P.etapa + 1}" ${P.etapa === 2 && !P.voos[0].trechos.length ? 'disabled' : ''}>Avançar →</button>` : `<button class="btn p" data-a="enviarProp">${ic('airplane', 18)}${P.canal === 'app' ? 'Enviar proposta pelo app' : 'Registrar envio por fora'}</button>`}</div></div>
     </div>`;
 }
 
@@ -607,8 +651,9 @@ function telaViagem() {
   const abas = [['resumo', 'Resumo'], ['checklist', 'Checklist'], ['despesas', 'Despesas do grupo'], ['cobranca', 'Cobrança'], ['tarefas', 'Tarefas']];
   let corpo = '';
   if (ab === 'resumo') corpo = `<div class="g2"><div class="card"><h3>Viagem</h3><table class="tbl"><tbody><tr><td class="muted">Datas</td><td>${v.ida} a ${v.volta}</td></tr><tr><td class="muted">Pessoas</td><td>${v.pessoas}</td></tr><tr><td class="muted">Etapa</td><td>${EMB.find((e) => e.id === v.emb).nome}</td></tr><tr><td class="muted">Valor vendido</td><td>${brl(v.valor)}</td></tr><tr><td class="muted">No app</td><td>${v.app ? 'O grupo vê roteiro, vouchers e despesas no app' : 'Grupo fora do app'}</td></tr></tbody></table></div>
-    <div class="card"><h3>Vouchers por atividade</h3>${roma ? lead('L-1042').roteiro[0].itens.filter((i) => i.warn).concat(lead('L-1042').roteiro[1].itens.filter((i) => i.warn)).map((i) => `<div class="ativ"><span class="h">${i.h}</span><div style="flex:1"><b>${esc(i.nome)}</b><div class="sm muted">${v.vouchers && v.vouchers[i.nome] ? 'Voucher anexado · visível no app' : 'Aguardando voucher'}</div></div>${v.vouchers && v.vouchers[i.nome] ? '<span class="pill p-verde">Anexado</span>' : `<button class="btn sm" data-a="voucher" data-id="${v.id}" data-v="${esc(i.nome)}">Anexar voucher</button>`}</div>`).join('') : '<p class="sm muted">Vouchers desta viagem já enviados.</p>'}</div></div>
-    ${roma && v.emb !== 'concluida' ? `<div class="card" style="margin-top:16px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap"><div><b>Fim da jornada</b><div class="sm muted">Simule a volta: o grupo quita as contas no app, avalia a agência e pede a próxima viagem.</div></div><button class="btn p" data-a="simFim">Simular: viagem concluída e quitada no app</button></div>` : ''}`;
+    <div class="card"><h3>${ic('ticket', 22)} Itens comprados (aparecem no app)</h3>${roma ? COMPRAS.map((c) => `<div class="ativ" style="align-items:center"><div style="flex:1"><b>${esc(c.nome)}</b><div class="sm muted">${esc(c.quando)} · ${brl(valorCompra(c))}</div></div>${v.comprados[c.id] ? '<span class="pill p-verde">Comprado · no app</span>' : `<button class="btn sm" data-a="comprar" data-id="${c.id}">Marcar comprado + voucher</button>`}</div>`).join('') + '<p class="sm muted" style="margin:8px 0 0">O grupo recebe um alerta e vê no item do roteiro o status, o voucher e o valor.</p>' : '<p class="sm muted">Itens desta viagem já comprados.</p>'}</div></div>
+    ${roma && v.emb !== 'concluida' ? `<div class="card" style="margin-top:16px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap"><div><b>Fim da viagem</b><div class="sm muted">Simule a volta em 18/11: no dia seguinte, cada pessoa do grupo é convidada a avaliar a agência no app.</div></div><button class="btn p" data-a="simVolta">Simular: o grupo voltou da viagem</button></div>` : ''}
+    ${roma && v.emb === 'concluida' ? `<div class="card" style="margin-top:16px"><b>Viagem concluída.</b> <span class="muted">As avaliações chegam do app em "Avaliações e ranking".</span></div>` : ''}`;
   if (ab === 'checklist') corpo = `<div class="card">${v.check.map((c, ci) => `<label class="chk" style="padding:8px 0;border-bottom:1px solid var(--line)"><input type="checkbox" data-a="check" data-id="${v.id}" data-v="${ci}" ${c.ok ? 'checked' : ''}>${esc(c.t)}</label>`).join('')}<p class="sm muted">Itens criados a partir das reservas com horário do roteiro e dos documentos do grupo.</p></div>`;
   if (ab === 'despesas') corpo = despesasViagem(v);
   if (ab === 'cobranca') corpo = cobranca(v);
@@ -636,7 +681,7 @@ function cobranca(v) {
   if (!v.valor) return '';
   const par = 10; const ent = Math.round(v.valor * 0.3); const resto = v.valor - ent; const pv = resto / (par - 1);
   const linhas = [{ t: 'Entrada (30%)', d: 'no aceite', val: ent, ok: true }].concat(Array.from({ length: par - 1 }, (x, i) => ({ t: 'Parcela ' + (i + 2) + ' de ' + par, d: 'dia 10/' + String(((11 + i) % 12) + 1).padStart(2, '0'), val: pv, ok: false })));
-  return `<div class="card"><h3>${ic('moneybag', 22)} Cobrança da agência</h3><p class="sm muted">Controle do que o cliente paga à agência pelo pacote (o rateio entre o grupo fica em "Despesas do grupo").</p>
+  return `<div class="card"><h3>${ic('moneybag', 22)} Cobrança da agência</h3><p class="sm muted">Só no CRM: o cliente paga à agência por fora (Pix e outros meios) e você controla aqui. O grupo não vê esta aba no app.</p>
     <table class="tbl"><thead><tr><th>Parcela</th><th>Vencimento</th><th class="num">Valor</th><th>Situação</th></tr></thead><tbody>${linhas.slice(0, 5).map((l) => `<tr><td>${l.t}</td><td>${l.d}</td><td class="num">${brl2(l.val)}</td><td>${l.ok ? '<span class="pill p-verde">Recebida</span>' : '<span class="pill p-cinza">A receber</span>'}</td></tr>`).join('')}<tr><td colspan="4" class="sm muted">+ ${par - 5} parcelas</td></tr></tbody></table></div>`;
 }
 function telaDespesas() {
@@ -671,9 +716,117 @@ function telaTarefas() {
 }
 function telaReputacao() {
   const m = S.avals.reduce((a, x) => a + x.n, 0) / S.avals.length;
-  return `<div class="ph"><div><h1>Avaliações e ranking</h1><p>Nota dada pelos grupos no app depois da viagem quitada. Pagar não muda a posição no ranking.</p></div></div>
+  return `<div class="ph"><div><h1>Avaliações e ranking</h1><p>Cada pessoa do grupo avalia no app no dia seguinte à volta; a nota do grupo é a média. Pagar não muda o score.</p></div></div>
     <div class="g3" style="margin-bottom:16px"><div class="kpi" style="border-left-color:#E8A400"><div class="k">Nota média</div><div class="v">${m.toFixed(1).replace('.', ',')} ★</div><div class="d">${S.avals.length} avaliações</div></div><div class="kpi"><div class="k">Posição no ranking (exemplo)</div><div class="v">2º</div><div class="d">agências credenciadas em São Paulo</div></div><div class="kpi" style="border-left-color:var(--verde)"><div class="k">Grupos que voltaram</div><div class="v">${S.recompra ? 1 : 0}</div><div class="d">recompra pelo app</div></div></div>
-    <div class="card">${S.avals.map((a) => `<div class="ativ"><span class="h" style="min-width:86px;color:#E8A400;letter-spacing:1px">${'★'.repeat(a.n)}<span style="color:#D9D4EA">${'★'.repeat(5 - a.n)}</span></span><div style="flex:1"><b>${esc(a.q)}</b> <span class="sm muted">· ${esc(a.d)}</span>${a.nova ? ' <span class="pill p-verde">Nova</span>' : ''}<div>${esc(a.t)}</div></div></div>`).join('')}</div>`;
+    <div class="card">${S.avals.map((a) => `<div class="ativ"><span class="h" style="min-width:86px;color:#E8A400;letter-spacing:1px">${'★'.repeat(a.n)}<span style="color:#D9D4EA">${'★'.repeat(5 - a.n)}</span></span><div style="flex:1"><b>${esc(a.q)}</b> <span class="sm muted">· ${esc(a.d)}${a.de ? ' · ' + a.de : ''}</span>${a.nova ? ' <span class="pill p-verde">Nova</span>' : ''}<div>${esc(a.t)}</div></div></div>`).join('')}</div>`;
+}
+
+/* ---------- celular do grupo (só as telas da conexão com a agência) ---------- */
+const AGS = [
+  { nome: 'Agência exemplo A', det: 'São Paulo · grupos e famílias · Europa', nota: '4,9', prazo: '96%' },
+  { nome: 'Agência exemplo B', det: 'São Paulo · especialista em Europa', nota: '4,7', prazo: '88%' },
+  { nome: 'Agência exemplo C', det: 'Atende à distância', nota: '4,6', prazo: '91%' }
+];
+const FAIXAS_DIA = ['Até R$ 300', 'R$ 300 a R$ 600', 'R$ 600 a R$ 1.000', 'Acima de R$ 1.000'];
+const FAIXAS_TOT = ['Até R$ 5 mil', 'R$ 5 mil a R$ 10 mil', 'R$ 10 mil a R$ 20 mil', 'Acima de R$ 20 mil'];
+const COMPRAS = [
+  { id: 'voo', nome: 'Voos GRU ⇄ FCO (4 pessoas)', quando: '12/11 e 18/11', item: null, chk: 0 },
+  { id: 'col', nome: 'Ingresso Coliseu (4)', quando: '13/11 · 09:00', item: 'Coliseu', chk: 3 },
+  { id: 'mas', nome: 'Aula de massa fresca', quando: '14/11 · 10:30', item: 'Aula de massa fresca', chk: 4 }
+];
+function valorCompra(c) {
+  if (!S.prop) return 0; const C = propCalc(S.prop); const k = 1 + S.prop.markup / 100;
+  const it = C.itens.find((i) => c.id === 'voo' ? i.g === 'Aéreo' : i.n === c.item);
+  return it ? Math.round(it.c * k) : 0;
+}
+function negRoma() { return S.negocios.find((x) => x.lead === 'L-1042'); }
+function marcos() {
+  const l = lead('L-1042'); const n = negRoma(); const P = S.prop; const v = via('V-40');
+  const comp = v ? COMPRAS.filter((c) => v.comprados[c.id]).length : 0;
+  const ganho = n && n.etapa === 'ganho';
+  return [
+    { t: 'Enviado para a Agência exemplo A', s: 'As escolhas do grupo estão travadas', ok: S.enviado },
+    { t: 'Agência aceitou', s: l.status === 'aceito' ? 'Ana Souza cuida da viagem de vocês' : 'A agência responde até seg 02/11, 09:12', ok: l.status === 'aceito' },
+    { t: 'Primeiro contato', s: n && n.contato ? 'Ana falou com o Flávio' : 'Ana fala com o Flávio em até 24 h após o aceite', ok: !!(n && n.contato) },
+    { t: 'Proposta', s: P && P.enviada ? (P.canal === 'app' ? 'Chegou no app' : 'Enviada pela agência por fora') : 'Ana está montando a partir do roteiro de vocês', ok: !!(P && P.enviada) },
+    { t: 'Viagem confirmada', s: ganho ? 'Roma e Florença · 13 a 18/11' : 'Depois do aceite da proposta', ok: ganho },
+    { t: 'Itens comprados', s: comp + ' de ' + COMPRAS.length + ' (ingressos, voos…)', ok: comp === COMPRAS.length },
+    { t: 'Embarque', s: 'sex 13/11 · faltam 14 dias', ok: !!(v && v.emb === 'concluida') }
+  ];
+}
+function fone() {
+  const p = S.ph.p; const t = S.ph.tela; const l = lead('L-1042'); const n = negRoma(); const P = S.prop; const v = via('V-40');
+  const sb = `<div class="sb"><span>9:41</span><span>${p === 'flavio' ? 'Flávio' : 'Marta'}</span></div>`;
+  const volta = `<div class="hd"><button class="volta" data-a="phTela" data-v="home">‹ Voltar</button></div>`;
+  if (t === 'orc') {
+    return sb + volta + `<div class="hd"><b>Quanto você quer gastar?</b><span class="sm muted">Etapa 1 · cada pessoa responde</span></div>
+      <div class="pc"><h4>Por dia no destino</h4><div class="sm muted" style="margin-bottom:8px">Passeios, comida e transporte, sem passagem e hotel.</div><div class="chips">${FAIXAS_DIA.map((f) => `<button class="${S.orc.faixa === f ? 'on' : ''}" data-a="orcSel" data-k="faixa" data-v="${f}">${f}</button>`).join('')}</div></div>
+      <div class="pc"><h4>Na viagem inteira, por pessoa</h4><div class="sm muted" style="margin-bottom:8px">Com passagem e hotel.</div><div class="chips">${FAIXAS_TOT.map((f) => `<button class="${S.orc.total === f ? 'on' : ''}" data-a="orcSel" data-k="total" data-v="${f}">${f}</button>`).join('')}</div></div>
+      <div class="pc" style="background:#FAF8FF">${ic('lock', 16)}<div class="sm" style="margin-top:4px"><b>Privado para o grupo.</b> Se vocês seguirem com uma agência, ela recebe seu nome, contato e respostas.</div></div>
+      <div style="padding:0 12px 16px"><button class="bt" data-a="orcSalvar" ${S.orc.faixa && S.orc.total ? '' : 'disabled'}>Salvar respostas</button></div>`;
+  }
+  if (t === 'agencias') {
+    return sb + volta + `<div class="hd"><b>Seguir com uma agência</b><span class="sm muted">Atendimento em São Paulo · ordem pelo score</span></div>
+      ${AGS.map((a, i) => `<div class="pc" style="${S.ph.ag === i ? 'border:2px solid var(--roxo)' : ''}"><div class="row sp"><b>${a.nome}</b><span class="pill p-amar">★ ${a.nota}</span></div><div class="sm muted">${a.det}</div><div class="sm muted">Responde no prazo: ${a.prazo}</div><button class="bt sec" style="height:36px" data-a="agSel" data-v="${i}">${S.ph.ag === i ? 'Escolhida' : 'Escolher'}</button></div>`).join('')}
+      <div class="pc sm muted">Score: estrelas, resposta no prazo, cidade e destino atendidos, tipo de viagem. Agência patrocinada aparece separada e marcada, nunca nesta lista.</div>
+      <div style="padding:0 12px 16px"><button class="bt" data-a="phTela" data-v="consent">Continuar</button></div>`;
+  }
+  if (t === 'consent') {
+    return sb + volta + `<div class="hd"><b>Enviar para a Agência exemplo A?</b></div>
+      <div class="pc"><h4>A agência vai receber</h4><div class="sm">• A análise, o match e o roteiro do grupo<br>• As faixas de gasto e os likes de cada pessoa<br>• Nome, telefone e e-mail de todos os 4</div></div>
+      <div class="pc"><h4>O que muda</h4><div class="sm">• As escolhas do grupo ficam travadas<br>• A agência tem até 1 dia útil para aceitar; se não puder, o pedido segue para a próxima agência pelo score e você é avisado<br>• Até a agência aceitar, você pode desistir sem custo</div></div>
+      <div class="pc sm muted">Você autoriza em nome do grupo. Todos foram avisados disso no convite e na pergunta de gasto.</div>
+      <div style="padding:0 12px 16px"><button class="bt" data-a="enviarLead">Autorizar e enviar</button></div>`;
+  }
+  if (t === 'proposta' && P && P.enviada && P.canal === 'app') {
+    const C = propCalc(P); const k = 1 + P.markup / 100; const meu = S.reac[p];
+    return sb + volta + `<img src="${foto(P.capa)}" alt="" style="width:100%;height:150px;object-fit:cover;display:block">
+      <div class="hd"><b>${esc(P.titulo)}</b><span class="sm muted">Agência exemplo A · ${brl(C.venda)} no total</span></div>
+      <div class="pc" style="background:linear-gradient(135deg,#F0ECFF,#FFF1EC)"><div class="sm muted">Sua parte</div><b style="font-family:var(--disp);font-size:22px">${brl(C.pp)}</b><div class="sm muted">por pessoa · pagamento combinado com a agência</div></div>
+      ${n.etapa === 'ganho' ? '<div class="pc" style="text-align:center"><b>Proposta aceita ✓</b></div>' : p === 'flavio' ? `<div class="pc"><h4>${ic('speech', 18)}O que o grupo achou</h4><div class="sm">${resumoReac(C)}</div><button class="bt" data-a="aceitarProp">Aceitar a proposta pelo grupo</button></div>` : '<div class="pc sm">Reaja a cada item abaixo. Só o Flávio, cabeça do grupo, aceita; sua reação ajuda a decisão.</div>'}
+      <div class="pc sm">${esc(P.msg)}</div>
+      ${C.itens.map((it) => { const r = meu[it.n]; const ct = contaReac(it.n); return `<div class="pc"><div class="row sp" style="align-items:flex-start"><div><span class="pill p-cinza">${it.g}</span><div style="font-weight:700;font-size:13px;margin-top:4px">${esc(it.n)}</div></div><b class="sm">${brl(Math.round(it.c * k))}</b></div><div class="reac"><button class="${r === 'ok' ? 'on' : ''}" data-a="reagir" data-id="${esc(it.n)}" data-v="ok">👍 Curti</button><button class="${r === 'tr' ? 'on tr' : ''}" data-a="reagir" data-id="${esc(it.n)}" data-v="tr">Trocaria</button><span class="sm muted" style="margin-left:auto">${ct.ok ? '👍 ' + ct.ok : ''}${ct.tr ? ' · trocaria ' + ct.tr : ''}</span></div></div>`; }).join('')}
+      <div class="pc sm muted">Lúcia e Pedro ainda não reagiram.</div>
+      <div style="height:8px"></div>`;
+  }
+  if (t === 'avaliar' && v && v.emb === 'concluida') {
+    const nota = S.aval[p] || 0;
+    return sb + volta + `<div class="hd"><b>Como foi a Agência exemplo A?</b><span class="sm muted">Roma e Florença · voltaram ontem</span></div>
+      <div class="pc" style="text-align:center"><div class="estrelas">${[1, 2, 3, 4, 5].map((k) => `<button class="${k <= nota ? 'on' : ''}" data-a="avaliar" data-v="${k}" aria-label="${k} estrelas">★</button>`).join('')}</div><div class="sm muted">${nota ? 'Obrigado! Sua nota entra na média do grupo.' : 'Toque nas estrelas'}</div></div>
+      <div class="pc sm muted">Cada pessoa do grupo avalia. A avaliação não depende de acertar as contas.</div>`;
+  }
+  // ---------- início da viagem ----------
+  const meus = S.avisos.filter((a) => a.quem === 'todos' || a.quem === p).slice(0, 3);
+  let corpo = '';
+  if (!S.enviado) {
+    if (p === 'marta') corpo = S.orc.faixa ? `<div class="pc"><h4>${ic('check', 18)}Respostas salvas</h4><div class="sm">Dia no destino: <b>${esc(S.orc.faixa)}</b><br>Viagem inteira: <b>${esc(S.orc.total)}</b></div><div class="sm muted" style="margin-top:6px">Agora o Flávio decide o próximo passo.</div></div>`
+      : `<div class="pc"><h4>${ic('moneybag', 18)}Falta uma resposta sua</h4><div class="sm">Quanto você quer gastar na viagem?</div><button class="bt" data-a="phTela" data-v="orc">Responder</button></div>`;
+    else corpo = `<div class="pc"><h4>${ic('map', 18)}Roteiro pronto</h4><div class="sm">Análise fechada: Gastronomia 82% · Pontos turísticos 71%. 6 dias, 2 cidades.</div>${S.orc.faixa ? '<button class="bt" data-a="phTela" data-v="agencias">Seguir com uma agência</button>' : '<div class="aviso" style="margin-top:8px">⏳ Falta a Marta responder ao orçamento. Troque para a Marta acima.</div>'}<button class="bt sec" data-a="semAgencia">Seguir sem agência</button></div>`;
+  } else if (S.recusado) {
+    corpo = `<div class="pc"><h4>${ic('restore', 18)}Mudamos de agência</h4><div class="sm">A Agência exemplo A não pôde atender. O pedido seguiu para a <b>Agência exemplo B</b> (★ 4,7), a próxima pelo score. Ela responde até ter 03/11, 09:12.</div>${p === 'flavio' ? '<button class="bt sec" data-a="phToast" data-v="No produto: abre a lista de agências para você escolher outra.">Escolher outra agência</button><button class="bt sec" data-a="phToast" data-v="No produto: cancela o pedido, sem custo para ninguém.">Cancelar o pedido</button>' : ''}<button class="bt" data-a="desfazerRecusa">Voltar ao fluxo principal (protótipo)</button></div>`;
+  } else {
+    const ms = marcos(); const at = ms.findIndex((m) => !m.ok);
+    corpo = `<div class="pc"><h4>${ic('airplane', 18)}Atendimento da agência</h4>${ms.map((m, i) => `<div class="marco ${m.ok ? 'ok' : i === at ? 'ag' : ''}"><span class="bo">${m.ok ? '✓' : ''}</span><div><b>${m.t}</b><span>${m.s}</span></div></div>`).join('')}${lead('L-1042').status === 'novo' && p === 'flavio' ? '<button class="bt sec" data-a="phToast" data-v="Antes do aceite da agência, desistir cancela sem custo. Depois, o app mostra: fale com a agência.">Desistir do pedido</button>' : ''}</div>`;
+    if (P && P.enviada && P.canal === 'app' && n.etapa !== 'ganho') corpo = `<div class="pc" style="border:2px solid var(--coral)"><h4>${ic('receipt', 18)}A proposta chegou</h4><div class="sm">${esc(P.titulo)} · ${brl(propCalc(P).pp)} por pessoa</div><button class="bt" data-a="phTela" data-v="proposta">Ver e reagir</button></div>` + corpo;
+    if (v) {
+      corpo += `<div class="pc"><h4>${ic('map', 18)}Roteiro (gerenciado pela agência)</h4>${lead('L-1042').roteiro[0].itens.concat(lead('L-1042').roteiro[1].itens).filter((it) => it.warn || it.nome === 'Fórum Romano').map((it) => { const c = COMPRAS.find((x) => x.item === it.nome); const ok = c && v.comprados[c.id]; return `<div class="ativ"><span class="h" style="min-width:42px">${it.h}</span><div style="flex:1"><b class="sm">${esc(it.nome)}</b><div class="sm muted">${ok ? '🔒 Comprado · ' + brl(valorCompra(c)) + ' · voucher ✓' : c ? 'A agência vai comprar' : 'Livre: o Flávio pode mover'}</div></div></div>`; }).join('')}${v.comprados.voo ? `<div class="sm" style="margin-top:6px">✈️ Voos emitidos · ${brl(valorCompra(COMPRAS[0]))} · bilhetes ✓</div>` : ''}</div>`;
+      if (v.despesas.length) corpo += `<div class="pc"><h4>${ic('receipt', 18)}Despesas lançadas pela agência</h4>${v.despesas.map((d) => `<div class="sm" style="padding:4px 0"><b>${esc(d.desc)}</b> · ${d.moeda === 'EUR' ? eur2(d.valor) : brl2(d.valor)} · dividida entre ${d.part.filter(Boolean).length}<div class="muted">Somente visualização</div></div>`).join('')}</div>`;
+      if (v.emb === 'concluida') {
+        const nota = S.aval[p];
+        corpo = `<div class="pc" style="border:2px solid var(--coral)"><h4>${ic('star', 18)}${nota ? 'Você avaliou: ' + '★'.repeat(nota) : 'Como foi a viagem?'}</h4><div class="sm">${nota ? 'Nota do grupo até agora: ' + mediaGrupo().toFixed(1).replace('.', ',') + ' (' + Object.keys(S.aval).length + ' de 4 avaliaram)' : 'Avalie a Agência exemplo A. Leva 5 segundos.'}</div>${nota ? '' : '<button class="bt" data-a="phTela" data-v="avaliar">Avaliar a agência</button>'}</div>`
+          + (p === 'flavio' ? `<div class="pc"><h4>${ic('restore', 18)}Próxima viagem</h4><div class="sm">${S.recompra ? 'Pedido enviado para a Agência exemplo A, que atendeu vocês.' : 'Planeje a próxima com o mesmo grupo, sem novo convite.'}</div>${S.recompra ? '' : '<button class="bt" data-a="recompra">Planejar a próxima viagem com este grupo</button>'}</div>` : '') + corpo;
+      }
+    }
+  }
+  return sb + `<div class="hd"><b>Roma e Florença</b><span class="sm muted">13 a 18/11 · 4 pessoas</span></div>`
+    + (meus.length ? `<div class="pc"><h4>${ic('bell', 18)}Avisos</h4>${meus.map((a) => `<div class="aviso">${ic(a.e, 20)}<div><b>${esc(a.t)}</b><div class="muted">${esc(a.s)}</div></div></div>`).join('')}</div>` : '') + corpo;
+}
+function resumoReac(C) { let ok = 0, tr = 0; const trs = []; C.itens.forEach((it) => { const c = contaReac(it.n); ok += c.ok; tr += c.tr; if (c.tr) trs.push(it.n.split(' · ')[0]); }); return ok || tr ? `👍 ${ok} ${ok === 1 ? 'curtida' : 'curtidas'} · trocaria ${tr}${trs.length ? ': ' + esc(trs.join(', ')) : ''}. Lúcia e Pedro ainda não reagiram.` : 'Ninguém reagiu ainda.'; }
+function contaReac(item) { const o = { ok: 0, tr: 0 }; ['flavio', 'marta'].forEach((q) => { const r = S.reac[q][item]; if (r) o[r]++; }); return o; }
+function mediaGrupo() { const ns = Object.values(S.aval); return ns.length ? ns.reduce((a, b) => a + b, 0) / ns.length : 0; }
+function reacoesCard(P) {
+  const C = propCalc(P); const algum = C.itens.some((it) => { const c = contaReac(it.n); return c.ok || c.tr; });
+  return `<div class="card"><h3>${ic('speech', 22)} Reações do grupo no app</h3>${algum ? C.itens.map((it) => { const c = contaReac(it.n); return `<div class="ativ"><div style="flex:1">${esc(it.n)}</div><span class="sm">${c.ok ? '👍 ' + c.ok : ''}${c.tr ? ' <span class="pill p-amar">trocaria ' + c.tr + '</span>' : ''}${!c.ok && !c.tr ? '<span class="muted">—</span>' : ''}</span></div>`; }).join('') + '<p class="sm muted" style="margin:6px 0 0">Lúcia e Pedro ainda não reagiram.</p>' : '<div class="vazio sm">O grupo ainda não reagiu. Cada pessoa marca 👍 ou "trocaria" em cada item.</div>'}</div>`;
 }
 
 /* ============================== AÇÕES ============================== */
@@ -682,56 +835,87 @@ const ACT = {
   goViagemAba: (d) => go('viagem', d.id, { aba: d.v }),
   aba: (d) => set({ aba: d.v }),
   guia: () => set({ guia: !S.guia }),
+  irPasso: (d) => { const a = alvo(PASSOS[+d.v]); if (!a) return; if (a[0] === 'app') { S.ph = Object.assign(S.ph, { p: a[1], tela: a[2] }); render(); return; } if (a[0] === 'viagem') go('viagem', a[1], { aba: a[2] }); else go(a[0], a[1]); },
+  ph: (d) => { S.ph.p = d.v; S.ph.tela = 'home'; render(); },
+  phTela: (d) => { S.ph.tela = d.v; render(); const t = document.getElementById('tela'); if (t) t.scrollTop = 0; },
+  phToast: (d) => toast(d.v),
+  semAgencia: () => toast('Sem agência, o grupo segue com o roteiro e as despesas no app. Neste protótipo, a jornada segue com uma agência.'),
+  orcSel: (d) => { S.orc[d.k] = d.v; render(); },
+  orcSalvar: () => { const l = lead('L-1042'); l.pessoas[1].faixa = S.orc.faixa; l.pessoas[1].total = S.orc.total; marcar('p1'); S.ph.tela = 'home'; toast('Respostas da Marta salvas: privadas para o grupo'); },
+  agSel: (d) => { if (+d.v !== 0) { toast('Neste protótipo, a jornada segue com a Agência exemplo A, a primeira pelo score.'); return; } S.ph.ag = 0; render(); },
+  enviarLead: () => {
+    const l = lead('L-1042'); l.status = 'novo'; S.enviado = true; marcar('p2'); S.ph.tela = 'home';
+    S.notifs.unshift({ id: 'n' + Date.now(), t: 'Novo lead do app: Roma e Florença', s: 'Grupo de 4 pessoas · 13 a 18/11 · responder até seg 02/11, 09:12', nova: true, go: ['lead', 'L-1042'], e: 'airplane' });
+    aviso('Pedido enviado à Agência exemplo A', 'Ela responde até seg 02/11, 09:12', 'airplane');
+    toast('Lead enviado: o sininho do CRM tocou para a Agência exemplo A');
+  },
+  desfazerRecusa: () => { lead('L-1042').status = 'novo'; S.recusado = false; render(); toast('Protótipo: o lead voltou para a Agência exemplo A'); },
+  contatoFeito: (d) => { const n = neg(d.id); n.contato = true; n.prox = { t: 'Montar a proposta a partir do roteiro', d: 'Amanhã', late: false }; ativ(n.id, 'agora', 'Contato feito com o Flávio (pelos canais da agência)'); S.tarefas.forEach((t) => { if (t.ref === n.id && /24 h/.test(t.t)) t.feito = true; }); aviso('A Ana falou com o Flávio', 'Primeiro contato feito pela agência', 'speech'); marcar('p5'); render(); toast('Contato registrado: o grupo vê o marco no app e o prazo cumprido entra no score'); },
+  reagir: (d) => { const m = S.reac[S.ph.p]; m[d.id] = m[d.id] === d.v ? undefined : d.v; if (S.ph.p === 'marta') marcar('p7'); render(); },
+  aceitarProp: () => { const n = negRoma(); n.etapa = 'ganho'; n.fechamento = '30/10/2026'; ativ(n.id, 'agora', 'Flávio (cabeça do grupo) aceitou a proposta no app · venda ganha'); S.notifs.unshift({ id: 'n' + Date.now(), t: 'Proposta aceita no app!', s: 'Roma e Florença · Família Rodrigues', nova: true, go: ['negocio', n.id], e: 'party' }); aviso('Viagem confirmada!', 'O Flávio aceitou a proposta pelo grupo', 'party'); marcar('p8'); S.modal = { tipo: 'ganho', id: n.id }; render(); },
+  ganhoFora: (d) => set({ modal: { tipo: 'ganhoFora', id: d.id } }),
+  confGanhoFora: (d) => { const val = parseFloat(String(S.valorFora || '').replace(/\./g, '').replace(',', '.')); if (!(val > 0)) { toast('Informe o valor da venda: é obrigatório'); return; } const n = neg(d.id); n.etapa = 'ganho'; n.valor = val; n.fechamento = '30/10/2026'; ativ(n.id, 'agora', 'Venda fechada por fora · ' + brl(val)); aviso('Viagem confirmada!', 'A agência confirmou a venda', 'party'); marcar('p7'); marcar('p8'); S.modal = { tipo: 'ganho', id: n.id }; render(); },
   notif: () => set({ notifOn: !S.notifOn }),
   lerTudo: () => { S.notifs.forEach((n) => { n.nova = false; }); render(); },
   abrirNotif: (d) => { const n = S.notifs.find((x) => x.id === d.id); n.nova = false; go(n.go[0], n.go[1]); },
   criar: () => set({ modal: 'criar' }),
   fechar: () => set({ modal: null }),
-  reiniciar: () => { S = inicial(); render(); toast('Protótipo reiniciado'); },
+  reiniciar: () => { S = inicial(); render(); toast('Protótipo reiniciado: comece pela Marta, no celular'); },
   recusar: (d) => set({ modal: { tipo: 'recusar', id: d.id } }),
-  confRecusar: (d) => { const l = lead(d.id); l.status = 'recusado'; S.modal = null; toast('Lead recusado. O grupo pode escolher outra agência no app; nada foi cobrado.'); go('leads'); },
+  confRecusar: (d) => { const l = lead(d.id); l.status = 'recusado'; S.modal = null; if (l.id === 'L-1042') { S.recusado = true; S.ph.p = 'flavio'; S.ph.tela = 'home'; aviso('Mudamos de agência', 'O pedido seguiu para a Agência exemplo B, pelo score', 'restore', 'flavio'); } toast('Lead recusado: seguiu para a próxima agência pelo score, e o cabeça do grupo foi avisado'); go('leads'); },
   aceitar: (d) => {
     const l = lead(d.id); l.status = 'aceito';
     const nid = 'N-' + (210 + S.negocios.length);
-    S.negocios.unshift({ id: nid, lead: l.id, titulo: l.titulo + ' · Família ' + l.contato.nome.split(' ').pop(), etapa: 'aceito', valor: l.valorEst, dono: 'Ana Souza', origem: 'App', abertura: '30/10/2026', pessoas: l.pessoas.length, prox: { t: 'Falar com o grupo em até 24 h', d: 'Hoje', late: false } });
-    S.tarefas.unshift({ id: 'T' + Date.now(), t: 'Falar com o grupo em até 24 h · ' + l.titulo, ref: nid, quando: 'Hoje', grupo: 'hoje', feito: false, auto: true });
-    ativ(nid, 'agora', 'Lead aceito por Ana Souza · grupo avisado no app');
-    if (l.id === 'L-1042') marcar('p3');
+    S.negocios.unshift({ id: nid, lead: l.id, titulo: l.titulo + ' · Família ' + l.contato.nome.split(' ').pop(), etapa: 'aceito', valor: l.valorEst, dono: 'Ana Souza', origem: 'App', abertura: '30/10/2026', pessoas: l.pessoas.length, prox: { t: 'Falar com o cabeça do grupo em até 24 h', d: 'até sáb 31/10', late: false } });
+    S.tarefas.unshift({ id: 'T' + Date.now(), t: 'Falar com o cabeça do grupo em até 24 h · ' + l.titulo, ref: nid, quando: 'Hoje', grupo: 'hoje', feito: false, auto: true });
+    ativ(nid, 'agora', 'Lead aceito por Ana Souza · contatos liberados · grupo avisado no app');
+    if (l.id === 'L-1042') { marcar('p3'); marcar('p4'); aviso('A Agência exemplo A aceitou!', 'Ana Souza fala com o Flávio em até 24 h', 'check'); }
     S.notifs.forEach((n) => { if (n.go[1] === l.id) n.nova = false; });
-    go('negocio', nid); toast('Lead aceito: virou negócio no funil e o grupo foi avisado no app');
+    go('negocio', nid); toast('Lead aceito: contatos de todos liberados e o grupo viu no app');
   },
-  criarProp: (d) => { const n = neg(d.id); S.prop = novaProposta(n.id); n.etapa = 'montando'; n.prox = { t: 'Enviar a proposta ao grupo', d: 'Amanhã', late: false }; ativ(n.id, 'agora', 'Proposta criada a partir do roteiro do app'); marcar('p4'); go('editor'); toast('Proposta criada com destinos, datas e atrações do app'); },
-  etapa: (d) => { S.prop.etapa = +d.v; if (+d.v >= 6) marcar('p5'); render(); window.scrollTo(0, 0); },
+  criarProp: (d) => { const n = neg(d.id); S.prop = novaProposta(n.id); n.etapa = 'montando'; n.prox = { t: 'Enviar a proposta ao grupo', d: 'Amanhã', late: false }; ativ(n.id, 'agora', 'Proposta criada a partir do roteiro do app'); go('editor'); toast('Proposta criada com destinos, datas e atrações do app'); },
+  etapa: (d) => { S.prop.etapa = +d.v; render(); window.scrollTo(0, 0); },
   importarVoos: () => { S.prop.voos[0].trechos = [{ r: 'GRU → FCO', c: 'Cia. aérea (exemplo) · voo noturno', d: '12/11', h: '23:55 → 15:50 (+1)', dur: '11h55' }, { r: 'FCO → GRU', c: 'Cia. aérea (exemplo)', d: '18/11', h: '22:10 → 05:40 (+1)', dur: '12h30' }]; render(); toast('IA leu 2 trechos e conferiu com as datas da viagem'); },
   selHotel: (d) => { const h = S.prop.hoteis.find((x) => x.id === d.id); S.prop.hoteis.forEach((x) => { if (x.cidade === h.cidade) x.sel = x.id === h.id; }); render(); },
   selExp: (d) => { const x = S.prop.exps[+d.id]; x.sel = !x.sel; render(); },
   selServ: (d) => { const x = S.prop.servicos[+d.id]; x.sel = !x.sel; render(); },
   capa: (d) => { S.prop.capa = d.v; render(); },
-  canal: (d) => { S.prop[d.v] = !S.prop[d.v]; render(); },
-  enviarProp: () => { const P = S.prop; const n = neg(P.neg); const C = propCalc(P); P.enviada = true; n.etapa = 'enviada'; n.valor = C.venda; n.prox = { t: 'Follow-up se o grupo não abrir em 2 dias', d: '01/11', late: false }; ativ(n.id, 'agora', 'Proposta enviada ao grupo no app' + (P.canalLink ? ' e por link' : '') + ' · ' + brl(C.venda)); S.tarefas.unshift({ id: 'T' + Date.now(), t: 'Follow-up se o grupo não abrir a proposta · Roma e Florença', ref: n.id, quando: '01/11', grupo: 'proximas', feito: false, auto: true }); marcar('p5'); marcar('p6'); go('negocio', n.id); toast('Proposta enviada: os 4 receberam o aviso no app'); },
-  simAbriu: (d) => { ativ(d.id, 'agora', 'Flávio e Marta abriram a proposta no app'); S.notifs.unshift({ id: 'n' + Date.now(), t: 'Família Rodrigues abriu a proposta', s: 'Flávio e Marta viram Roma e Florença no app', nova: true, go: ['negocio', d.id], e: 'speech' }); render(); toast('O grupo abriu a proposta no app'); },
-  simAceitou: (d) => { const n = neg(d.id); n.etapa = 'ganho'; n.fechamento = '30/10/2026'; ativ(n.id, 'agora', 'Flávio (cabeça do grupo) aceitou a proposta no app · venda ganha'); S.notifs.unshift({ id: 'n' + Date.now(), t: 'Proposta aceita no app!', s: 'Roma e Florença · Família Rodrigues', nova: true, go: ['negocio', n.id], e: 'party' }); marcar('p7'); S.modal = { tipo: 'ganho', id: n.id }; render(); },
+  canal: (d) => { S.prop.canal = d.v; render(); },
+  enviarProp: () => { const P = S.prop; const n = neg(P.neg); const C = propCalc(P); P.enviada = true; n.etapa = 'enviada'; n.valor = C.venda; n.prox = { t: 'Follow-up se o grupo não abrir em 2 dias', d: '01/11', late: false }; ativ(n.id, 'agora', (P.canal === 'app' ? 'Proposta enviada pelo app' : 'Proposta enviada por fora') + ' · ' + brl(C.venda)); if (P.canal === 'app') aviso('A proposta chegou', 'Roma e Florença · ' + brl(C.pp) + ' por pessoa', 'receipt'); S.tarefas.unshift({ id: 'T' + Date.now(), t: 'Follow-up se o grupo não abrir a proposta · Roma e Florença', ref: n.id, quando: '01/11', grupo: 'proximas', feito: false, auto: true }); marcar('p6'); go('negocio', n.id); toast(P.canal === 'app' ? 'Proposta enviada: os 4 receberam o aviso no app' : 'Envio por fora registrado. Quando fechar, marque "ganho" com o valor'); },
   proxPassos: (d) => set({ modal: { tipo: 'ganho', id: d.id } }),
-  criarViagem: (d) => { const n = neg(d.id); const C = propCalc(S.prop); S.viagens.unshift({ id: 'V-40', titulo: 'Roma e Florença · Família Rodrigues', ida: '13/11/2026', volta: '18/11/2026', emb: 'emissoes', pessoas: 4, valor: C.venda, app: true, vouchers: {}, despesas: [], check: [{ t: 'Emitir bilhetes aéreos (4)', ok: false }, { t: 'Passaportes válidos (4 de 4)', ok: true }, { t: 'Seguro viagem emitido', ok: false }, { t: 'Reservar ingresso Coliseu · 13/11 09:00', ok: false }, { t: 'Reservar aula de massa · 14/11 10:30', ok: false }, { t: 'Entrada recebida (30%)', ok: true }] }); S.modal = null; ativ(n.id, 'agora', 'Viagem criada e enviada para a sala de embarque'); toast('Viagem criada: roteiro, vouchers e despesas agora aparecem no app'); go('embarque'); },
-  check: (d) => { const v = via(d.id); v.check[+d.v].ok = !v.check[+d.v].ok; if (v.id === 'V-40' && v.check.every((c) => c.ok)) marcar('p8'); render(); },
-  avancarEmb: (d) => { const v = via(d.id); const ok = v.check.every((c) => c.ok); if (!ok) { toast('Conclua o checklist antes de avançar'); return; } const i = EMB.findIndex((e) => e.id === v.emb); v.emb = EMB[i + 1].id; if (v.id === 'V-40') marcar('p8'); v.check = v.check.map((c) => ({ ...c })); render(); toast(v.titulo + ' → ' + EMB[i + 1].nome); },
-  voucher: (d) => { const v = via(d.id); v.vouchers[d.v] = true; render(); toast('Voucher anexado: o grupo já vê no app'); },
+  criarViagem: (d) => { const n = neg(d.id); const C = propCalc(S.prop); S.viagens.unshift({ id: 'V-40', titulo: 'Roma e Florença · Família Rodrigues', ida: '13/11/2026', volta: '18/11/2026', emb: 'emissoes', pessoas: 4, valor: C.venda, app: true, comprados: {}, despesas: [], check: [{ t: 'Emitir bilhetes aéreos (4)', ok: false }, { t: 'Passaportes válidos (4 de 4) · coletados pela agência', ok: true }, { t: 'Seguro viagem emitido', ok: false }, { t: 'Ingresso Coliseu · 13/11 09:00', ok: false }, { t: 'Aula de massa · 14/11 10:30', ok: false }, { t: 'Entrada recebida por fora (30%)', ok: true }] }); S.modal = null; ativ(n.id, 'agora', 'Viagem criada e enviada para a sala de embarque'); toast('Viagem criada: o roteiro passa a ser da agência e o grupo acompanha no app'); go('viagem', 'V-40'); },
+  check: (d) => { const v = via(d.id); v.check[+d.v].ok = !v.check[+d.v].ok; render(); },
+  avancarEmb: (d) => { const v = via(d.id); const ok = v.check.every((c) => c.ok); if (!ok) { toast('Conclua o checklist antes de avançar'); return; } const i = EMB.findIndex((e) => e.id === v.emb); v.emb = EMB[i + 1].id; v.check = v.check.map((c) => ({ ...c })); render(); toast(v.titulo + ' → ' + EMB[i + 1].nome); },
   partD: (d) => { const f = S.form || { desc: '', valor: '', moeda: 'EUR', pagou: 0, part: [true, true, true, true] }; f.part[+d.v] = !f.part[+d.v]; S.form = f; render(); },
   lancarD: (d) => {
     const v = via(d.id); const f = S.form || {}; const val = parseFloat(String(f.valor || '').replace(',', '.'));
     if (!f.desc || !(val > 0)) { toast('Preencha descrição e valor'); return; }
     if (!(f.part || []).some(Boolean)) { toast('Escolha pelo menos 1 pessoa'); return; }
     v.despesas.push({ desc: f.desc, valor: val, moeda: f.moeda || 'EUR', pagou: +f.pagou || 0, part: f.part.slice(), e: 'receipt' });
-    S.form = null; marcar('p9'); render(); toast('Despesa lançada: o grupo recebeu o aviso "a agência adicionou uma despesa"');
+    S.form = null; if (v.id === 'V-40') { marcar('p10'); aviso('A agência adicionou uma despesa', f.desc + ' · só para ver', 'receipt'); } render(); toast('Despesa lançada: o grupo recebeu o aviso "a agência adicionou uma despesa"');
   },
-  simFim: () => {
-    const v = via('V-40'); v.emb = 'concluida';
-    S.avals.unshift({ q: 'Família Rodrigues', n: 5, t: 'Roteiro exatamente como votamos no app e tudo resolvido pelo app até o acerto final.', d: 'nov/2026', nova: true });
-    S.leads.unshift({ id: 'L-1051', status: 'novo', recompra: true, recebido: 'Agora', prazo: 'Responder até amanhã', urg: false, origem: 'app', titulo: 'Próxima viagem · destino em escolha', pais: 'A definir', cidades: [], ida: 'a definir', volta: 'a definir', dias: 0, noites: 0, partida: 'São Paulo (GRU)', tipo: 'Família', valorEst: 32000, precoLead: 0, foto: '', contato: { nome: 'Flávio Rodrigues', email: 'flavio@email.com', tel: '(11) 98888-7777' }, pessoas: lead('L-1042').pessoas, leitura: 'Custo-benefício', alerta: 'Recompra: sem custo de lead (exemplo)', match: [{ g: 'Gastronomia', p: 82, emo: 'food' }], votos: [], roteiro: [] });
+  comprar: (d) => {
+    const v = via('V-40'); const c = COMPRAS.find((x) => x.id === d.id); v.comprados[c.id] = true; v.check[c.chk].ok = true;
+    aviso((c.id === 'voo' ? 'Voos emitidos' : c.nome.replace(' (4)', '') + ' comprado'), brl(valorCompra(c)) + ' · voucher no roteiro', 'ticket');
+    if (COMPRAS.every((x) => v.comprados[x.id])) marcar('p9');
+    render(); toast('Item comprado: o grupo recebeu o alerta com status, voucher e valor');
+  },
+  simVolta: () => { const v = via('V-40'); v.emb = 'concluida'; aviso('Como foi a viagem?', 'Avalie a Agência exemplo A', 'star'); S.ph.p = 'marta'; S.ph.tela = 'home'; render(); toast('Dia seguinte à volta: cada pessoa do grupo recebeu o convite para avaliar'); },
+  avaliar: (d) => {
+    S.aval[S.ph.p] = +d.v; const m = mediaGrupo(); const q = Object.keys(S.aval).length;
+    const ex = S.avals.find((a) => a.q === 'Família Rodrigues');
+    const reg = { q: 'Família Rodrigues', n: Math.round(m), t: 'Média de quem já avaliou no app.', d: 'nov/2026', nova: true, de: q + ' de 4 avaliaram · média ' + m.toFixed(1).replace('.', ',') };
+    if (ex) Object.assign(ex, reg); else S.avals.unshift(reg);
+    S.notifs.unshift({ id: 'n' + Date.now(), t: 'Nova avaliação no app', s: 'Família Rodrigues · ' + q + ' de 4 avaliaram', nova: true, go: ['reputacao', ''], e: 'star' });
+    if (S.ph.p === 'marta') marcar('p11'); S.ph.tela = 'home'; render(); toast('Avaliação enviada: entra na média do grupo e no score da agência');
+  },
+  recompra: () => {
+    const m = mediaGrupo(); if (!m) { toast('Primeiro alguém do grupo avalia a agência'); return; }
+    if (m < 4) { toast('Nota do grupo abaixo de 4: a próxima viagem segue para a agência pelo score'); return; }
+    S.leads.unshift({ id: 'L-1051', status: 'novo', recompra: true, recebido: 'Agora', prazo: 'Responder até 1 dia útil', urg: false, origem: 'app', titulo: 'Próxima viagem · destino em escolha', pais: 'A definir', cidades: [], ida: 'a definir', volta: 'a definir', dias: 0, noites: 0, partida: 'São Paulo (GRU)', tipo: 'Família', valorEst: 32000, precoLead: 0, foto: '', contato: { nome: 'Flávio Rodrigues', email: 'flavio@email.com', tel: '(11) 98888-7777' }, pessoas: lead('L-1042').pessoas, leitura: 'Custo-benefício', alerta: 'Recompra: o grupo deu nota ' + m.toFixed(1).replace('.', ',') + ' a vocês', match: [{ g: 'Gastronomia', p: 82, emo: 'food' }], votos: [], roteiro: [] });
     S.recompra = true;
-    S.notifs.unshift({ id: 'n' + Date.now(), t: 'Nova avaliação: 5 estrelas', s: 'Família Rodrigues avaliou a agência no app', nova: true, go: ['reputacao', ''], e: 'star' });
-    S.notifs.unshift({ id: 'n' + (Date.now() + 1), t: 'Recompra: Família Rodrigues quer viajar de novo', s: 'Lead da próxima viagem, com o mesmo grupo', nova: true, go: ['lead', 'L-1051'], e: 'restore' });
-    marcar('p10'); go('reputacao'); toast('Viagem quitada no app: chegaram a avaliação e o lead da próxima viagem');
+    S.notifs.unshift({ id: 'n' + Date.now(), t: 'Recompra: Família Rodrigues quer viajar de novo', s: 'O grupo deu nota ' + m.toFixed(1).replace('.', ',') + ' e volta para vocês', nova: true, go: ['lead', 'L-1051'], e: 'restore' });
+    marcar('p12'); render(); toast('Nota do grupo 4 ou mais: o pedido foi direto para a Agência exemplo A');
   },
   exclD: (d) => { const v = via(d.id); const x = v.despesas.splice(+d.v, 1)[0]; render(); toast('Despesa "' + x.desc + '" excluída: o grupo foi avisado no app'); },
   feitoT: (d) => { const t = S.tarefas.find((x) => x.id === d.id); t.feito = !t.feito; render(); }
@@ -742,10 +926,11 @@ function modal() {
   const M = S.modal; if (!M) return '';
   let c = '';
   if (M === 'criar') c = `<h2 style="font-size:20px">Criar</h2><p class="muted">No produto, você cria negócio, cliente, tarefa ou proposta manualmente. Neste protótipo, a jornada principal começa por um lead que o grupo gerou no app.</p><div class="row" style="margin-top:14px;flex-wrap:wrap"><button class="btn p" data-a="go" data-t="leads">Ver leads do app</button><button class="btn" data-a="fechar">Fechar</button></div>`;
-  if (M.tipo === 'recusar') c = `<h2 style="font-size:20px">Recusar o lead?</h2><p class="muted">O grupo é avisado no app e pode escolher outra agência. Nada é cobrado.</p><label class="f">Motivo<select class="inp"><option>Sem disponibilidade nas datas</option><option>Destino fora da nossa especialidade</option><option>Outro</option></select></label><div class="row" style="margin-top:14px;justify-content:flex-end"><button class="btn" data-a="fechar">Cancelar</button><button class="btn dg" data-a="confRecusar" data-id="${M.id}">Recusar lead</button></div>`;
-  if (M.tipo === 'ganho') c = `<div style="text-align:center">${ic('party', 64, 'margin:0 auto')}<h2 style="font-size:22px;margin-top:8px">Venda ganha!</h2><p class="muted">O cabeça do grupo aceitou a proposta no app. Próximos passos:</p></div>
-    <div class="ativ"><span class="h">1</span><div><b>Criar a viagem</b> a partir da proposta (roteiro, voos, hotéis e preços).</div></div><div class="ativ"><span class="h">2</span><div><b>Enviar para a sala de embarque</b> com o checklist de emissões, documentos e reservas.</div></div><div class="ativ"><span class="h">3</span><div><b>Lançar despesas do grupo</b>, que aparecem no app.</div></div>
-    <div class="row" style="margin-top:14px;justify-content:flex-end"><button class="btn" data-a="fechar">Depois</button><button class="btn p" data-a="criarViagem" data-id="${M.id}">Criar viagem e enviar para embarque</button></div>`;
+  if (M.tipo === 'recusar') c = `<h2 style="font-size:20px">Recusar o lead?</h2><p class="muted">O lead segue sozinho para a próxima agência pelo score (até 3 agências). O cabeça do grupo é avisado e pode escolher outra ou cancelar.</p><label class="f">Motivo<select class="inp"><option>Sem disponibilidade nas datas</option><option>Destino fora da nossa especialidade</option><option>Outro</option></select></label><div class="row" style="margin-top:14px;justify-content:flex-end"><button class="btn" data-a="fechar">Cancelar</button><button class="btn dg" data-a="confRecusar" data-id="${M.id}">Recusar lead</button></div>`;
+  if (M.tipo === 'ganho') c = `<div style="text-align:center">${ic('party', 64, 'margin:0 auto')}<h2 style="font-size:22px;margin-top:8px">Venda ganha!</h2><p class="muted">${neg(M.id).fechamento && S.prop && S.prop.canal === 'fora' ? 'Venda fechada por fora.' : 'O cabeça do grupo aceitou a proposta no app.'} Próximos passos:</p></div>
+    <div class="ativ"><span class="h">1</span><div><b>Criar a viagem</b> a partir da proposta (roteiro, voos, hotéis e preços).</div></div><div class="ativ"><span class="h">2</span><div><b>Comprar os itens</b>: cada compra chega ao app com status, voucher e valor.</div></div><div class="ativ"><span class="h">3</span><div><b>Cobrar por fora</b> (Pix e outros meios) e controlar na aba Cobrança.</div></div>
+    <div class="row" style="margin-top:14px;justify-content:flex-end"><button class="btn" data-a="fechar">Depois</button><button class="btn p" data-a="criarViagem" data-id="${M.id}">Criar a viagem</button></div>`;
+  if (M.tipo === 'ganhoFora') c = `<h2 style="font-size:20px">Venda fechada por fora</h2><p class="muted">Informe o valor da venda. É obrigatório e não aparece para o grupo: serve para medir o fechamento.</p><label class="f">Valor da venda (R$)<input class="inp" data-f3="valorFora" placeholder="Ex.: 36.000" inputmode="decimal"></label><div class="row" style="margin-top:14px;justify-content:flex-end"><button class="btn" data-a="fechar">Cancelar</button><button class="btn ok" data-a="confGanhoFora" data-id="${M.id}">Marcar ganho</button></div>`;
   return `<div class="ov" data-a="fecharFora"><div class="modal" role="dialog" aria-modal="true">${c}</div></div>`;
 }
 
@@ -766,10 +951,10 @@ document.addEventListener('keydown', (e) => { if ((e.key === 'Enter' || e.key ==
 document.addEventListener('input', (e) => {
   const t = e.target;
   if (t.dataset.f && S.prop) { S.prop[t.dataset.f] = t.type === 'number' ? +t.value : t.value; }
+  if (t.dataset.f3) { S[t.dataset.f3] = t.value; }
   if (t.dataset.f2) { S.form = S.form || { desc: '', valor: '', moeda: 'EUR', pagou: 0, part: [true, true, true, true] }; S.form[t.dataset.f2] = t.value; }
 });
 document.addEventListener('change', (e) => { const t = e.target; if (t.dataset.f && S.prop && t.type === 'number') render(); if (t.dataset.f2 && t.tagName === 'SELECT') render(); });
-marcar('p1');
 render();
 </script>
 </body>
